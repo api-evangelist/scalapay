@@ -1,0 +1,139 @@
+generated: '2026-08-02'
+method: searched
+source: https://developers.scalapay.com/reference/api-architecture
+derived_from: openapi/scalapay-openapi-original.yml
+summary: >-
+  Scalapay exposes a small, resource-oriented JSON/HTTPS API split across two version prefixes
+  (/v2 for online orders and payments, /v1 for in-store and reporting). Every request carries a
+  bearer API key in the Authorization header; every mutating payment operation accepts an
+  Idempotency-Key header for safe retries. Errors use a proprietary envelope keyed on a stable
+  errorCode plus a per-instance errorId that is the tracing handle for support.
+
+transport:
+  protocol: https
+  tls_minimum: TLS 1.2
+  content_type: application/json
+  request_body_note: Request body must be JSON (Content-Type application/json). Responses are always JSON.
+  docs: https://developers.scalapay.com/reference/api-architecture
+
+authentication:
+  style: bearer-api-key
+  header: Authorization
+  format: "Bearer <secret_api_key>"
+  key_prefix: sp_
+  environment_scoped_keys: true
+  note: >-
+    Separate API keys are issued for Sandbox and Production and are usually prefixed with "sp_".
+    In-store endpoints authenticate with a device-scoped key rather than the merchant key
+    (OpenAPI securityScheme InstoreApiKeyAuth).
+  failure_status: 401
+  artifact: authentication/scalapay-authentication.yml
+  docs: https://developers.scalapay.com/reference/api-architecture
+
+idempotency:
+  supported: true
+  header: Idempotency-Key
+  location: header
+  required: false
+  scope: per-request
+  spec_evidence: openapi/scalapay-openapi-original.yml (Idempotency-Key parameter declared on 6 operations)
+  description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+  conflict_status: 409
+  conflict_error_code: conflicting_operation_in_progress
+  operations:
+    - POST /v2/orders
+    - POST /v2/orders/{token}
+    - POST /v2/payments/capture
+    - POST /v2/payments/{token}/delay
+    - POST /v2/payments/{token}/refund
+    - POST /v2/payments/{token}/void
+  gaps:
+    - Retention window for a replayed Idempotency-Key is not published.
+    - In-store (/v1/instore/*) write operations do not declare an Idempotency-Key parameter.
+
+pagination:
+  style: page-number
+  applies_to: /v1/reporting/* collection endpoints
+  request_params:
+    - {name: page, in: query, description: Page number of the result set}
+    - {name: size, in: query, description: Number of records per page}
+    - {name: startDate, in: query, description: Start of the reporting window}
+    - {name: endDate, in: query, description: End of the reporting window}
+  response_envelope_field: items
+  caps:
+    - "/v2/payments/references and /v1/instore/orders/references return a maximum of 100 matching orders, sorted by creation date (newest first)."
+  note: Non-reporting collection lookups are reference-filtered rather than paged.
+
+filtering:
+  reference_lookup:
+    endpoints:
+      - GET /v2/payments/references
+      - GET /v1/instore/orders/references
+    params: [orderToken, merchantOrderReference, merchantProcessorReference]
+    combination: AND
+    minimum: At least one query parameter must be provided.
+
+versioning:
+  scheme: uri-path
+  versions_in_use: [v1, v2]
+  current: v2
+  spec_version: '3.0'
+  header_version_negotiation: false
+  artifact: lifecycle/scalapay-lifecycle.yml
+
+error_envelope:
+  format: proprietary-json
+  rfc9457: false
+  media_type: application/json
+  fields:
+    - {name: errorCode, type: string, description: 'Stable, machine-readable error code (e.g. order_amount_exceeds_maximum_limit). Use this, not the message, for handling.'}
+    - {name: errorId, type: string, description: Unique identifier for this error instance — quote it to Scalapay support.}
+    - {name: message, type: string, description: Human-readable description. May change over time; do not match on it.}
+    - {name: httpStatusCode, type: integer, description: The HTTP status code associated with the error.}
+  guidance: >-
+    Although the human-readable message may be updated over time, rely on the error code and HTTP
+    status code for error handling.
+  artifacts:
+    - errors/scalapay-error-codes.yml
+    - errors/scalapay-problem-types.yml
+
+request_tracing:
+  request_id_header: null
+  correlation:
+    - {field: errorId, scope: error responses, description: Per-instance error identifier used for support triage.}
+    - {field: merchantReference, scope: orders, description: Merchant-side correlation id, typically the merchant order id.}
+    - {field: token, scope: orders/payments, description: Scalapay order token generated at order creation; the primary resource handle.}
+  note: No request-id / trace-id response header is documented.
+
+rate_limits:
+  documented: false
+  headers: null
+  note: Scalapay publishes no rate-limit policy or rate-limit response headers.
+
+webhooks:
+  supported: true
+  artifact: asyncapi/scalapay-webhooks.yml
+  delivery: HTTP POST to a merchant-configured listener URL
+  success_signal: HTTP 200
+  retry: exponential backoff; ordering is not guaranteed
+
+metadata_and_expansion:
+  metadata_field: null
+  field_expansion: false
+  note: >-
+    No generic metadata bag or sparse-fieldset/expansion mechanism. Merchant-defined correlation is
+    carried by merchantReference; industry-specific data by the typed `extensions` object
+    (extensions.industry.travel, extensions.type.link).
+
+environments:
+  artifact: sandbox/scalapay-sandbox.yml
+  servers:
+    - {name: sandbox, base_url: 'https://integration.api.scalapay.com', description: Sandbox server that uses test data.}
+    - {name: production, base_url: 'https://api.scalapay.com', description: Production server that uses live data.}
+
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://developers.scalapay.com/reference/api-architecture
+    - https://developers.scalapay.com/reference/webhooks
+    - https://developers.scalapay.com/reference/connection-issues-and-retry-system

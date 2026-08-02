@@ -1,0 +1,106 @@
+# Scalapay Doc Documentation
+
+> Scalapay Integration and API documentation
+
+## Guides
+- [Overview](https://developers.scalapay.com/docs/what-is-scalapay.md)
+- [Get started with Scalapay](https://developers.scalapay.com/docs/get-started-with-scalapay.md)
+- [Guidelines & best practices](https://developers.scalapay.com/docs/best-practice-guideline.md)
+- [Test the order flow](https://developers.scalapay.com/docs/test-the-order-flow.md)
+- [Go Live with Scalapay](https://developers.scalapay.com/docs/go-live.md)
+- [Platforms integrated with Scalapay](https://developers.scalapay.com/docs/platforms-integrations.md)
+- [Magento 2](https://developers.scalapay.com/docs/magento-2-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/magento2-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/magento2-plugin-release.md)
+- [PrestaShop](https://developers.scalapay.com/docs/prestashop-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/prestashop-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/prestashop-plugin-release.md)
+- [Shopify](https://developers.scalapay.com/docs/shopify-plugin.md)
+- [Shopify - Scalapay widget](https://developers.scalapay.com/docs/shopify-scalapay-widget.md)
+- [Embed Scalapay App for Shopify](https://developers.scalapay.com/docs/shopify-scalapay-widget-embed-app.md)
+- [Delay capture & Refunds](https://developers.scalapay.com/docs/shopify-plugin-delay-capture-refunds.md)
+- [WooCommerce](https://developers.scalapay.com/docs/woocommerce-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/woocommerce-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/woocommerce-plugin-release.md)
+- [Changelog](https://developers.scalapay.com/docs/changelog.md)
+- [Payment orchestrators](https://developers.scalapay.com/docs/payment-orchestrators.md)
+- [List of other platforms](https://developers.scalapay.com/docs/other-platforms.md)
+- [BigCommerce](https://developers.scalapay.com/docs/bigcommerce-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/bigcommerce-plugin-test-orders-refunds.md)
+- [JTL 4](https://developers.scalapay.com/docs/jtl4-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/jtl4-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/jtl4-plugin-release.md)
+- [LogiCommerce](https://developers.scalapay.com/docs/logicommerce-plugin.md)
+- [Mabisy](https://developers.scalapay.com/docs/mabisy-plugin.md)
+- [Magento 1](https://developers.scalapay.com/docs/magento1-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/magento1-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/magento1-plugin-release.md)
+- [OpenCart](https://developers.scalapay.com/docs/opencart-plugin.md)
+- [OpenCart v1](https://developers.scalapay.com/docs/opencart-v1-plugin.md)
+- [OpenCart v2 and v3](https://developers.scalapay.com/docs/opencart-v2-v3-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/opencart-plugin-test-orders-refunds.md)
+- [nopCommerce](https://developers.scalapay.com/docs/nopcommerce-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/nopcommerce-plugin-test-orders-refunds.md)
+- [Go Live!](https://developers.scalapay.com/docs/nopcommerce-plugin-release.md)
+- [Ready Pro](https://developers.scalapay.com/docs/readypro-plugin.md)
+- [Salesforce](https://developers.scalapay.com/docs/salesforce-plugin.md)
+- [SAP Hybris](https://developers.scalapay.com/docs/sap-hybris-plugin.md)
+- [Shopware](https://developers.scalapay.com/docs/shopware-plugin.md)
+- [Shopware v5](https://developers.scalapay.com/docs/shopware-v5.md)
+- [Shopware v6](https://developers.scalapay.com/docs/shopware-v6.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/plugin-test-orders-refunds-shopware.md)
+- [Go Live!](https://developers.scalapay.com/docs/release-shopware.md)
+- [Storeden](https://developers.scalapay.com/docs/storeden-plugin.md)
+- [Testing: orders & refunds](https://developers.scalapay.com/docs/plugin-test-orders-refunds-storeden.md)
+- [VTEX](https://developers.scalapay.com/docs/vtex-plugin.md)
+- [Get started with the custom integration](https://developers.scalapay.com/docs/custom-integration.md)
+- [Widget installation](https://developers.scalapay.com/docs/custom-integration-widget-installation.md)
+- [Widget configuration](https://developers.scalapay.com/docs/custom-integration-widget-configuration.md)
+- [Widget changelog](https://developers.scalapay.com/docs/widget-changelog.md)
+- [API calls](https://developers.scalapay.com/docs/custom-integration-api-calls.md)
+- [Travel API flow](https://developers.scalapay.com/docs/travel-integration-custom-standard_api_flow.md)
+- [Test your configuration](https://developers.scalapay.com/docs/complete-go-live-checklist-and-launch-scalapay.md)
+- [Standard order flow](https://developers.scalapay.com/docs/standard-capture-flow.md)
+- [Refund testing](https://developers.scalapay.com/docs/how-to-test-the-refund-flow.md)
+- [Delayed capture order flow](https://developers.scalapay.com/docs/delayed-capture-flow.md): Funds are captured at the capture issued by the merchant
+- [Go Live!](https://developers.scalapay.com/docs/integration-custom-go-live.md)
+- [Pay by link online](https://developers.scalapay.com/docs/pay-by-link-integration.md)
+- [Get started with Scalapay In Store](https://developers.scalapay.com/docs/integration-in-store.md)
+- [In Store Barcode](https://developers.scalapay.com/docs/instore-barcode.md)
+- [In Store Pay by link](https://developers.scalapay.com/docs/instore-pay-by-link.md)
+
+## API Reference
+- [API Architecture](https://developers.scalapay.com/reference/api-architecture.md)
+- [Payment Flows](https://developers.scalapay.com/reference/payment-flows-1.md): Scalapay offers two flexible payment capture options to suit your business needs: *Immediate Payment Flow* for instant settlement and *Delayed Payment Flow* for deferred capture. This guide explains both to help you choose the right fit for your operations.
+- [Webhooks](https://developers.scalapay.com/reference/webhooks.md)
+- [Listener authentication setup](https://developers.scalapay.com/reference/listener-authentication-setup.md)
+- [Webhook data model](https://developers.scalapay.com/reference/wehook-data-model.md)
+- [Messages validation](https://developers.scalapay.com/reference/messages-validation.md)
+- [Examples of webhook requests](https://developers.scalapay.com/reference/examples-of-webhook-requests.md)
+- [Connection issues and retry system](https://developers.scalapay.com/reference/connection-issues-and-retry-system.md)
+- [PHP SDK](https://developers.scalapay.com/reference/php-sdk.md): Here is our PHP SDK that will simplify your journey of integrating with us.
+- [API Simulator](https://developers.scalapay.com/reference/api-simulator.md)
+- [Status page](https://developers.scalapay.com/reference/api-authentication-copy.md)
+- [Overview](https://developers.scalapay.com/reference/overview-3.md)
+- [Create order](https://developers.scalapay.com/reference/post_v2-orders.md): Create a Scalapay order. The endpoint returns a `token` required to capture the payment and a `checkoutUrl` that redirects the customer to Scalapay Checkout, where the payment is authorized.
+- [Update order](https://developers.scalapay.com/reference/post_v2-orders-token.md): Update an order by changing the `merchantReference`. Use this endpoint when specifying the `merchantReference` during order creation was not possible.
+- [Get order details](https://developers.scalapay.com/reference/get_v2-payments-token.md): Return all details regarding the specified order.
+- [Get orders by reference](https://developers.scalapay.com/reference/get_v2-payments-references.md): Retrieve a list of order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.  The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
+- [Delay order](https://developers.scalapay.com/reference/post_v2-payments-token-delay.md): Request a delayed capture for the order. The payment schedule for the customer is created; however, no funds are settled until a capture call is made. Outstanding authorizations are automatically voided once the authorization expiry time is reached.
+- [Capture order](https://developers.scalapay.com/reference/post_v2-payments-capture.md): Capture the payment associated with the order. The specified amount is deducted from the user's account and transferred to the merchant's account. You can capture an amount up to the total specified during order creation. You may also provide an updated `merchantReference` to update the order.
+- [Void order](https://developers.scalapay.com/reference/post_v2-payments-token-void.md): Void any authorizations for the order. The customer is informed of the cancellation and that the order could not be fulfilled; any held funds are released.
+- [Overview](https://developers.scalapay.com/reference/overview-1.md)
+- [Refund order](https://developers.scalapay.com/reference/post_v2-payments-token-refund.md): Refund a fulfilled payment. The funds are reversed from the merchant's account and returned to the customer.
+- [Overview](https://developers.scalapay.com/reference/overview.md)
+- [Create instore order](https://developers.scalapay.com/reference/post_v1-instore-orders.md): Create an instore order and charge the customer. Use the correct Bearer token for authentication.
+- [Get an instore order](https://developers.scalapay.com/reference/get_v1-instore-orders-token.md): Retrieve the status of an instore order.
+- [Get instore orders by reference](https://developers.scalapay.com/reference/get_v1-instore-orders-references.md): Retrieve a list of instore order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.  The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
+- [Refund an instore order](https://developers.scalapay.com/reference/post_v1-instore-orders-token-refund.md): Refund an instore order. The refund is processed and funds are transferred back to the customer.
+- [Create an offline pay-by-link order](https://developers.scalapay.com/reference/post_v2-instore-paybylink-orders.md): Create an offline pay-by-link order and notify the customer using the extensions. Use the correct device Bearer token, not the merchant token.
+- [Void an offline pay-by-link order](https://developers.scalapay.com/reference/post_v2-instore-paybylink-orders-token-void.md): Void the instore order, for example if a customer wishes to cancel. Any authorizations or held funds for the pay-by-link order are released.
+- [Overview](https://developers.scalapay.com/reference/overview-2.md)
+- [Get orders](https://developers.scalapay.com/reference/get_v1-reporting-orders.md): Retrieve orders. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.
+- [Get refunds](https://developers.scalapay.com/reference/get_v1-reporting-refunds.md): Retrieve refunds. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.
+- [Get payouts](https://developers.scalapay.com/reference/get_v1-reporting-payouts.md): Retrieve payouts. This endpoint provides a list of all payouts received from Scalapay. Use the Scalapay API key Bearer token to access this endpoint.
+- [Get orders from payout](https://developers.scalapay.com/reference/get_v1-reporting-payouts-token-orders.md): Retrieve orders from a payout. This endpoint provides a list of orders associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.
+- [Get refunds from payout](https://developers.scalapay.com/reference/get_v1-reporting-payouts-token-refunds.md): Retrieve refunds from a payout. This endpoint provides a list of refunds associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.

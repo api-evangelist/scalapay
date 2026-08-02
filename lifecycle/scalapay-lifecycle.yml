@@ -1,0 +1,58 @@
+generated: '2026-08-02'
+method: searched
+source: https://developers.scalapay.com/reference/api-authentication-copy
+versioning:
+  scheme: uri-path
+  versions_in_use: [v1, v2]
+  current: v2
+  spec_version: '3.0'
+  policy_url: null
+  note: >-
+    Order and payment operations are on /v2; in-store and reporting operations remain on /v1. Scalapay
+    publishes no written version-support or version-negotiation policy — the version split is observable
+    in the OpenAPI but not governed by a documented commitment.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support, and no operation in the
+    harvested OpenAPI carries `deprecated: true`. Superseded Packagist packages are marked abandoned
+    with a replacement (see packages/scalapay-packages.yml), which is the only deprecation signal
+    Scalapay publishes, and it applies to libraries rather than API operations.
+deprecated_operations: []
+status_page:
+  url: https://status.scalapay.com/
+  http_status: 200
+  subscribable: true
+  docs: https://developers.scalapay.com/reference/api-authentication-copy
+  description: >-
+    Scalapay's services status page, covering service status, service updates and scheduled maintenance,
+    with subscription for notifications.
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime target is published; commercial terms are contractual.
+changelog:
+  artifact: changelog/scalapay-changelog.yml
+  urls:
+    - https://developers.scalapay.com/docs/changelog
+    - https://developers.scalapay.com/docs/widget-changelog
+  note: >-
+    The published changelogs cover the e-commerce plugins and the checkout widget. There is no dated
+    changelog for the REST API itself.
+go_live:
+  url: https://developers.scalapay.com/docs/go-live
+  checklist: https://developers.scalapay.com/docs/complete-go-live-checklist-and-launch-scalapay
+availability:
+  authorised_countries: [Austria, Belgium, Finland, France, French Guiana, Germany, Guadeloupe, Italy, Martinique, Mayotte, Netherlands, Portugal, Reunion, Spain]
+  authorised_currency: EUR
+  source: https://developers.scalapay.com/docs/what-is-scalapay
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://status.scalapay.com/
+    - https://developers.scalapay.com/reference/api-authentication-copy
+    - https://developers.scalapay.com/docs/what-is-scalapay
+  probes:
+    - {url: 'https://status.scalapay.com/', http_status: 200}

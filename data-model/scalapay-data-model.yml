@@ -1,0 +1,159 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/scalapay-openapi-original.yml
+searched:
+  - https://developers.scalapay.com/reference/get_v1-reporting-orders
+  - https://developers.scalapay.com/reference/wehook-data-model
+summary: >-
+  Scalapay's model is small and order-centric. Everything hangs off an Order identified by an opaque
+  `token` minted at POST /v2/orders; payment operations (capture, delay, refund, void) act on that same
+  token rather than on separate payment resources. Reconciliation is the second axis: Payouts group
+  Orders and Refunds for settlement. In-store orders are a parallel resource family with their own
+  device-scoped token space.
+identifiers:
+  - name: token
+    entity: Order
+    format: opaque short alphanumeric string
+    example: 71KH916VPE
+    minted_by: POST /v2/orders
+    note: The single handle for every downstream payment operation; masked to last 4 in reporting (orderTokenLast4).
+  - name: merchantReference
+    entity: Order
+    format: merchant-defined string
+    example: merchantOrder-1234
+    note: Merchant correlation id, typically the merchant order id. Settable at creation or via POST /v2/orders/{token}.
+  - name: merchantPayoutToken
+    entity: Payout
+    format: opaque alphanumeric string
+    example: 3BQD2I26MRG3
+  - name: transferId
+    entity: Payout
+    format: acquirer transfer identifier
+    example: tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ
+  - name: merchantProcessorReference
+    entity: Order
+    note: Processor-side reference, queryable on the reference-lookup endpoints.
+  - name: errorId
+    entity: Error
+    format: 'error-<random>'
+    example: error-19g6ll3ucve9e
+entities:
+  - name: Order
+    description: An instalment purchase. Created against a total amount and an item list, then authorized by the shopper on Scalapay Checkout.
+    key: token
+    operations:
+      - 'POST /v2/orders'
+      - 'POST /v2/orders/{token}'
+      - 'GET /v2/payments/{token}'
+      - 'GET /v2/payments/references'
+    fields: [totalAmount, consumer, billing, shipping, items, discounts, merchant, merchantReference, shippingAmount, taxAmount, type, product, frequency, orderExpiryMilliseconds, extensions]
+    enums:
+      type: ['', online, offline, link]
+      product: ['', pay-in-3, pay-in-4, later]
+      orderStatus: [created, authorized, charged, refunded, expired]
+      captureStatus: [captured, delayed]
+    returns: [token, expires, checkoutUrl]
+  - name: Consumer
+    description: The shopper on the order.
+    embedded_in: Order
+    fields: [givenNames, surname, email, phoneNumber]
+    required: [phoneNumber, givenNames, surname, email]
+  - name: Address
+    description: Shipping or billing address.
+    component: components/schemas/address
+    fields: [name, line1, suburb, postcode, countryCode, phoneNumber]
+  - name: Item
+    description: A line item on the order.
+    component: components/schemas/items
+    fields: [name, category, subcategory, brand, sku, gtin, quantity, price]
+    required: [category, name, price, quantity, sku]
+  - name: Amount
+    description: Monetary value plus currency; used for totals, item prices, fees and payout figures.
+    component: components/schemas/amount
+    fields: [amount, currency]
+    required: [amount, currency]
+  - name: Merchant
+    description: Merchant redirect configuration for the hosted checkout.
+    embedded_in: Order
+    fields: [redirectConfirmUrl, redirectCancelUrl]
+  - name: Payment
+    description: The authorization/settlement lifecycle of an Order. Not a separately-addressed resource — every operation is keyed on the order token.
+    key: token (Order)
+    operations:
+      - 'POST /v2/payments/capture'
+      - 'POST /v2/payments/{token}/delay'
+      - 'POST /v2/payments/{token}/void'
+      - 'GET /v2/payments/{token}'
+  - name: Refund
+    description: A reversal against a fulfilled payment.
+    operations:
+      - 'POST /v2/payments/{token}/refund'
+      - 'GET /v1/reporting/refunds'
+      - 'GET /v1/reporting/payouts/{token}/refunds'
+  - name: Payout
+    description: A settlement transfer from Scalapay to the merchant, grouping the orders and refunds it settles.
+    key: merchantPayoutToken
+    operations:
+      - 'GET /v1/reporting/payouts'
+      - 'GET /v1/reporting/payouts/{token}/orders'
+      - 'GET /v1/reporting/payouts/{token}/refunds'
+    fields: [merchantPayoutToken, transactionDate, status, grossAmount, netAmount, totalFeeAmount, scalapayFeeAmount, scalapayFeeTaxAmount, otherFeeAmount, otherFeeTaxAmount]
+  - name: Dispute
+    description: A disputed order, reportable over a date window and a dispute status.
+    operations: [GET /v1/reporting/disputes]
+    note: Reporting-only; the dispute endpoint is present in the OpenAPI but has no page in the published API reference.
+  - name: InstoreOrder
+    description: An in-store instalment order created and charged on a device-authenticated terminal.
+    key: token
+    operations:
+      - 'POST /v1/instore/orders'
+      - 'GET /v1/instore/orders/{token}'
+      - 'GET /v1/instore/orders/references'
+      - 'POST /v1/instore/orders/{token}/refund'
+    auth: InstoreApiKeyAuth (device bearer token)
+  - name: PayByLinkOrder
+    description: An offline pay-by-link order that notifies the customer over a configured channel.
+    key: token
+    operations:
+      - 'POST /v2/instore/paybylink/orders'
+      - 'POST /v2/instore/paybylink/orders/{token}/void'
+    auth: InstoreApiKeyAuth (device bearer token, not the merchant token)
+  - name: Extensions
+    description: Typed extension envelope carried on an order.
+    component: components/schemas/extensions
+    fields: [industry.travel.startDate, industry.travel.endDate, type.link.notification.channels, type.link.notification.phoneCountryCode, type.link.notification.phoneNumber]
+  - name: WebhookEvent
+    description: Outbound notification of a payment-lifecycle transition.
+    artifact: asyncapi/scalapay-webhooks.yml
+    fields: [totalAmount, status, orderToken, merchantReference]
+relationships:
+  - {from: Order, to: Consumer, type: has_one, via: consumer}
+  - {from: Order, to: Address, type: has_one, via: shipping}
+  - {from: Order, to: Address, type: has_one, via: billing}
+  - {from: Order, to: Item, type: has_many, via: items}
+  - {from: Order, to: Amount, type: has_one, via: totalAmount}
+  - {from: Order, to: Amount, type: has_one, via: shippingAmount}
+  - {from: Order, to: Amount, type: has_one, via: taxAmount}
+  - {from: Order, to: Merchant, type: has_one, via: merchant}
+  - {from: Order, to: Extensions, type: has_one, via: extensions}
+  - {from: Item, to: Amount, type: has_one, via: price}
+  - {from: Payment, to: Order, type: belongs_to, via: token}
+  - {from: Refund, to: Order, type: belongs_to, via: token}
+  - {from: Payout, to: Order, type: has_many, via: 'GET /v1/reporting/payouts/{token}/orders'}
+  - {from: Payout, to: Refund, type: has_many, via: 'GET /v1/reporting/payouts/{token}/refunds'}
+  - {from: Order, to: Payout, type: has_one, via: payoutDetails.merchantPayoutToken}
+  - {from: Payout, to: Amount, type: has_many, via: 'grossAmount, netAmount, totalFeeAmount, scalapayFeeAmount, scalapayFeeTaxAmount, otherFeeAmount, otherFeeTaxAmount'}
+  - {from: Dispute, to: Order, type: belongs_to, via: order reference}
+  - {from: InstoreOrder, to: Amount, type: has_one, via: totalAmount}
+  - {from: PayByLinkOrder, to: Extensions, type: has_one, via: extensions.type.link}
+  - {from: WebhookEvent, to: Order, type: belongs_to, via: orderToken}
+notes:
+  - >-
+    The spec defines only 5 reusable components.schemas (address, amount, extensions, items,
+    merchantReference); most request and response bodies are inlined, so schema reuse across
+    operations is low and most reporting responses are documented as examples rather than schemas.
+  - >-
+    /v1/reporting/disputes exists in the OpenAPI but is absent from the published API reference
+    navigation and from llms.txt.
+x-evidence:
+  fetched: '2026-08-02'

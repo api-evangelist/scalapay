@@ -1,0 +1,64 @@
+generated: '2026-08-02'
+method: searched
+sources:
+  - https://developers.scalapay.com/docs/custom-integration-widget-installation
+  - https://developers.scalapay.com/docs/custom-integration-widget-configuration
+  - https://developers.scalapay.com/docs/widget-changelog
+summary: >-
+  Scalapay ships one client-side component: the Scalapay Suite Widget, a custom element
+  (<scalapay-widget>) loaded from Scalapay's CDN as an ES module. It renders the instalment message
+  at the three merchandising touch points (product page, cart page, checkout) and reads the price
+  live out of the DOM via CSS selectors, so the instalment breakdown tracks price changes without
+  a server round-trip.
+families:
+  - name: Scalapay Suite Widget
+    kind: web-component
+    element: scalapay-widget
+    current_version: V5
+    loaders:
+      - url: https://cdn.scalapay.com/widget/scalapay-widget-loader.js?version=V5
+        type: module
+        placement: head tag of the product, cart or checkout page
+    variants:
+      - {type: product, description: 'Default format, used on product and cart pages.'}
+      - {type: checkout, description: Format used on the checkout page.}
+    surfaces: [product page, cart page, checkout page]
+    locales: [en, it, pt, de, fr, es]
+    attributes:
+      - {name: merchant-token, required: true, default: null, description: 'Merchant token from the Developer section of the Scalapay Merchant Portal. If omitted, defaults to a test pay-in-3-only merchant.'}
+      - {name: amount-selectors, required: conditional, default: '[".price-container .price"]', description: Array of CSS selectors used to find the amount in the DOM; the first matching selector wins.}
+      - {name: amount, required: conditional, default: null, description: Fallback amount used when amount-selectors is not defined. Does not overwrite the selector-derived value.}
+      - {name: min-amount, required: false, default: contract min amount, description: Minimum amount at which the widget displays.}
+      - {name: max-amount, required: false, default: contract max amount, description: Maximum amount at which the widget displays.}
+      - {name: currency-position, required: false, default: after, description: 'before or after the amount (before when locale=en).'}
+      - {name: locale, required: false, default: en, description: 'Widget language: en, it, pt, de, fr, es.'}
+      - {name: type, required: false, default: product, description: 'Widget format: product or checkout.'}
+      - {name: environment, required: false, default: production, description: 'integration or production, matching the merchant token used.'}
+      - {name: amount-separator, required: false, default: ',', description: 'Decimal separator in the supplied amount: , or .'}
+      - {name: alignment, required: false, default: left, description: 'left, right or center.'}
+      - {name: dark-mode, required: false, default: never, description: 'never, always or system (system follows device/browser dark mode).'}
+      - {name: font-size, required: false, default: normal, description: normal or small.}
+      - {name: background, required: false, default: true, description: Whether the grey-bordered container is rendered.}
+      - {name: logo-color, required: false, default: pink, description: pink or black.}
+      - {name: learn-more, required: false, default: false, description: Replaces the chevron CTA with a text link.}
+      - {name: spend-progress, required: false, default: standard, description: 'standard, text-mode or hidden.'}
+      - {name: max-width, required: false, default: auto, description: 'auto or a percentage cap relative to the parent container.'}
+      - {name: channel, required: false, default: null, description: Set to `travel` for travel merchants; changes the widget modal copy.}
+    placement_guidance: https://developers.scalapay.com/docs/best-practice-guideline
+    changelog: https://developers.scalapay.com/docs/widget-changelog
+hosted_surfaces:
+  - name: Scalapay Checkout
+    kind: hosted-redirect
+    description: >-
+      Hosted authorization page the shopper is redirected to using the `checkoutUrl` returned by
+      POST /v2/orders. The merchant supplies redirectConfirmUrl and redirectCancelUrl.
+    production_host: https://portal.scalapay.com
+    sandbox_host: https://portal.integration.scalapay.com
+platform_plugins:
+  note: >-
+    Prebuilt storefront modules are catalogued in packages/scalapay-packages.yml (Magento 2 and its
+    Hyva adapter on Packagist) and documented for WooCommerce, PrestaShop, Shopify, BigCommerce,
+    Shopware, Salesforce, SAP Hybris, VTEX, OpenCart, nopCommerce, JTL, LogiCommerce, Mabisy,
+    Storeden and Ready Pro at https://developers.scalapay.com/docs/platforms-integrations.
+x-evidence:
+  fetched: '2026-08-02'

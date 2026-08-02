@@ -1,0 +1,116 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Scalapay API
+  version: 1.0.0
+extends: openapi/scalapay-openapi-original.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-rationale: The Scalapay OpenAPI 3.0.1 published through developers.scalapay.com declares no operationId on any
+  of its 20 operations, and declares no top-level tags[] block even though every operation is tagged Orders, Instore
+  or Reporting. Both are required to address operations from Arazzo workflows, agent skills and MCP tool definitions.
+  This overlay adds deterministic operationIds derived from method + path and a tag index. It changes no schema,
+  parameter, response or security definition, and the harvested spec at openapi/scalapay-openapi-original.yml is
+  left byte-for-byte as published.
+actions:
+- target: $.info
+  description: Record API Evangelist provenance for this harvested specification.
+  update:
+    x-apievangelist-source: https://developers.scalapay.com/reference/post_v2-orders
+    x-apievangelist-harvested: '2026-08-02'
+    x-apievangelist-method: searched
+    x-provider: Scalapay S.r.l.
+    x-slug: scalapay
+- target: $
+  description: Declare the three tags the operations already use, with descriptions, so the spec carries a tag index.
+  update:
+    tags:
+    - name: Orders
+      description: Create, update, inspect and settle online instalment orders on /v2.
+    - name: Instore
+      description: Device-authenticated in-store and offline pay-by-link orders on /v1 and /v2.
+    - name: Reporting
+      description: Reconciliation reporting for orders, refunds, payouts and disputes on /v1.
+- target: $.paths['/v1/instore/orders'].post
+  description: Add a stable operationId for POST /v1/instore/orders (the published spec declares none).
+  update:
+    operationId: postInstoreOrders
+- target: $.paths['/v1/instore/orders/references'].get
+  description: Add a stable operationId for GET /v1/instore/orders/references (the published spec declares none).
+  update:
+    operationId: getInstoreOrdersReferences
+- target: $.paths['/v1/instore/orders/{token}'].get
+  description: Add a stable operationId for GET /v1/instore/orders/{token} (the published spec declares none).
+  update:
+    operationId: getInstoreOrdersByToken
+- target: $.paths['/v1/instore/orders/{token}/refund'].post
+  description: Add a stable operationId for POST /v1/instore/orders/{token}/refund (the published spec declares
+    none).
+  update:
+    operationId: postInstoreOrdersByTokenRefund
+- target: $.paths['/v2/instore/paybylink/orders'].post
+  description: Add a stable operationId for POST /v2/instore/paybylink/orders (the published spec declares none).
+  update:
+    operationId: postInstorePaybylinkOrders
+- target: $.paths['/v2/instore/paybylink/orders/{token}/void'].post
+  description: Add a stable operationId for POST /v2/instore/paybylink/orders/{token}/void (the published spec declares
+    none).
+  update:
+    operationId: postInstorePaybylinkOrdersByTokenVoid
+- target: $.paths['/v2/orders'].post
+  description: Add a stable operationId for POST /v2/orders (the published spec declares none).
+  update:
+    operationId: postOrders
+- target: $.paths['/v2/orders/{token}'].post
+  description: Add a stable operationId for POST /v2/orders/{token} (the published spec declares none).
+  update:
+    operationId: postOrdersByToken
+- target: $.paths['/v2/payments/capture'].post
+  description: Add a stable operationId for POST /v2/payments/capture (the published spec declares none).
+  update:
+    operationId: postPaymentsCapture
+- target: $.paths['/v2/payments/references'].get
+  description: Add a stable operationId for GET /v2/payments/references (the published spec declares none).
+  update:
+    operationId: getPaymentsReferences
+- target: $.paths['/v2/payments/{token}'].get
+  description: Add a stable operationId for GET /v2/payments/{token} (the published spec declares none).
+  update:
+    operationId: getPaymentsByToken
+- target: $.paths['/v2/payments/{token}/delay'].post
+  description: Add a stable operationId for POST /v2/payments/{token}/delay (the published spec declares none).
+  update:
+    operationId: postPaymentsByTokenDelay
+- target: $.paths['/v2/payments/{token}/refund'].post
+  description: Add a stable operationId for POST /v2/payments/{token}/refund (the published spec declares none).
+  update:
+    operationId: postPaymentsByTokenRefund
+- target: $.paths['/v2/payments/{token}/void'].post
+  description: Add a stable operationId for POST /v2/payments/{token}/void (the published spec declares none).
+  update:
+    operationId: postPaymentsByTokenVoid
+- target: $.paths['/v1/reporting/disputes'].get
+  description: Add a stable operationId for GET /v1/reporting/disputes (the published spec declares none).
+  update:
+    operationId: getReportingDisputes
+- target: $.paths['/v1/reporting/orders'].get
+  description: Add a stable operationId for GET /v1/reporting/orders (the published spec declares none).
+  update:
+    operationId: getReportingOrders
+- target: $.paths['/v1/reporting/payouts'].get
+  description: Add a stable operationId for GET /v1/reporting/payouts (the published spec declares none).
+  update:
+    operationId: getReportingPayouts
+- target: $.paths['/v1/reporting/payouts/{token}/orders'].get
+  description: Add a stable operationId for GET /v1/reporting/payouts/{token}/orders (the published spec declares
+    none).
+  update:
+    operationId: getReportingPayoutsByTokenOrders
+- target: $.paths['/v1/reporting/payouts/{token}/refunds'].get
+  description: Add a stable operationId for GET /v1/reporting/payouts/{token}/refunds (the published spec declares
+    none).
+  update:
+    operationId: getReportingPayoutsByTokenRefunds
+- target: $.paths['/v1/reporting/refunds'].get
+  description: Add a stable operationId for GET /v1/reporting/refunds (the published spec declares none).
+  update:
+    operationId: getReportingRefunds

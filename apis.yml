@@ -1,23 +1,133 @@
 aid: scalapay
 name: Scalapay
-description: 'Scalapay is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Scalapay is an Italian buy-now-pay-later (BNPL) payment provider that lets shoppers split a purchase
+  into instalments — pay in 3, pay in 4, or pay later — while the merchant is settled by Scalapay. Its
+  REST API is a compact, order-centric surface: create an instalment order, redirect the shopper to
+  Scalapay Checkout, then capture, delay, void or refund against the order token, with a parallel
+  in-store and offline pay-by-link family authenticated by a device-scoped key, plus reporting
+  endpoints for reconciling orders, refunds, payouts and disputes against Scalapay's bank transfers.
+  Merchants integrate through a CDN-loaded web component (the Scalapay Suite Widget) on the product,
+  cart and checkout pages, or through prebuilt modules for Magento, WooCommerce, PrestaShop, Shopify,
+  Shopware, BigCommerce, VTEX, Salesforce and others. Scalapay operates in EUR across 14 authorised
+  European territories.
 url: https://raw.githubusercontent.com/api-evangelist/scalapay/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
+image: https://cdn.prod.website-files.com/614b9948e0cc06785c60efe7/67c9cc48ae95dd9c93be62c3_favicon-256.png
 tags:
+- Payments
+- Buy Now Pay Later
+- BNPL
+- Instalments
+- E-Commerce
+- Checkout
+- Financial Services
+- Point of Sale
+- Reconciliation
+- Europe
 - Company
-apis: []
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: scalapay:scalapay-api
+  name: Scalapay API
+  description: >-
+    Interact with Scalapay. Create and update instalment orders, capture, delay, void and refund
+    payments against the order token, run device-authenticated in-store and offline pay-by-link
+    orders, and pull reconciliation reporting for orders, refunds, payouts and disputes. Twenty
+    operations across three tags (Orders, Instore, Reporting) on two version prefixes.
+  humanURL: https://developers.scalapay.com/reference/api-architecture
+  baseURL: https://api.scalapay.com
+  tags:
+  - Orders
+  - Payments
+  - Instore
+  - Reporting
+  - Refunds
+  - Payouts
+  properties:
+  - type: OpenAPI
+    url: openapi/scalapay-openapi-original.yml
+  - type: Overlay
+    url: overlays/scalapay-overlay.yaml
+  - type: Documentation
+    url: https://developers.scalapay.com/docs/get-started-with-scalapay
+  - type: APIReference
+    url: https://developers.scalapay.com/reference/api-architecture
+  - type: Sandbox
+    url: sandbox/scalapay-sandbox.yml
 common:
 - type: Website
-  url: https://forgeglobal.com/scalapay_stock/
+  url: https://www.scalapay.com/
+- type: DeveloperPortal
+  url: https://developers.scalapay.com/
+- type: Documentation
+  url: https://developers.scalapay.com/docs/get-started-with-scalapay
+- type: APIReference
+  url: https://developers.scalapay.com/reference/api-architecture
+- type: GettingStarted
+  url: https://developers.scalapay.com/docs/get-started-with-scalapay
+- type: Support
+  url: https://help.scalapay.com/
+- type: HelpCenter
+  url: https://merchant-help.scalapay.com/
+- type: SignUp
+  url: https://portal.scalapay.com/signup
+- type: Login
+  url: https://partner.scalapay.com/login
+- type: TermsOfService
+  url: https://www.scalapay.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.scalapay.com/privacy
+- type: Compliance
+  url: https://www.scalapay.com/legals
+- type: StatusPage
+  url: https://status.scalapay.com/
+- type: SourceCode
+  url: https://bitbucket.org/scalapay
+- type: Authentication
+  url: authentication/scalapay-authentication.yml
+- type: Conventions
+  url: conventions/scalapay-conventions.yml
+- type: Idempotency
+  url: conventions/scalapay-conventions.yml
+- type: Packages
+  url: packages/scalapay-packages.yml
+- type: SDKs
+  url: packages/scalapay-packages.yml
+- type: Sandbox
+  url: sandbox/scalapay-sandbox.yml
+- type: Components
+  url: components/scalapay-components.yml
+- type: ErrorCatalog
+  url: errors/scalapay-problem-types.yml
+- type: ErrorCodes
+  url: errors/scalapay-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/scalapay-lifecycle.yml
+- type: ChangeLog
+  url: changelog/scalapay-changelog.yml
+- type: Conformance
+  url: conformance/scalapay-conformance.yml
+- type: DataModel
+  url: data-model/scalapay-data-model.yml
+- type: Webhooks
+  url: asyncapi/scalapay-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/scalapay-llms.txt
+- type: DomainSecurity
+  url: security/scalapay-domain-security.yml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1

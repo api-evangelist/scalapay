@@ -1,0 +1,67 @@
+generated: '2026-08-02'
+method: searched
+source: https://developers.scalapay.com/reference/api-architecture
+derived_from: openapi/scalapay-openapi-original.yml
+format: proprietary-json
+rfc9457: false
+notes: >-
+  Scalapay does not publish a standalone error-code reference page. The envelope is documented on the
+  API Architecture page and the concrete codes below are the ones Scalapay itself publishes — in the
+  architecture page prose and as verbatim response examples inside its own OpenAPI. This registry is
+  therefore a harvest of published codes, not an exhaustive list; codes Scalapay has not published are
+  deliberately absent rather than guessed.
+envelope:
+  fields: [errorCode, errorId, message, httpStatusCode]
+  media_type: application/json
+  handling_guidance: Rely on errorCode + httpStatusCode; the message string may change over time.
+  example:
+    errorCode: '400'
+    errorId: error-sktwiapnkhy2ynv8
+    message: startDate cannot be greater than endDate
+    httpStatusCode: 400
+error_codes:
+  - code: api_validationerror
+    http_status: 400
+    meaning: Request body failed schema validation; the message carries a per-field errors[] array (field, location, messages, types).
+    action: Fix the offending field(s) named in message.errors[] and resubmit.
+    source: openapi components.responses.400Error
+  - code: pre_condition_failed
+    http_status: 400
+    meaning: A query parameter or path token failed a precondition (e.g. startDate greater than endDate, invalid merchant payout token).
+    action: Correct the query window or the token and retry.
+    source: openapi /v1/reporting/* 400 responses
+  - code: order_amount_exceeds_maximum_limit
+    http_status: 4xx
+    meaning: The order total is above the maximum amount permitted for the merchant contract.
+    action: Reduce the order total or contact Scalapay to raise the contractual limit.
+    source: https://developers.scalapay.com/reference/api-architecture
+  - code: invalid_token
+    http_status: 422
+    meaning: The supplied order token does not resolve to an order.
+    action: Verify the order token returned by POST /v2/orders before calling payment operations.
+    source: openapi components.responses.422Error
+  - code: conflicting_operation_in_progress
+    http_status: 409
+    meaning: The requested operation conflicts with another operation already in progress on the same order.
+    action: Back off and retry later, reusing the same Idempotency-Key.
+    source: openapi components.responses.409Error
+  - code: internal_server
+    http_status: 500
+    meaning: Unexpected error on the Scalapay side.
+    action: Retry with backoff; quote errorId to Scalapay support if it persists.
+    source: openapi /v1/reporting/disputes 500 response
+status_classes:
+  - {class: 2XX, description: The request was successful.}
+  - {class: 4XX, description: 'The request was invalid (e.g. missing required parameters or invalid data).'}
+  - {class: 5XX, description: The request failed due to an unexpected error on the Scalapay side.}
+unauthenticated:
+  http_status: 401
+  body: '"Unauthorized"'
+  note: >-
+    The 401 response is a bare JSON string rather than the standard error envelope — an inconsistency
+    worth noting for client error handling.
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://developers.scalapay.com/reference/api-architecture
+    - https://developers.scalapay.com/reference/get_v1-reporting-orders

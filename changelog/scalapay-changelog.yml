@@ -1,0 +1,90 @@
+generated: '2026-08-02'
+method: searched
+sources:
+  - https://developers.scalapay.com/docs/changelog
+  - https://developers.scalapay.com/docs/widget-changelog
+scheme: per-artifact-semver
+api_changelog: null
+notes: >-
+  Scalapay maintains two dated changelogs — one for the e-commerce platform plugins (grouped by
+  platform) and one for the checkout widget. Neither covers the REST API itself; there is no dated
+  release note stream for /v2 order and payment operations. Entries below are the current published
+  window, captured verbatim.
+streams:
+  - name: Platform plugins
+    url: https://developers.scalapay.com/docs/changelog
+    page_updated: '2026-06-05'
+    entries:
+      - platform: Magento 2
+        version: 4.3.2
+        date: '2026-06-03'
+        type: added
+        breaking: false
+        highlights: [Fix release stock on cancel]
+        compatibility: Magento 2.2.2 and beyond
+      - platform: WooCommerce
+        version: 4.2.4
+        date: '2026-04-01'
+        type: fixed
+        breaking: false
+        highlights: [Fixed PHP 8.1 warnings]
+        compatibility: WordPress 4.4 and WooCommerce 3.0 and beyond
+      - platform: PrestaShop
+        version: 3.2.1
+        date: '2026-04-01'
+        type: added
+        breaking: false
+        highlights: [Add config for checkoutTitleSelector]
+        compatibility: PrestaShop 8, 1.7 and 1.6 (unified since March 2023)
+      - platform: Magento 1
+        version: 3.3.55
+        date: '2023-02-06'
+        type: fixed
+        breaking: false
+        highlights:
+          - Attributes in Scalapay widget in checkout description
+          - Minor fix
+        compatibility: Magento 1.7 and beyond
+      - platform: Ready Pro
+        version: '2nd version'
+        date: '2023-02-07'
+        type: added
+        breaking: false
+        highlights: ['Pay in 4: new payment option that allows to pay in 4 instalments']
+        compatibility: Ready Pro v2023.1 and beyond
+      - platform: Ready Pro
+        version: '1st version'
+        date: '2022-01-25'
+        type: added
+        breaking: false
+        highlights: ['Pay in 4: new payment option that allows to pay in 3 instalments']
+  - name: Checkout widget
+    url: https://developers.scalapay.com/docs/widget-changelog
+    page_updated: '2026-07-10'
+    entries:
+      - version: V5.1.1
+        date: '2026-07-09'
+        type: changed
+        breaking: false
+        title: Widget - Customization Extension
+        highlights:
+          - Improves layout resilience
+          - Improves accessibility
+          - Adds controlled customization options for eligible Widget V5.1 merchants and custom implementations
+feeds:
+  - url: https://developers.scalapay.com/changelog.rss
+    advertised_as: Global Scalapay Developers changelog RSS feed
+    advertised_on: https://developers.scalapay.com/docs/custom-integration-widget-configuration
+    http_status: 404
+    working: false
+    note: >-
+      The widget configuration page invites developers to "subscribe to the global Scalapay Developers
+      changelog RSS feed" at this URL, but it returns 404 (the ReadMe not-found page). Machine-readable
+      change notification is therefore advertised but not actually available.
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://developers.scalapay.com/docs/changelog
+    - https://developers.scalapay.com/docs/widget-changelog
+  probes:
+    - {url: 'https://developers.scalapay.com/changelog.rss', http_status: 404}

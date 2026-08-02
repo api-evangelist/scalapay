@@ -1,0 +1,96 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/scalapay-openapi-original.yml
+searched:
+  - https://developers.scalapay.com/reference/api-architecture
+  - https://www.scalapay.com/legals
+notes: >-
+  Standards posture derived from the harvested OpenAPI and Scalapay's published documentation. Where a
+  standard is not claimed and not evidenced in the spec, conforms is false rather than unknown-as-true.
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: 'openapi: 3.0.1 document published through the developer portal (20 paths, 20 operations, 2 servers).'
+  - id: http-bearer-token
+    conforms: true
+    evidence: 'All operations require Authorization: Bearer <api key> (securityScheme ApiKeyAuth, apiKey in header).'
+  - id: oauth2
+    conforms: false
+    evidence: No oauth2 securityScheme in the spec and no OAuth flow documented; authentication is a static bearer API key.
+  - id: oidc
+    conforms: false
+    evidence: No /.well-known/openid-configuration on any host (probed 2026-08-02).
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Error responses are application/json with a proprietary {errorCode, errorId, message,
+      httpStatusCode} envelope, not application/problem+json.
+  - id: idempotency-key
+    conforms: true
+    partial: true
+    evidence: >-
+      Idempotency-Key request header declared on 6 write operations (create/update order, capture,
+      delay, refund, void); a conflicting concurrent operation returns 409
+      conflicting_operation_in_progress. Not offered on /v1/instore write operations, and no
+      retention window is published.
+  - id: pagination
+    conforms: true
+    partial: true
+    evidence: page/size query parameters on all /v1/reporting collection endpoints; no pagination on other collections.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No deprecation policy and no Sunset/Deprecation header support documented.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 on www.scalapay.com and developers.scalapay.com (probed 2026-08-02).
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: /.well-known/api-catalog returns 404 (probed 2026-08-02).
+  - id: asyncapi
+    conforms: false
+    evidence: Webhook surface documented in prose only; no AsyncAPI document published (see asyncapi/scalapay-webhooks.yml).
+  - id: llms-txt
+    conforms: true
+    evidence: 'https://developers.scalapay.com/llms.txt served and current; indexes every docs page and every API reference operation.'
+  - id: tls-1.2-minimum
+    conforms: true
+    evidence: >-
+      "All communications with the Scalapay API are secured using TLS 1.2 or later"; probed API hosts
+      negotiate TLS 1.3 with HSTS max-age 63072000.
+  - id: psd2
+    conforms: false
+    evidence: Not claimed in developer documentation; Scalapay is a buy-now-pay-later instalment provider, not an account-servicing PSP exposing PSD2 XS2A interfaces.
+  - id: pci-dss
+    conforms: unknown
+    evidence: >-
+      No PCI DSS attestation is published on the public site or developer portal. Card entry happens on
+      Scalapay's own hosted checkout, so the merchant integration is redirect-based, but Scalapay's own
+      certification status is not published.
+  - id: gdpr
+    conforms: true
+    evidence: 'Privacy policy published per country at https://www.scalapay.com/privacy; Scalapay S.r.l. is an EU (Italian) entity operating in EUR across 14 authorised EU/EEA territories.'
+compliance_program:
+  published: true
+  url: https://www.scalapay.com/legals
+  entity: Scalapay S.r.l. a socio unico
+  jurisdiction: Italy
+  documents:
+    - name: Modello di Organizzazione, Gestione e Controllo (D.Lgs. 231/2001)
+      description: Organisation, management and control model adopted under Italian Legislative Decree 231/2001, approved by the Board and kept current with the latest regulatory provisions.
+      languages: [it, en]
+    - name: Codice Etico
+      description: Code of ethics setting out the values, rights, duties and responsibilities binding on employees, suppliers, directors, collaborators, customers and institutions.
+      languages: [it, en]
+    - name: Regolamento Whistleblowing
+      description: Whistleblowing regulation and procedure adopted 2023-12-13 under D.Lgs. 24/2023 implementing EU Directive 2019/1937.
+  supervisory_body: Organismo di Vigilanza
+  note: >-
+    This is a corporate governance and ethics compliance program, published in full. It is not a
+    security-certification trust center — no SOC 2, ISO 27001, PCI DSS or FedRAMP attestation is
+    published (probe-security-programs.py found no trust center on 2026-08-02).
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://developers.scalapay.com/reference/api-architecture
+    - https://www.scalapay.com/legals?country=IT
+    - https://www.scalapay.com/privacy

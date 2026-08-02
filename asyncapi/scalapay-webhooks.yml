@@ -1,0 +1,79 @@
+generated: '2026-08-02'
+method: searched
+sources:
+  - https://developers.scalapay.com/reference/webhooks
+  - https://developers.scalapay.com/reference/wehook-data-model
+  - https://developers.scalapay.com/reference/listener-authentication-setup
+  - https://developers.scalapay.com/reference/connection-issues-and-retry-system
+  - https://developers.scalapay.com/reference/messages-validation
+spec_type: none
+asyncapi_published: false
+notes: >-
+  Scalapay documents a real webhook surface but publishes no AsyncAPI (or any other machine-readable
+  event contract) — probed for /asyncapi.yaml, /asyncapi.json and an event catalog on the docs and API
+  hosts with no hit. This artifact captures the webhook catalog Scalapay does publish. It is a
+  documented event surface, not a fabricated spec.
+surface:
+  kind: webhooks
+  direction: outbound
+  transport: HTTPS POST
+  content_type: application/json
+  subscription_model: single merchant-configured listener URL
+  configuration:
+    where: Partner Portal, Developers section
+    field: Webhook Url
+    description: The URL of your webhook listener.
+    url: https://developers.scalapay.com/reference/listener-authentication-setup
+  purpose: >-
+    Scalapay sends webhooks to notify the merchant backend about the outcome of every payment
+    operation, so no payment session is lost or dropped.
+events:
+  - name: created
+    description: Triggered when an order is successfully created.
+    additional_payload: true
+  - name: authorized
+    description: Triggered when a shopper successfully authorizes a payment on the Scalapay page.
+  - name: charged
+    description: Triggered when a payment capture request is successfully processed.
+  - name: refunded
+    description: Triggered when a refund request is successfully processed.
+    additional_payload: true
+  - name: expired
+    description: >-
+      Triggered if an authorized payment is not captured before the expiry period defined by the
+      orderExpiryMilliseconds field in the initial order request.
+payload:
+  always_present:
+    - {field: totalAmount, description: Total amount of the payment including all instalments.}
+    - {field: status, description: 'Current status of the payment: created, authorized, charged, refunded or expired.'}
+    - {field: orderToken, description: The Scalapay reference generated at the time of creation of the order.}
+    - {field: merchantReference, description: 'The correlation id from the merchant, typically the order id.'}
+  conditional: >-
+    Depending on the status you may receive further keys/objects (notably on `created` and `refunded`).
+  forward_compatibility_warning: >-
+    Scalapay states the list of statuses may change in the future, so consumers are advised not to
+    hardcode the expected set of values.
+  docs: https://developers.scalapay.com/reference/wehook-data-model
+delivery:
+  ack_signal: HTTP 200
+  failure_signal: any non-200 (e.g. HTTP 400)
+  retry: exponential backoff
+  ordering_guarantee: none
+  ordering_note: >-
+    Retried notifications may not be processed in sequence; consumers must not assume webhooks arrive
+    in order.
+  docs: https://developers.scalapay.com/reference/connection-issues-and-retry-system
+verification:
+  docs: https://developers.scalapay.com/reference/messages-validation
+  examples: https://developers.scalapay.com/reference/examples-of-webhook-requests
+gaps:
+  - No AsyncAPI or JSON Schema document for any event payload.
+  - No per-event schema published; only the four always-present keys are specified.
+  - No published event-versioning policy.
+x-evidence:
+  fetched: '2026-08-02'
+  probes:
+    - {url: 'https://developers.scalapay.com/asyncapi.yaml', http_status: 404}
+    - {url: 'https://developers.scalapay.com/asyncapi.json', http_status: 404}
+    - {url: 'https://api.scalapay.com/asyncapi.yaml', http_status: 403}
+    - {url: 'https://api.scalapay.com/asyncapi.json', http_status: 403}

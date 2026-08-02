@@ -1,0 +1,36 @@
+generated: '2026-08-02'
+method: generated
+source: openapi/scalapay-openapi-original.yml
+notes: >-
+  Packaged agent skills for the Scalapay API, one per marquee flow. Every method + path referenced is
+  verbatim from the harvested OpenAPI 3.0.1; the operationIds are the stable ids added by
+  overlays/scalapay-overlay.yaml, because the published specification declares none. Scalapay does not
+  publish its own AGENTS.md or skill files (searched 2026-08-02).
+skills:
+  - file: scalapay-create-and-capture-order.md
+    name: Create and capture a Scalapay order
+    description: Immediate payment flow — create the order, redirect to Scalapay Checkout, capture on authorization.
+    api: openapi/scalapay-openapi-original.yml
+    operations: [postOrders, getPaymentsByToken, postPaymentsCapture]
+  - file: scalapay-delayed-capture.md
+    name: Run a Scalapay delayed-capture order
+    description: Delayed payment flow — authorize now, capture when stock ships, void if the order cannot be fulfilled.
+    api: openapi/scalapay-openapi-original.yml
+    operations: [postOrders, postPaymentsByTokenDelay, postPaymentsCapture, postPaymentsByTokenVoid, getPaymentsByToken]
+  - file: scalapay-refund-and-reconcile.md
+    name: Refund a Scalapay order and reconcile the payout
+    description: Reverse a captured payment, then match payouts to the orders, refunds and fees inside them.
+    api: openapi/scalapay-openapi-original.yml
+    operations: [postPaymentsByTokenRefund, getPaymentsReferences, getReportingRefunds, getReportingOrders, getReportingPayouts, getReportingPayoutsByTokenOrders, getReportingPayoutsByTokenRefunds]
+  - file: scalapay-instore-and-pay-by-link.md
+    name: Take a Scalapay in-store or pay-by-link order
+    description: Device-key authenticated point-of-sale and offline pay-by-link instalment orders.
+    api: openapi/scalapay-openapi-original.yml
+    operations: [postInstoreOrders, getInstoreOrdersByToken, getInstoreOrdersReferences, postInstoreOrdersByTokenRefund, postInstorePaybylinkOrders, postInstorePaybylinkOrdersByTokenVoid]
+supporting_artifacts:
+  - conventions/scalapay-conventions.yml
+  - errors/scalapay-error-codes.yml
+  - errors/scalapay-problem-types.yml
+  - sandbox/scalapay-sandbox.yml
+  - asyncapi/scalapay-webhooks.yml
+  - authentication/scalapay-authentication.yml

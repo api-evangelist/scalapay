@@ -1,0 +1,55 @@
+generated: '2026-08-02'
+method: probed
+source: live probes of every Scalapay host in apis.yml + OpenAPI servers[]
+result: none
+notes: >-
+  No /.well-known/ discovery documents are published on any Scalapay host. The marketing and docs hosts
+  answer 404 for every probed path; the API hosts (api.scalapay.com, integration.api.scalapay.com) sit
+  behind an edge that answers 403 to unauthenticated requests for any path, so absence there is
+  indistinguishable from a block — recorded as-observed rather than inferred. No security.txt (RFC 9116),
+  no OIDC discovery, no RFC 8414 authorization-server metadata, no RFC 9727 api-catalog, no ai-plugin.json,
+  and no A2A agent card at either the canonical or legacy path.
+hosts:
+  - host: https://www.scalapay.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /security.txt, status: 404}
+  - host: https://developers.scalapay.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /security.txt, status: 404}
+  - host: https://api.scalapay.com
+    note: edge returns 403 for all unauthenticated paths
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+  - host: https://integration.api.scalapay.com
+    note: edge returns 403 for all unauthenticated paths
+    documents:
+      - {path: /.well-known/security.txt, status: 403}
+      - {path: /.well-known/openid-configuration, status: 403}
+      - {path: /.well-known/oauth-authorization-server, status: 403}
+      - {path: /.well-known/api-catalog, status: 403}
+      - {path: /.well-known/ai-plugin.json, status: 403}
+      - {path: /.well-known/agent-card.json, status: 403}
+      - {path: /.well-known/agent.json, status: 403}
+x-evidence:
+  fetched: '2026-08-02'
+  documents_found: 0

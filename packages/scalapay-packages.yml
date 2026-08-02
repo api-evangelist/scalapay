@@ -1,0 +1,88 @@
+generated: '2026-08-02'
+method: searched
+source: https://packagist.org/search.json?q=scalapay
+notes: >-
+  Scalapay publishes its first-party client libraries and e-commerce platform modules on Packagist under
+  the `scalapay/` vendor namespace; source is hosted on Bitbucket (bitbucket.org/scalapay), not GitHub.
+  The `scalapay` GitHub organization exists but publishes zero public repositories (probed 2026-08-02).
+  No first-party npm, PyPI, Maven, NuGet, Go, RubyGems or crates.io packages were found — the npm
+  package `scalapay` belongs to the unrelated Scala Network project, and `@mia-burton/scalapay-js`,
+  `vendure-scalapay` and `logisticdesign/craft-commerce-scalapay` are community integrations.
+packages:
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay-php-sdk
+    url: https://packagist.org/packages/scalapay/scalapay-php-sdk
+    install: composer require scalapay/scalapay-php-sdk
+    source: https://bitbucket.org/scalapay/scalapay-php-sdk
+    description: Integrate easily with the scalapay.com API.
+    downloads: 111254
+    docs: https://developers.scalapay.com/reference/php-sdk
+    official: true
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay
+    url: https://packagist.org/packages/scalapay/scalapay
+    install: composer require scalapay/scalapay
+    source: https://bitbucket.org/scalapay/scalapay-php-sdk.git
+    description: Integrate easily with the scalapay.com API.
+    downloads: 116651
+    official: true
+    abandoned: true
+    replaced_by: scalapay/scalapay-php-sdk
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay-magento-2
+    url: https://packagist.org/packages/scalapay/scalapay-magento-2
+    install: composer require scalapay/scalapay-magento-2
+    source: https://bitbucket.org/scalapay/scalapay-magento-2
+    description: Magento 2 - Scalapay Payment Module.
+    downloads: 48252
+    docs: https://developers.scalapay.com/docs/magento-2-plugin
+    kind: platform-module
+    official: true
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay-magento-2-hyva-adapter
+    url: https://packagist.org/packages/scalapay/scalapay-magento-2-hyva-adapter
+    install: composer require scalapay/scalapay-magento-2-hyva-adapter
+    source: https://bitbucket.org/scalapay/scalapay-magento-2-hyva-adapter
+    description: Adapter module for Hyva Checkout and the scalapay/scalapay-magento-2 module.
+    downloads: 2354
+    kind: platform-module
+    official: true
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay-magento2
+    url: https://packagist.org/packages/scalapay/scalapay-magento2
+    source: https://bitbucket.org/scalapay/scalapay-magento-v2.git
+    description: Scalapay Payment Module for Magento 2.
+    downloads: 19143
+    kind: platform-module
+    official: true
+    abandoned: true
+    replaced_by: scalapay/scalapay-magento-2
+  - language: php
+    registry: packagist
+    name: scalapay/scalapay-magento2-new
+    url: https://packagist.org/packages/scalapay/scalapay-magento2-new
+    source: https://bitbucket.org/scalapay/scalapay-magento-v2-new.git
+    description: Scalapay Payment Module for Magento 2.
+    downloads: 32786
+    kind: platform-module
+    official: true
+    abandoned: true
+    replaced_by: scalapay/scalapay-magento-2
+registries_probed:
+  - {registry: packagist, result: hit, first_party_packages: 6}
+  - {registry: npm, result: miss, note: only third-party/unrelated packages}
+  - {registry: pypi, result: miss, http_status: 404}
+  - {registry: github, result: miss, note: 'github.com/scalapay org exists, public_repos=0'}
+  - {registry: bitbucket, result: hit, note: 'source repositories at bitbucket.org/scalapay'}
+x-evidence:
+  fetched: '2026-08-02'
+  urls:
+    - https://packagist.org/search.json?q=scalapay
+    - https://api.github.com/users/scalapay
+    - https://registry.npmjs.org/-/v1/search?text=scalapay
+    - https://developers.scalapay.com/reference/php-sdk

@@ -1,0 +1,79 @@
+generated: '2026-08-02'
+method: searched
+sources:
+  - https://developers.scalapay.com/reference/api-architecture
+  - https://developers.scalapay.com/docs/test-the-order-flow
+  - https://developers.scalapay.com/reference/api-simulator
+  - https://developers.scalapay.com/docs/custom-integration-widget-installation
+notes: >-
+  Every value below is published verbatim by Scalapay in its own public documentation as a test
+  credential for the Sandbox environment. Nothing here is invented, and none of it is a live secret.
+environments:
+  - name: sandbox
+    base_url: https://integration.api.scalapay.com
+    description: Sandbox server that uses test data. Supports Fake Cards so full transaction flows can be simulated without charges.
+    checkout_host: https://portal.integration.scalapay.com
+  - name: production
+    base_url: https://api.scalapay.com
+    description: Production server that uses live data.
+    checkout_host: https://portal.scalapay.com
+key_separation:
+  model: environment-scoped-keys
+  prefix: sp_
+  note: >-
+    Two different API keys, usually prefixed "sp_" — one for Sandbox, one for Production (issued from
+    the Merchant Portal). Using the wrong key for an environment returns 401 Unauthorized.
+test_credentials:
+  - kind: api-key
+    scope: online standard, delay and multicapture calls
+    value: qhtfs87hjnc12kkos
+    header: 'Authorization: Bearer qhtfs87hjnc12kkos'
+    source: https://developers.scalapay.com/reference/api-simulator
+  - kind: api-key
+    scope: in-store calls (device token)
+    value: testdeviceapikey
+    source: https://developers.scalapay.com/reference/api-simulator
+  - kind: merchant-token
+    scope: checkout widget, testing
+    value: 8KDS3SPEL
+    source: https://developers.scalapay.com/docs/custom-integration-widget-installation
+  - kind: merchant-token
+    scope: checkout widget, production for Adyen merchants
+    value: 3LQDGJYPC
+    source: https://developers.scalapay.com/docs/custom-integration-widget-installation
+  - kind: merchant-token
+    scope: checkout widget, production for Stripe merchants
+    value: 3MAP917KB
+    source: https://developers.scalapay.com/docs/custom-integration-widget-installation
+test_cards:
+  - outcome: success
+    number: '5200828282828210'
+    cvv: any (e.g. 123)
+    expiry: any future date
+    note: Any CAP to complete the transaction.
+  - outcome: failure
+    number: '4000000000000341'
+    cvv: any (e.g. 123)
+    expiry: any future date
+    note: Any CAP to complete the transaction. Use to verify the declined-payment path.
+test_redirect_urls:
+  - {field: merchant.redirectConfirmUrl, value: 'https://portal.integration.scalapay.com/success-url'}
+  - {field: merchant.redirectCancelUrl, value: 'https://portal.integration.scalapay.com/failure-url'}
+widget_test_mode:
+  attribute: environment
+  value: integration
+  note: In production the `environment` attribute is omitted.
+tooling:
+  - name: API Simulator
+    url: https://developers.scalapay.com/reference/api-simulator
+    description: Formulate an API request in the docs and see how the Scalapay API responds.
+  - name: Refund testing guide
+    url: https://developers.scalapay.com/docs/how-to-test-the-refund-flow
+  - name: Order flow testing guide
+    url: https://developers.scalapay.com/docs/test-the-order-flow
+  - name: Go-live checklist
+    url: https://developers.scalapay.com/docs/complete-go-live-checklist-and-launch-scalapay
+test_clocks: false
+fixture_triggers: false
+x-evidence:
+  fetched: '2026-08-02'

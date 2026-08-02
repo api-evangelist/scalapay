@@ -1,0 +1,274 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/scalapay-openapi-original.yml
+format: proprietary-json
+rfc9457: false
+notes: Derived from every 4xx/5xx response declared in the harvested Scalapay OpenAPI 3.0.1. Scalapay does not use
+  RFC 9457 application/problem+json; the envelope is its own {errorCode, errorId, message, httpStatusCode} shape,
+  catalogued in errors/scalapay-error-codes.yml. Titles are the spec response descriptions verbatim.
+envelope_artifact: errors/scalapay-error-codes.yml
+coverage:
+  operations: 20
+  error_responses: 47
+  statuses:
+  - 400
+  - 401
+  - 409
+  - 422
+  - 500
+problems:
+- status: 400
+  title: Bad request
+  operation: POST /v1/instore/orders
+  summary: Create instore order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v1/instore/orders
+  summary: Create instore order
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: GET /v1/instore/orders/references
+  summary: Get instore orders by reference
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/instore/orders/references
+  summary: Get instore orders by reference
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: GET /v1/instore/orders/{token}
+  summary: Get an instore order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/instore/orders/{token}
+  summary: Get an instore order
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: POST /v1/instore/orders/{token}/refund
+  summary: Refund an instore order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v1/instore/orders/{token}/refund
+  summary: Refund an instore order
+  component: components/responses/401Error
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/disputes
+  summary: Get disputes
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/disputes
+  summary: Get disputes
+  component: components/responses/401Error
+- status: 500
+  title: Internal server error. (HTTP 500).
+  operation: GET /v1/reporting/disputes
+  summary: Get disputes
+  error_code: internal_server
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/orders
+  summary: Get orders
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/orders
+  summary: Get orders
+  component: components/responses/401Error
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/payouts
+  summary: Get payouts
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/payouts
+  summary: Get payouts
+  component: components/responses/401Error
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/payouts/{token}/orders
+  summary: Get orders from payout
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/payouts/{token}/orders
+  summary: Get orders from payout
+  component: components/responses/401Error
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/payouts/{token}/refunds
+  summary: Get refunds from payout
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/payouts/{token}/refunds
+  summary: Get refunds from payout
+  component: components/responses/401Error
+- status: 400
+  title: Bad request. (HTTP 400).
+  operation: GET /v1/reporting/refunds
+  summary: Get refunds
+  error_code: pre_condition_failed
+- status: 401
+  title: Unauthorized
+  operation: GET /v1/reporting/refunds
+  summary: Get refunds
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/instore/paybylink/orders
+  summary: Create an offline pay-by-link order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/instore/paybylink/orders
+  summary: Create an offline pay-by-link order
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/instore/paybylink/orders/{token}/void
+  summary: Void an offline pay-by-link order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/instore/paybylink/orders/{token}/void
+  summary: Void an offline pay-by-link order
+  component: components/responses/401Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/orders
+  summary: Create order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/orders
+  summary: Create order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/orders
+  summary: Create order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/orders/{token}
+  summary: Update order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/orders/{token}
+  summary: Update order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/orders/{token}
+  summary: Update order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/payments/capture
+  summary: Capture order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/payments/capture
+  summary: Capture order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/payments/capture
+  summary: Capture order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
+- status: 400
+  title: Bad request
+  operation: GET /v2/payments/references
+  summary: Get orders by reference
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: GET /v2/payments/references
+  summary: Get orders by reference
+  component: components/responses/401Error
+- status: 401
+  title: Unauthorized
+  operation: GET /v2/payments/{token}
+  summary: Get order details
+  component: components/responses/401Error
+- status: 422
+  title: Unprocessable entity
+  operation: GET /v2/payments/{token}
+  summary: Get order details
+  error_code: invalid_token
+  component: components/responses/422Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/payments/{token}/delay
+  summary: Delay order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/payments/{token}/delay
+  summary: Delay order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/payments/{token}/delay
+  summary: Delay order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/payments/{token}/refund
+  summary: Refund order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/payments/{token}/refund
+  summary: Refund order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/payments/{token}/refund
+  summary: Refund order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
+- status: 400
+  title: Bad request
+  operation: POST /v2/payments/{token}/void
+  summary: Void order
+  error_code: api_validationerror
+  component: components/responses/400Error
+- status: 401
+  title: Unauthorized
+  operation: POST /v2/payments/{token}/void
+  summary: Void order
+  component: components/responses/401Error
+- status: 409
+  title: Conflict
+  operation: POST /v2/payments/{token}/void
+  summary: Void order
+  error_code: conflicting_operation_in_progress
+  component: components/responses/409Error
