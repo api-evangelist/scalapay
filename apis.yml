@@ -36,27 +36,48 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: scalapay:scalapay-api
-  name: Scalapay API
-  description: >-
-    Interact with Scalapay. Create and update instalment orders, capture, delay, void and refund
-    payments against the order token, run device-authenticated in-store and offline pay-by-link
-    orders, and pull reconciliation reporting for orders, refunds, payouts and disputes. Twenty
-    operations across three tags (Orders, Instore, Reporting) on two version prefixes.
+- aid: scalapay:scalapay-instore-api
+  name: Scalapay Instore API
+  description: The Instore API from Scalapay — 6 operation(s) for instore.
+  humanURL: https://developers.scalapay.com/reference/api-architecture
+  baseURL: https://api.scalapay.com
+  tags:
+  - Instore
+  properties:
+  - type: OpenAPI
+    url: openapi/scalapay-instore-api-openapi.yml
+  - type: Documentation
+    url: https://developers.scalapay.com/docs/get-started-with-scalapay
+  - type: APIReference
+    url: https://developers.scalapay.com/reference/api-architecture
+  - type: Sandbox
+    url: sandbox/scalapay-sandbox.yml
+- aid: scalapay:scalapay-orders-api
+  name: Scalapay Orders API
+  description: The Orders API from Scalapay — 8 operation(s) for orders.
   humanURL: https://developers.scalapay.com/reference/api-architecture
   baseURL: https://api.scalapay.com
   tags:
   - Orders
-  - Payments
-  - Instore
-  - Reporting
-  - Refunds
-  - Payouts
   properties:
   - type: OpenAPI
-    url: openapi/scalapay-openapi-original.yml
-  - type: Overlay
-    url: overlays/scalapay-overlay.yaml
+    url: openapi/scalapay-orders-api-openapi.yml
+  - type: Documentation
+    url: https://developers.scalapay.com/docs/get-started-with-scalapay
+  - type: APIReference
+    url: https://developers.scalapay.com/reference/api-architecture
+  - type: Sandbox
+    url: sandbox/scalapay-sandbox.yml
+- aid: scalapay:scalapay-reporting-api
+  name: Scalapay Reporting API
+  description: The Reporting API from Scalapay — 6 operation(s) for reporting.
+  humanURL: https://developers.scalapay.com/reference/api-architecture
+  baseURL: https://api.scalapay.com
+  tags:
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/scalapay-reporting-api-openapi.yml
   - type: Documentation
     url: https://developers.scalapay.com/docs/get-started-with-scalapay
   - type: APIReference
@@ -64,6 +85,10 @@ apis:
   - type: Sandbox
     url: sandbox/scalapay-sandbox.yml
 common:
+- type: MCPServer
+  url: mcp/scalapay-mcp.yml
+- type: Overlay
+  url: overlays/scalapay-overlay.yaml
 - type: Website
   url: https://www.scalapay.com/
 - type: DeveloperPortal
