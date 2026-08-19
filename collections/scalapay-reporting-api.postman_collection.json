@@ -1,0 +1,1629 @@
+{
+  "item": [
+    {
+      "id": "bc925f7a-8776-4855-b679-5c6cd20eab28",
+      "name": "Reporting",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "24fb0188-b109-42e8-8d73-a6f5cb54b8fe",
+          "name": "Get disputes",
+          "request": {
+            "name": "Get disputes",
+            "description": {
+              "content": "Retrieves a paginated list of disputes for reporting purposes with filtering options.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "disputes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "(Required) ISO 8601 date string for filtering disputes from this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "(Required) ISO 8601 date string for filtering disputes to this date."
+                },
+                {
+                  "disabled": false,
+                  "key": "disputeStatus",
+                  "value": "<string>",
+                  "description": "Filter by dispute status."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page number, zero-based (default 0)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "20",
+                  "description": "Number of items per page (default 20, max 100)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "22293a81-9157-492e-9a9c-9f7bffa92a31",
+              "name": "Disputes retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "disputeStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"disputeToken\": \"MOD123\",\n      \"orderToken\": \"ORD123\",\n      \"merchantOrderReference\": \"ORDER-2025-001\",\n      \"merchantDisputeReference\": \"DISP-2025-DEF\",\n      \"disputeStatus\": \"open\",\n      \"openingReason\": \"credit_not_processed\",\n      \"amountInCents\": 5000,\n      \"currency\": \"EUR\",\n      \"liability\": null,\n      \"resolvingReason\": null,\n      \"createdAt\": \"2025-08-18T10:30:00.000Z\",\n      \"expiresAt\": \"2025-08-25T10:30:00.000Z\",\n      \"updatedAt\": \"2025-08-18T10:30:00.000Z\",\n      \"resolvedAt\": null\n    },\n    {\n      \"disputeToken\": \"MOD456\",\n      \"orderToken\": \"ORD456\",\n      \"merchantOrderReference\": \"ORDER-2025-002\",\n      \"merchantDisputeReference\": \"DISP-2025-LTE\",\n      \"disputeStatus\": \"won\",\n      \"openingReason\": \"credit_not_processed\",\n      \"amountInCents\": 5000,\n      \"currency\": \"EUR\",\n      \"liability\": \"merchant\",\n      \"resolvingReason\": \"evidence_accepted\",\n      \"createdAt\": \"2025-08-18T10:30:00.000Z\",\n      \"expiresAt\": \"2025-08-25T10:30:00.000Z\",\n      \"updatedAt\": \"2025-08-18T10:30:00.000Z\",\n      \"resolvedAt\": \"2025-08-19T10:30:00.000Z\"\n    }\n  ],\n  \"total\": 2,\n  \"page\": 0,\n  \"size\": 20,\n  \"hasMore\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0db5264-fa7f-4ed4-8747-957da99a4384",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "disputeStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"pre_condition_failed\",\n  \"errorId\": \"error-19g6il4h3evp0\",\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c36aca2a-9b23-4ee5-980d-e61ab1c5b598",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "disputeStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98393148-a6e3-411d-a38e-55e633899452",
+              "name": "Internal server error. (HTTP 500).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "disputeStatus",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"internal_server\",\n  \"errorId\": \"error-59k0mqmzmrs77\",\n  \"httpStatusCode\": 500\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ace6bc65-c375-40c9-bacf-767014765fcb",
+          "name": "Get orders",
+          "request": {
+            "name": "Get orders",
+            "description": {
+              "content": "Retrieve orders. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5000",
+                  "description": "Number of items returned (default: 5000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page to show (default: 0)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "986c8431-0bd0-400c-937c-c7c3024b023a",
+              "name": "Orders retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"items\\\":[{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"orderStatus\\\":\\\"charged\\\",\\\"orderTokenLast4\\\":\\\"******AYPA\\\",\\\"orderCreatedDate\\\":\\\"2022-05-26T15:28:53.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"captureStatus\\\":\\\"captured\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"10.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ\\\",\\\"payoutDetails\\\":{\\\"merchantPayoutToken\\\":\\\"3BQD2I26MRG3\\\",\\\"transactionDate\\\":\\\"2022-05-27T11:19:52.000\\\",\\\"status\\\":\\\"processed\\\",\\\"grossAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"netAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"totalFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.98\\\"},\\\"scalapayFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.80\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.18\\\"},\\\"otherFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"},\\\"otherFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"}}},{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"orderStatus\\\":\\\"authorized\\\",\\\"orderTokenLast4\\\":\\\"******FH4R\\\",\\\"orderCreatedDate\\\":\\\"2022-06-13T20:50:35.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"OjbKlbnuMNMlN9j_g9dqdIhh\\\",\\\"captureStatus\\\":\\\"delayed\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":null,\\\"payoutDetails\\\":null},{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"orderStatus\\\":\\\"expired\\\",\\\"orderTokenLast4\\\":\\\"******T9KP\\\",\\\"orderCreatedDate\\\":\\\"2022-07-01T10:15:22.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"merchantOrder-5678\\\",\\\"captureStatus\\\":\\\"voided\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":null,\\\"payoutDetails\\\":null}],\\\"total\\\":3,\\\"page\\\":0,\\\"size\\\":5000,\\\"hasMore\\\":false}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15c3c019-f74f-471e-8e27-4c52db05bab1",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"errorCode\\\": \\\"pre_condition_failed\\\",\\\"errorId\\\": \\\"error-19g6il4h3evp0\\\",\\\"message\\\": \\\"startDate cannot be greater than endDate\\\",\\\"httpStatusCode\\\": 400}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6bf526e-aaf5-4e7c-9f83-09f4e4337d60",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19699e11-df36-41e6-beae-f60d648a0c93",
+          "name": "Get payouts",
+          "request": {
+            "name": "Get payouts",
+            "description": {
+              "content": "Retrieve payouts. This endpoint provides a list of all payouts received from Scalapay. Use the Scalapay API key Bearer token to access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "payouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5000",
+                  "description": "Number of items returned (default: 5000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page to show (default: 0)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fed6988-db83-44e0-9ae4-dd8e65f4a43e",
+              "name": "Payouts retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"items\\\":[{\\\"merchantPayoutToken\\\":\\\"FELGDH3XJDRS\\\",\\\"transactionDate\\\":\\\"2022-05-26T11:29:55.000\\\",\\\"totalAmount\\\":{\\\"amount\\\":\\\"26080.02\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"status\\\":\\\"processed\\\"},{\\\"merchantPayoutToken\\\":\\\"3BQD2I26MRG3\\\",\\\"transactionDate\\\":\\\"2022-05-27T11:19:52.000\\\",\\\"totalAmount\\\":{\\\"amount\\\":\\\"24188.61\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"status\\\":\\\"processed\\\"}],\\\"total\\\":2,\\\"page\\\":0,\\\"size\\\":5000,\\\"hasMore\\\":false}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bab20e0-a4be-445f-a83f-fd05804af34a",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"errorCode\\\": \\\"pre_condition_failed\\\",\\\"errorId\\\": \\\"error-19g6il4h3evp0\\\",\\\"message\\\": \\\"startDate cannot be greater than endDate\\\",\\\"httpStatusCode\\\": 400}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "811afff2-8552-4a3d-a3ff-b2ec67e6e806",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c03288ed-af7d-4984-aa95-131de5686bc4",
+          "name": "Get orders from payout",
+          "request": {
+            "name": "Get orders from payout",
+            "description": {
+              "content": "Retrieve orders from a payout. This endpoint provides a list of orders associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "payouts",
+                ":token",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5000",
+                  "description": "Number of items returned (default: 5000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page to show (default: 0)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Payout token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9d0f974f-5ddd-47e6-ac79-57cf54e41512",
+              "name": "Orders from payout retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"items\\\":[{\\\"orderStatus\\\":\\\"charged\\\",\\\"orderTokenLast4\\\":\\\"******AYPA\\\",\\\"orderCreatedDate\\\":\\\"2022-05-26T15:28:53.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"captureStatus\\\":\\\"captured\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"10.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ\\\",\\\"details\\\":{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"grossAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"netAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"totalFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.98\\\"},\\\"scalapayFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.80\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.18\\\"},\\\"otherFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"},\\\"otherFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"}}},{\\\"orderStatus\\\":\\\"charged\\\",\\\"orderTokenLast4\\\":\\\"******YKNN\\\",\\\"orderCreatedDate\\\":\\\"2022-05-26T16:12:49.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"captureStatus\\\":\\\"captured\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"10.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"tr_1L3ZwoFHjEtCWkTsMyDuEAm4\\\",\\\"details\\\":{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"grossAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"netAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"totalFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.98\\\"},\\\"scalapayFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.80\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.18\\\"},\\\"otherFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"},\\\"otherFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"}}}],\\\"total\\\":2,\\\"page\\\":0,\\\"size\\\":5000,\\\"hasMore\\\":false}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c86a02b-3edc-4383-a0b3-9c04f87ec4de",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"errorCode\\\":\\\"pre_condition_failed\\\",\\\"errorId\\\":\\\"error-19g6il4h6tr5l\\\",\\\"message\\\":\\\"an invalidmerchant PayoutToken was provided\\\",\\\"httpStatusCode\\\":400}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36f71212-2362-4b3e-bd79-6abd434b94ea",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2830467b-212d-4622-a5f0-38f670eb1a4e",
+          "name": "Get refunds from payout",
+          "request": {
+            "name": "Get refunds from payout",
+            "description": {
+              "content": "Retrieve refunds from a payout. This endpoint provides a list of refunds associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "payouts",
+                ":token",
+                "refunds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5000",
+                  "description": "Number of items returned (default: 5000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page to show (default: 0)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Payout token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a0792e0-8c26-4bd3-82c2-a08666cfd177",
+              "name": "Refunds from payout retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"items\\\":[{\\\"orderTokenLast4\\\":\\\"******TNV9\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"refundAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"trr_1L5M7hFHjEtCWkTsWAIDNuta\\\",\\\"details\\\":{\\\"grossAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"netAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"totalFeeAmount\\\":{\\\"amount\\\":\\\"-1.22\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"scalapayFeeAmount\\\":{\\\"amount\\\":\\\"-1.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"amount\\\":\\\"-0.22\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"otherFeeAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"otherFeeTaxAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"}}},{\\\"orderTokenLast4\\\":\\\"******JHP2\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"refundAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"trr_1L5M90FHjEtCWkTsoyHuImNL\\\",\\\"details\\\":{\\\"grossAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"netAmount\\\":{\\\"amount\\\":\\\"20.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"totalFeeAmount\\\":{\\\"amount\\\":\\\"-1.22\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"scalapayFeeAmount\\\":{\\\"amount\\\":\\\"-1.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"amount\\\":\\\"-0.22\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"otherFeeAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"otherFeeTaxAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"}}}],\\\"total\\\":2,\\\"page\\\":0,\\\"size\\\":500,\\\"hasMore\\\":false}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38a45704-ae7a-401e-ad5b-ce4e536ebffe",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"errorCode\\\":\\\"pre_condition_failed\\\",\\\"errorId\\\":\\\"error-19g6il4h6tr5l\\\",\\\"message\\\":\\\"an invalidmerchant PayoutToken was provided\\\",\\\"httpStatusCode\\\":400}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52805a9b-b237-4c87-b9b8-6ae69fda0f00",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "payouts",
+                    ":token",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Payout token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f24a9217-65b8-40da-af9c-42917386f8bd",
+          "name": "Get refunds",
+          "request": {
+            "name": "Get refunds",
+            "description": {
+              "content": "Retrieve refunds. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "reporting",
+                "refunds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<string>",
+                  "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<string>",
+                  "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "5000",
+                  "description": "Number of items returned (default: 5000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page to show (default: 0)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "96b70308-fa50-4e8b-8088-60c9a8c43c41",
+              "name": "Refunds retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"items\\\":[{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"orderStatus\\\":\\\"charged\\\",\\\"orderTokenLast4\\\":\\\"******AYPA\\\",\\\"orderCreatedDate\\\":\\\"2022-05-26T15:28:53.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"merchantOrder-1234\\\",\\\"captureStatus\\\":\\\"captured\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"10.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":\\\"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ\\\",\\\"payoutDetails\\\":{\\\"merchantPayoutToken\\\":\\\"3BQD2I26MRG3\\\",\\\"transactionDate\\\":\\\"2022-05-27T11:19:52.000\\\",\\\"status\\\":\\\"processed\\\",\\\"grossAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"netAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"10.00\\\"},\\\"totalFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.98\\\"},\\\"scalapayFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.80\\\"},\\\"scalapayFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.18\\\"},\\\"otherFeeAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"},\\\"otherFeeTaxAmount\\\":{\\\"currency\\\":\\\"EUR\\\",\\\"amount\\\":\\\"0.00\\\"}}},{\\\"storeReference\\\":null,\\\"deviceReference\\\":null,\\\"orderStatus\\\":\\\"authorized\\\",\\\"orderTokenLast4\\\":\\\"******FH4R\\\",\\\"orderCreatedDate\\\":\\\"2022-06-13T20:50:35.000\\\",\\\"channel\\\":null,\\\"type\\\":\\\"online\\\",\\\"product\\\":\\\"pay-in-3\\\",\\\"merchantReference\\\":\\\"OjbKlbnuMNMlN9j_g9dqdIhh\\\",\\\"captureStatus\\\":\\\"delayed\\\",\\\"captureAmount\\\":{\\\"amount\\\":\\\"0.00\\\",\\\"currency\\\":\\\"EUR\\\"},\\\"transferId\\\":null,\\\"payoutDetails\\\":null}],\\\"total\\\":2,\\\"page\\\":0,\\\"size\\\":5000,\\\"hasMore\\\":false}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b640dbef-6a93-47a2-bdf6-1e798d5e1fcb",
+              "name": "Bad request. (HTTP 400).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\\"errorCode\\\": \\\"pre_condition_failed\\\",\\\"errorId\\\": \\\"error-19g6il4h3evp0\\\",\\\"message\\\": \\\"startDate cannot be greater than endDate\\\",\\\"httpStatusCode\\\": 400}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c3c3e64f-1c73-4b2a-8380-cde80e4296d8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "reporting",
+                    "refunds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "size",
+                      "value": "5000"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://integration.api.scalapay.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e08e4c66-dd33-4134-93d3-81c824220dd0",
+    "name": "Scalapay Reporting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Interact with Scalapay.",
+      "type": "text/plain"
+    }
+  }
+}

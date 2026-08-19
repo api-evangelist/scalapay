@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scalapay Instore API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Instore",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create instore order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v1/instore/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an instore order and charge the customer. Use the correct Bearer token for authentication."
+        },
+        {
+          "info": {
+            "name": "Get instore orders by reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/instore/orders/references",
+            "params": [
+              {
+                "name": "orderToken",
+                "value": "769DKMXOC52H",
+                "type": "query",
+                "description": "Order token to search for."
+              },
+              {
+                "name": "merchantOrderReference",
+                "value": "merchantOrder-1234",
+                "type": "query",
+                "description": "Merchant reference to search for."
+              },
+              {
+                "name": "merchantProcessorReference",
+                "value": "processor-ref-5678",
+                "type": "query",
+                "description": "Merchant processor reference to search for."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a list of instore order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.\n\nThe endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).\n"
+        },
+        {
+          "info": {
+            "name": "Get an instore order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/instore/orders/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the status of an instore order."
+        },
+        {
+          "info": {
+            "name": "Refund an instore order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v1/instore/orders/:token/refund",
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Refund an instore order. The refund is processed and funds are transferred back to the customer."
+        },
+        {
+          "info": {
+            "name": "Create an offline pay-by-link order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/instore/paybylink/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create an offline pay-by-link order and notify the customer using the extensions. Use the correct device Bearer token, not the merchant token."
+        },
+        {
+          "info": {
+            "name": "Void an offline pay-by-link order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/instore/paybylink/orders/:token/void",
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Void the instore order, for example if a customer wishes to cancel. Any authorizations or held funds for the pay-by-link order are released."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

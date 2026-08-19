@@ -1,0 +1,567 @@
+openapi: 3.2.0
+info:
+  title: Scalapay Instore API
+  description: Interact with Scalapay.
+  version: '3.0'
+servers:
+- url: https://integration.api.scalapay.com
+  description: Sandbox server that uses test data. Use this server for testing purposes.
+- url: https://api.scalapay.com
+  description: Production server that uses live data.
+security:
+- ApiKeyAuth: []
+tags:
+- name: Instore
+paths:
+  /v1/instore/orders:
+    post:
+      tags:
+      - Instore
+      summary: Create instore order
+      description: Create an instore order and charge the customer. Use the correct Bearer token for authentication.
+      security:
+      - InstoreApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - merchantOperatorId
+              - merchantReference
+              - preApprovalCode
+              - requestId
+              - totalAmount
+              - items
+              properties:
+                totalAmount:
+                  $ref: '#/components/schemas/amount'
+                preApprovalCode:
+                  type: string
+                  description: Barcode presented by the customer. It is the code shown to the cashier for payment.
+                requestId:
+                  type: string
+                  description: Unique identifier for the v2/instore/orders request from the POS system. It is available in your merchant dashboard.
+                merchantOperatorId:
+                  type: string
+                  description: String identifier of the POS operator, such as an employee ID or name.
+                items:
+                  $ref: '#/components/schemas/items'
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+            example:
+              merchantOperatorId: Test Integration
+              requestId: EKMXO6QFN
+              preApprovalCode: '85633887'
+              totalAmount:
+                amount: '10.00'
+                currency: EUR
+              items:
+              - name: T-Shirt
+                category: clothes
+                subcategory:
+                - shirt
+                - long-sleeve
+                brand: TopChoice
+                gtin: '123458791330'
+                sku: '12341234'
+                quantity: 1
+                price:
+                  amount: '10.00'
+                  currency: EUR
+              - name: Jeans
+                category: clothes
+                subcategory:
+                - pants
+                - jeans
+                brand: TopChoice
+                gtin: '123458722222'
+                sku: '12341235'
+                quantity: 1
+                price:
+                  amount: '20.00'
+                  currency: EUR
+              merchantReference: merchantOrder-1234
+      responses:
+        '200':
+          description: Instore order created successfully.
+          content:
+            application/json:
+              example:
+                requestId: EKMXO6QFN
+                token: 769DKMXOC52H
+                status: charged
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/instore/orders/references:
+    get:
+      tags:
+      - Instore
+      summary: Get instore orders by reference
+      description: 'Retrieve a list of instore order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.
+
+
+        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
+
+        '
+      security:
+      - InstoreApiKeyAuth: []
+      parameters:
+      - name: orderToken
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Order token to search for.
+        example: 769DKMXOC52H
+      - name: merchantOrderReference
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Merchant reference to search for.
+        example: merchantOrder-1234
+      - name: merchantProcessorReference
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Merchant processor reference to search for.
+        example: processor-ref-5678
+      responses:
+        '200':
+          description: Instore orders retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    orderToken:
+                      type: string
+                      description: Order token.
+                    merchantOrderReference:
+                      type: string
+                      description: Merchant reference.
+                    merchantProcessorReference:
+                      type: string
+                      description: Merchant processor reference.
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: Order creation timestamp.
+              example:
+              - orderToken: 769DKMXOC52H
+                merchantOrderReference: merchantOrder-1234
+                merchantProcessorReference: processor-ref-5678
+                createdAt: '2024-11-08T11:26:17.000Z'
+              - orderToken: 769DKMXOC51H
+                merchantOrderReference: merchantOrder-1234
+                merchantProcessorReference: null
+                createdAt: '2024-11-07T09:15:32.000Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/instore/orders/{token}:
+    get:
+      tags:
+      - Instore
+      summary: Get an instore order
+      description: Retrieve the status of an instore order.
+      security:
+      - InstoreApiKeyAuth: []
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Order token.
+      responses:
+        '200':
+          description: Instore order retrieved successfully.
+          content:
+            application/json:
+              examples:
+                charged:
+                  summary: Charged order
+                  value:
+                    token: 769DKMXOC52H
+                    status: charged
+                expired:
+                  summary: Expired order with eligibility feedback
+                  value:
+                    token: 82LJ027WQF
+                    status: expired
+                    lastEligibilityFeedback: DECLINED_FRAUD
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/instore/orders/{token}/refund:
+    post:
+      tags:
+      - Instore
+      summary: Refund an instore order
+      description: Refund an instore order. The refund is processed and funds are transferred back to the customer.
+      security:
+      - InstoreApiKeyAuth: []
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Order token.
+        example: 71KH916VPE
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - merchantOperatorId
+              - refundAmount
+              - requestId
+              properties:
+                requestId:
+                  type: string
+                  description: Unique identifier for the refund request.
+                merchantOperatorId:
+                  type: string
+                  description: Identifier of the POS operator.
+                refundAmount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Refund amount.
+            example:
+              merchantOperatorId: Test Integration
+              requestId: EKMXO6QFN
+              refundAmount:
+                amount: '10.00'
+                currency: EUR
+      responses:
+        '200':
+          description: Instore order refunded successfully.
+          content:
+            application/json:
+              example:
+                merchantOperatorId: Test Integration
+                requestId: EKMXO6QFN
+                refundAmount:
+                  amount: 10
+                  currency: EUR
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v2/instore/paybylink/orders:
+    post:
+      tags:
+      - Instore
+      summary: Create an offline pay-by-link order
+      description: Create an offline pay-by-link order and notify the customer using the extensions. Use the correct device Bearer token, not the merchant token.
+      security:
+      - InstoreApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - totalAmount
+              properties:
+                totalAmount:
+                  $ref: '#/components/schemas/amount'
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+                type:
+                  type: string
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/items'
+                  description: Items purchased by the consumer.
+                extensions:
+                  $ref: '#/components/schemas/extensions'
+            example:
+              totalAmount:
+                amount: '108.00'
+                currency: EUR
+              merchantReference: merchantOrder-offline-01
+              type: link
+              extensions:
+                type:
+                  link:
+                    notification:
+                      phoneCountryCode: '+39'
+                      phoneNumber: '3470000000'
+                      emailAddress: test@scalapay.com
+                      preferredLanguage: italiano
+                      channels:
+                      - sms
+                      - email
+      responses:
+        '200':
+          description: Offline pay-by-link order created successfully.
+          content:
+            application/json:
+              example:
+                expires: '2024-12-03T14:59:18.000Z'
+                token: 769DKMXOC52H
+                checkoutUrl: https://portal.scalapay.com/checkout/769DKMXOC52H
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v2/instore/paybylink/orders/{token}/void:
+    post:
+      tags:
+      - Instore
+      summary: Void an offline pay-by-link order
+      description: Void the instore order, for example if a customer wishes to cancel. Any authorizations or held funds for the pay-by-link order are released.
+      security:
+      - InstoreApiKeyAuth: []
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Order token.
+        example: 71KH916VPE
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantOperatorId:
+                  type: string
+                  description: Identifier of the POS operator.
+                requestId:
+                  type: string
+                  description: Unique identifier for the void request.
+            example:
+              merchantOperatorId: Test Integration
+              requestId: EKMXO6QFN
+      responses:
+        '200':
+          description: Pay-by-link order voided successfully.
+          content:
+            application/json:
+              example:
+                token: B1KLLDPMIH
+                merchantReference: RF127261AD22
+                voidedAt: '2024-06-18T15:29:41.835Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+components:
+  schemas:
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
+    extensions:
+      type: object
+      description: Additional extension properties for the order.
+      properties:
+        industry:
+          type: object
+          description: Industry-specific extensions.
+          properties:
+            travel:
+              type: object
+              description: Travel-related extension information.
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                  example: '2024-01-01'
+                  description: Travel start date.
+                endDate:
+                  type: string
+                  format: date
+                  example: '2024-10-01'
+                  description: Travel end date.
+        type:
+          type: object
+          description: Extensions for link orders.
+          properties:
+            link:
+              type: object
+              required:
+              - notification
+              description: Extensions for orders created via a link.
+              properties:
+                notification:
+                  type: object
+                  required:
+                  - channels
+                  description: Notification details for the order.
+                  properties:
+                    phoneCountryCode:
+                      type: string
+                      example: '+39'
+                      description: Customer phone number country code. Required if SMS is selected as a notification channel.
+                    phoneNumber:
+                      type: string
+                      example: '3470000000'
+                      description: Customer phone number. Required if SMS is selected as a notification channel.
+                    preferredLanguage:
+                      type: string
+                      example: italiano
+                      description: Customer's preferred language.
+                      default: ''
+                      enum:
+                      - ''
+                      - english
+                      - italiano
+                      - francais
+                      - deutsch
+                      - espanol
+                      - dutch
+                      - suomi
+                      - portuguese
+                    emailAddress:
+                      type: string
+                      example: test@scalapay.com
+                      description: Customer email address. Required if email is selected as a notification channel.
+                    channels:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - email
+                        - sms
+                      example:
+                      - email
+                      - sms
+                      description: Notification channels to use. Choose "email" and/or "sms".
+    items:
+      type: array
+      description: List of items in the order.
+      items:
+        type: object
+        required:
+        - category
+        - name
+        - price
+        - quantity
+        - sku
+        properties:
+          gtin:
+            type: string
+            description: Global Trade Item Number (UPC, EAN, JAN, ISBN, ITF-14).
+          quantity:
+            type: integer
+            description: Quantity of the item.
+          price:
+            allOf:
+            - $ref: '#/components/schemas/amount'
+            description: Price of the item.
+          name:
+            type: string
+            description: Name of the item.
+          category:
+            type: string
+            description: Category of the item.
+          subcategory:
+            type: array
+            description: Subcategories of the item.
+            items:
+              type: string
+          sku:
+            type: string
+            description: Stock Keeping Unit (SKU) code.
+          brand:
+            type: string
+            description: Brand name.
+          pageUrl:
+            type: string
+            description: URL of the product page.
+          imageUrl:
+            type: string
+            description: URL of the product image.
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
+  responses:
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+    400Error:
+      description: Bad request
+      content:
+        application/json:
+          example:
+            errorCode: api_validationerror
+            errorId: error-19g6ll3ucve9e
+            message:
+              status: 400
+              statusText: Bad Request
+              errors:
+              - field:
+                - totalAmount
+                - amount
+                location: body
+                messages:
+                - '"amount" is not allowed to be empty'
+                types:
+                - any.empty
+            httpStatusCode: 400
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication using the Authorization header with a Bearer token.
+      x-default: Bearer qhtfs87hjnc12kkos
+    InstoreApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication for instore endpoints using the Authorization header with a Bearer token.
+      x-default: Bearer testdeviceapikey
+x-samples-enabled: true
+x-explorer-enabled: true

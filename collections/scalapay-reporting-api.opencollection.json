@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scalapay Reporting API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get disputes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/disputes",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 date string for filtering disputes from this date."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 date string for filtering disputes to this date."
+              },
+              {
+                "name": "disputeStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter by dispute status."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number, zero-based (default 0)."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page (default 20, max 100)."
+              }
+            ]
+          },
+          "docs": "Retrieves a paginated list of disputes for reporting purposes with filtering options."
+        },
+        {
+          "info": {
+            "name": "Get orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/orders",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items returned (default: 5000)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page to show (default: 0)."
+              }
+            ]
+          },
+          "docs": "Retrieve orders. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint."
+        },
+        {
+          "info": {
+            "name": "Get payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/payouts",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items returned (default: 5000)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page to show (default: 0)."
+              }
+            ]
+          },
+          "docs": "Retrieve payouts. This endpoint provides a list of all payouts received from Scalapay. Use the Scalapay API key Bearer token to access this endpoint."
+        },
+        {
+          "info": {
+            "name": "Get orders from payout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/payouts/:token/orders",
+            "params": [
+              {
+                "name": "token",
+                "value": "3BQD2I26MRG3",
+                "type": "path",
+                "description": "Payout token."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items returned (default: 5000)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page to show (default: 0)."
+              }
+            ]
+          },
+          "docs": "Retrieve orders from a payout. This endpoint provides a list of orders associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint."
+        },
+        {
+          "info": {
+            "name": "Get refunds from payout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/payouts/:token/refunds",
+            "params": [
+              {
+                "name": "token",
+                "value": "NRF55213PDYK",
+                "type": "path",
+                "description": "Payout token."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items returned (default: 5000)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page to show (default: 0)."
+              }
+            ]
+          },
+          "docs": "Retrieve refunds from a payout. This endpoint provides a list of refunds associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint."
+        },
+        {
+          "info": {
+            "name": "Get refunds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v1/reporting/refunds",
+            "params": [
+              {
+                "name": "startDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "endDate",
+                "value": "",
+                "type": "query",
+                "description": "End date for bank transactions in \"YYYY-MM-DD\" format. (Default: today)."
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Number of items returned (default: 5000)."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page to show (default: 0)."
+              }
+            ]
+          },
+          "docs": "Retrieve refunds. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

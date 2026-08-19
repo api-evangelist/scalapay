@@ -1,0 +1,2435 @@
+{
+  "item": [
+    {
+      "id": "bda54638-1971-4266-b540-35f179fadec6",
+      "name": "Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a1da102-1f89-4f8c-9169-c8ee00c0c149",
+          "name": "Create order",
+          "request": {
+            "name": "Create order",
+            "description": {
+              "content": "Create a Scalapay order. The endpoint returns a `token` required to capture the payment and a `checkoutUrl` that redirects the customer to Scalapay Checkout, where the payment is authorized.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consumer\": {\n    \"phoneNumber\": \"<string>\",\n    \"givenNames\": \"<string>\",\n    \"surname\": \"<string>\",\n    \"email\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    }\n  ],\n  \"merchant\": {\n    \"redirectCancelUrl\": \"<string>\",\n    \"redirectConfirmUrl\": \"<string>\"\n  },\n  \"shipping\": {\n    \"phoneNumber\": \"<string>\",\n    \"countryCode\": \"<iso-alpha-2>\",\n    \"name\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"suburb\": \"<string>\",\n    \"line1\": \"<string>\"\n  },\n  \"totalAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"billing\": {\n    \"phoneNumber\": \"<string>\",\n    \"countryCode\": \"<iso-alpha-2>\",\n    \"name\": \"<string>\",\n    \"postcode\": \"<string>\",\n    \"suburb\": \"<string>\",\n    \"line1\": \"<string>\"\n  },\n  \"discounts\": [\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"displayName\": \"<string>\"\n    },\n    {\n      \"amount\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"displayName\": \"<string>\"\n    }\n  ],\n  \"merchantReference\": \"<string>\",\n  \"shippingAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"taxAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"type\": \"<string>\",\n  \"product\": \"<string>\",\n  \"frequency\": {\n    \"number\": \"<integer>\",\n    \"frequencyType\": \"<string>\"\n  },\n  \"orderExpiryMilliseconds\": \"<integer>\",\n  \"extensions\": {\n    \"industry\": {\n      \"travel\": {\n        \"startDate\": \"<date>\",\n        \"endDate\": \"<date>\"\n      }\n    },\n    \"type\": {\n      \"link\": {\n        \"notification\": {\n          \"channels\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"phoneCountryCode\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"preferredLanguage\": \"\",\n          \"emailAddress\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b646b3e4-e5bd-4298-a34b-6dfc23e152c1",
+              "name": "Successful order creation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"consumer\": {\n    \"phoneNumber\": \"+393001234567\",\n    \"givenNames\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"email\": \"test@scalapay.com\"\n  },\n  \"billing\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"shipping\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      },\n      \"pageUrl\": \"https://www.scalapay.com/product/view/\",\n      \"imageUrl\": \"https://www.scalapay.com/product/view/\"\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"discounts\": [\n    {\n      \"displayName\": \"10% Off\",\n      \"amount\": {\n        \"amount\": \"3.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchant\": {\n    \"redirectConfirmUrl\": \"https://portal.integration.scalapay.com/success-url\",\n    \"redirectCancelUrl\": \"https://portal.integration.scalapay.com/failure-url\"\n  },\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"taxAmount\": {\n    \"amount\": \"3.70\",\n    \"currency\": \"EUR\"\n  },\n  \"shippingAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"type\": \"online\",\n  \"product\": \"pay-in-3\",\n  \"frequency\": {\n    \"number\": \"1\",\n    \"frequencyType\": \"monthly\"\n  },\n  \"orderExpiryMilliseconds\": 2400000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"expires\": \"2024-11-08T13:06:17.858Z\",\n  \"checkoutUrl\": \"https://portal.scalapay.com/checkout/71KH916VPE\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "754abeb6-a7fb-429c-a4ed-65ccd24ec317",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"consumer\": {\n    \"phoneNumber\": \"+393001234567\",\n    \"givenNames\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"email\": \"test@scalapay.com\"\n  },\n  \"billing\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"shipping\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      },\n      \"pageUrl\": \"https://www.scalapay.com/product/view/\",\n      \"imageUrl\": \"https://www.scalapay.com/product/view/\"\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"discounts\": [\n    {\n      \"displayName\": \"10% Off\",\n      \"amount\": {\n        \"amount\": \"3.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchant\": {\n    \"redirectConfirmUrl\": \"https://portal.integration.scalapay.com/success-url\",\n    \"redirectCancelUrl\": \"https://portal.integration.scalapay.com/failure-url\"\n  },\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"taxAmount\": {\n    \"amount\": \"3.70\",\n    \"currency\": \"EUR\"\n  },\n  \"shippingAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"type\": \"online\",\n  \"product\": \"pay-in-3\",\n  \"frequency\": {\n    \"number\": \"1\",\n    \"frequencyType\": \"monthly\"\n  },\n  \"orderExpiryMilliseconds\": 2400000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e39994c6-75a3-4c98-b1b2-cf4d23af12df",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"consumer\": {\n    \"phoneNumber\": \"+393001234567\",\n    \"givenNames\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"email\": \"test@scalapay.com\"\n  },\n  \"billing\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"shipping\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      },\n      \"pageUrl\": \"https://www.scalapay.com/product/view/\",\n      \"imageUrl\": \"https://www.scalapay.com/product/view/\"\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"discounts\": [\n    {\n      \"displayName\": \"10% Off\",\n      \"amount\": {\n        \"amount\": \"3.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchant\": {\n    \"redirectConfirmUrl\": \"https://portal.integration.scalapay.com/success-url\",\n    \"redirectCancelUrl\": \"https://portal.integration.scalapay.com/failure-url\"\n  },\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"taxAmount\": {\n    \"amount\": \"3.70\",\n    \"currency\": \"EUR\"\n  },\n  \"shippingAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"type\": \"online\",\n  \"product\": \"pay-in-3\",\n  \"frequency\": {\n    \"number\": \"1\",\n    \"frequencyType\": \"monthly\"\n  },\n  \"orderExpiryMilliseconds\": 2400000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9baf2bd-2859-4a49-a905-e5e6a82aa2a3",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"consumer\": {\n    \"phoneNumber\": \"+393001234567\",\n    \"givenNames\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"email\": \"test@scalapay.com\"\n  },\n  \"billing\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"shipping\": {\n    \"name\": \"Mario Rossi\",\n    \"line1\": \"Via Puglia, 58\",\n    \"suburb\": \"Castelfranco Veneto\",\n    \"postcode\": \"31033\",\n    \"countryCode\": \"IT\",\n    \"phoneNumber\": \"+393001234567\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      },\n      \"pageUrl\": \"https://www.scalapay.com/product/view/\",\n      \"imageUrl\": \"https://www.scalapay.com/product/view/\"\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"discounts\": [\n    {\n      \"displayName\": \"10% Off\",\n      \"amount\": {\n        \"amount\": \"3.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchant\": {\n    \"redirectConfirmUrl\": \"https://portal.integration.scalapay.com/success-url\",\n    \"redirectCancelUrl\": \"https://portal.integration.scalapay.com/failure-url\"\n  },\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"taxAmount\": {\n    \"amount\": \"3.70\",\n    \"currency\": \"EUR\"\n  },\n  \"shippingAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"type\": \"online\",\n  \"product\": \"pay-in-3\",\n  \"frequency\": {\n    \"number\": \"1\",\n    \"frequencyType\": \"monthly\"\n  },\n  \"orderExpiryMilliseconds\": 2400000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "daf0af70-ebb0-43fb-8584-7a7d05447526",
+          "name": "Update order",
+          "request": {
+            "name": "Update order",
+            "description": {
+              "content": "Update an order by changing the `merchantReference`. Use this endpoint when specifying the `merchantReference` during order creation was not possible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "orders",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantReference\": \"<string>\",\n  \"merchantProcessorReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d49d282c-ea6c-4ae6-81cd-01c39c250e1f",
+              "name": "Order updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"merchantProcessorReference\": \"processorOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Present when the response was served from the idempotency cache.",
+                  "key": "Request-Idempotency",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"merchantProcessorReference\": \"processorOrder-1234\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f5e88c1-bfc5-423e-8411-c338c6002b22",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"merchantProcessorReference\": \"processorOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d51db97-261a-4db5-9158-ddcb80effc8f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"merchantProcessorReference\": \"processorOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ca9d1a4-ce03-4773-b906-58f5f46e15a1",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"merchantOrder-1234\",\n  \"merchantProcessorReference\": \"processorOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ab0c752-c933-4792-8ba3-82476628fce4",
+          "name": "Capture order",
+          "request": {
+            "name": "Capture order",
+            "description": {
+              "content": "Capture the payment associated with the order. The specified amount is deducted from the user's account and transferred to the merchant's account. You can capture an amount up to the total specified during order creation. You may also provide an updated `merchantReference` to update the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                "capture"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"<string>\",\n  \"merchantReference\": \"<string>\",\n  \"amount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8b43947a-b6e2-4d98-af2e-ef28fd75fc47",
+              "name": "Payment captured successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"71KH916VPE\",\n  \"merchantReference\": \"merchantOrder-updated\",\n  \"amount\": {\n    \"amount\": \"190,00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Present when the response was served from the idempotency cache.",
+                  "key": "Request-Idempotency",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"status\": \"APPROVED\",\n  \"totalAmount\": {\n    \"currency\": \"EUR\",\n    \"amount\": \"190.00\"\n  },\n  \"orderDetails\": {\n    \"items\": [\n      {\n        \"sku\": \"12341234\",\n        \"gtin\": \"123458791330\",\n        \"name\": \"T-Shirt\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"10.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"shirt\",\n          \"long-sleeve\"\n        ]\n      },\n      {\n        \"sku\": \"12341235\",\n        \"gtin\": \"123458722222\",\n        \"name\": \"Jeans\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"20.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"pants\",\n          \"jeans\"\n        ]\n      }\n    ],\n    \"billing\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Puglia, 58\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"consumer\": {\n      \"email\": \"test@scalapay.com\",\n      \"surname\": \"Consumer\",\n      \"givenNames\": \"Joe\",\n      \"phoneNumber\": \"0400000001\"\n    },\n    \"merchant\": {\n      \"redirectCancelUrl\": \"https://integration.api.scalapay.com/failure-url\",\n      \"redirectConfirmUrl\": \"https://integration.api.scalapay.com/success-url\"\n    },\n    \"shipping\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Puglia, 58\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"discounts\": [\n      {\n        \"amount\": {\n          \"amount\": \"3.00\",\n          \"currency\": \"EUR\"\n        },\n        \"displayName\": \"10% Off\"\n      }\n    ],\n    \"taxAmount\": {\n      \"amount\": \"3.70\",\n      \"currency\": \"EUR\"\n    },\n    \"totalAmount\": {\n      \"amount\": \"190.00\",\n      \"currency\": \"EUR\"\n    },\n    \"shippingAmount\": {\n      \"amount\": \"10.00\",\n      \"currency\": \"EUR\"\n    },\n    \"merchantReference\": \"merchantOrder-1234-updated\"\n  },\n  \"capturedAt\": \"2023-10-19T15:11:20.000Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c9e188e-b1f7-4cae-8b2b-e5de3fd2e1f5",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"71KH916VPE\",\n  \"merchantReference\": \"merchantOrder-updated\",\n  \"amount\": {\n    \"amount\": \"190,00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6454f7fb-8dab-4148-85d1-554577164e0d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"71KH916VPE\",\n  \"merchantReference\": \"merchantOrder-updated\",\n  \"amount\": {\n    \"amount\": \"190,00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4cee4bb-7269-45e5-a22f-aba657f262bf",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "capture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"71KH916VPE\",\n  \"merchantReference\": \"merchantOrder-updated\",\n  \"amount\": {\n    \"amount\": \"190,00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a19147b-ca68-4cda-a718-f8d707c03614",
+          "name": "Get orders by reference",
+          "request": {
+            "name": "Get orders by reference",
+            "description": {
+              "content": "Retrieve a list of order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.\n\nThe endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                "references"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderToken",
+                  "value": "<string>",
+                  "description": "Order token to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchantOrderReference",
+                  "value": "<string>",
+                  "description": "Merchant reference to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchantProcessorReference",
+                  "value": "<string>",
+                  "description": "Merchant processor reference to search for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e53612ea-7c40-46cc-8cbd-ec8535ee0242",
+              "name": "Orders retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "71KH916VPE"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"orderToken\": \"71KH916VPE\",\n    \"merchantOrderReference\": \"merchantOrder-1234\",\n    \"merchantProcessorReference\": \"processor-ref-5678\",\n    \"createdAt\": \"2024-11-08T11:26:17.000Z\"\n  },\n  {\n    \"orderToken\": \"71KH916VPD\",\n    \"merchantOrderReference\": \"merchantOrder-1234\",\n    \"merchantProcessorReference\": null,\n    \"createdAt\": \"2024-11-07T09:15:32.000Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5edcde4f-f3d5-4480-aa59-fa370edcb534",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "71KH916VPE"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "541a76d9-3fcb-4fb9-95f9-64696f180d0d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "71KH916VPE"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c53e4581-c4ae-4f14-910c-9d17a7e174d1",
+          "name": "Get order details",
+          "request": {
+            "name": "Get order details",
+            "description": {
+              "content": "Return all details regarding the specified order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b793aadf-a106-41c5-aa89-dd5b0dd36f7e",
+              "name": "Order details retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"created\": \"2024-11-08T11:26:17.000Z\",\n  \"status\": \"charged\",\n  \"captureStatus\": \"captured\",\n  \"totalAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"orderDetails\": {\n    \"items\": [\n      {\n        \"sku\": \"12341234\",\n        \"gtin\": \"123458791330\",\n        \"name\": \"T-Shirt\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"10.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"shirt\",\n          \"long-sleeve\"\n        ]\n      },\n      {\n        \"sku\": \"12341235\",\n        \"gtin\": \"123458722222\",\n        \"name\": \"Jeans\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"20.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"pants\",\n          \"jeans\"\n        ]\n      }\n    ],\n    \"billing\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Piglia, 58\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"consumer\": {\n      \"email\": \"test@scalapay.com\",\n      \"surname\": \"Consumer\",\n      \"givenNames\": \"Joe\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"merchant\": {\n      \"redirectCancelUrl\": \"https://integration.api.scalapay.com/failure-url\",\n      \"redirectConfirmUrl\": \"https://integration.api.scalapay.com/success-url\"\n    },\n    \"shipping\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Puglia, 58\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"geoCode\": {\n        \"place_id\": \"VklBK0RFTExBK1JPU0ErNTgrLE1PTlRFTFVQTytGSU9SRU5USU5PLDUwMDU2LElU\"\n      },\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"discounts\": [\n      {\n        \"amount\": {\n          \"amount\": \"3.00\",\n          \"currency\": \"EUR\"\n        },\n        \"displayName\": \"10% Off\"\n      }\n    ],\n    \"taxAmount\": {\n      \"amount\": \"3.70\",\n      \"currency\": \"EUR\"\n    },\n    \"totalAmount\": {\n      \"amount\": \"190.00\",\n      \"currency\": \"EUR\"\n    },\n    \"shippingAmount\": {\n      \"amount\": \"10.00\",\n      \"currency\": \"EUR\"\n    },\n    \"merchantReference\": \"merchantOrder-1234-updated\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "958dce0b-3d41-418e-afdc-8173338f12f0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a2db4ad-42b7-4d5e-9d55-9e6f55dad97c",
+              "name": "Unprocessable entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"invalid_token\",\n  \"errorId\": \"error-19g6ll3ud3ndj\",\n  \"message\": \"Order null not found.\",\n  \"httpStatusCode\": 422\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52fe9361-d97d-487e-8617-ba8dbe7635fc",
+          "name": "Delay order",
+          "request": {
+            "name": "Delay order",
+            "description": {
+              "content": "Request a delayed capture for the order. The payment schedule for the customer is created; however, no funds are settled until a capture call is made. Outstanding authorizations are automatically voided once the authorization expiry time is reached.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                ":token",
+                "delay"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"authorizationExpiryMilliseconds\": 432000000,\n  \"merchantReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e59abe36-ed26-4bae-b5fe-07de3dd7e971",
+              "name": "Order delayed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "delay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorizationExpiryMilliseconds\": 432000000,\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Present when the response was served from the idempotency cache.",
+                  "key": "Request-Idempotency",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"status\": \"AUTHORIZED\",\n  \"authorizationExpiryAt\": \"2024-12-25T23:02:13.000Z\",\n  \"totalAmount\": {\n    \"amount\": \"40,70\",\n    \"currency\": \"EUR\"\n  },\n  \"orderDetails\": {\n    \"items\": [\n      {\n        \"sku\": \"12341234\",\n        \"gtin\": \"123458791330\",\n        \"name\": \"T-Shirt\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"10.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"shirt\",\n          \"long-sleeve\"\n        ]\n      },\n      {\n        \"sku\": \"12341235\",\n        \"gtin\": \"123458722222\",\n        \"name\": \"Jeans\",\n        \"brand\": \"TopChoice\",\n        \"price\": {\n          \"amount\": \"20.00\",\n          \"currency\": \"EUR\"\n        },\n        \"category\": \"clothes\",\n        \"quantity\": 1,\n        \"subcategory\": [\n          \"pants\",\n          \"jeans\"\n        ]\n      }\n    ],\n    \"billing\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Puglia, 23\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"consumer\": {\n      \"email\": \"test@scalapay.com\",\n      \"surname\": \"Consumer\",\n      \"givenNames\": \"Joe\",\n      \"phoneNumber\": \"0400000001\"\n    },\n    \"merchant\": {\n      \"redirectCancelUrl\": \"https://portal.integration.com/failure-url\",\n      \"redirectConfirmUrl\": \"https://portal.integration.scalapay.com/success-url\"\n    },\n    \"shipping\": {\n      \"name\": \"Mario Rossi\",\n      \"line1\": \"Via Puglia, 23\",\n      \"suburb\": \"Castelfranco Veneto\",\n      \"geoCode\": {\n        \"place_id\": \"VklBK0RFTExBK1JPU0ErMjMrLE1PTlRFTFVQTytGSU9SRU5USU5PLDUwMDU2LElU\"\n      },\n      \"postcode\": \"31033\",\n      \"countryCode\": \"IT\",\n      \"phoneNumber\": \"393001234567\"\n    },\n    \"discounts\": [\n      {\n        \"amount\": {\n          \"amount\": \"3.00\",\n          \"currency\": \"EUR\"\n        },\n        \"displayName\": \"10% Off\"\n      }\n    ],\n    \"taxAmount\": {\n      \"amount\": \"3.70\",\n      \"currency\": \"EUR\"\n    },\n    \"totalAmount\": {\n      \"amount\": \"40.70\",\n      \"currency\": \"EUR\"\n    },\n    \"shippingAmount\": {\n      \"amount\": \"10.00\",\n      \"currency\": \"EUR\"\n    },\n    \"merchantReference\": \"merchantOrder-1234\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6956f9cb-be67-473a-9770-27fa5e5934c3",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "delay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorizationExpiryMilliseconds\": 432000000,\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "287a760a-18bc-469b-b83c-5619095c505a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "delay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorizationExpiryMilliseconds\": 432000000,\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0da609e4-b4a4-4bb0-aba6-91ff2f7b5dbf",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "delay"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"authorizationExpiryMilliseconds\": 432000000,\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f7cb2fe-6fa4-4932-b6d0-87a31838e084",
+          "name": "Refund order",
+          "request": {
+            "name": "Refund order",
+            "description": {
+              "content": "Refund a fulfilled payment. The funds are reversed from the merchant's account and returned to the customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                ":token",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refundAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"merchantRefundReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5d1f0c49-82ff-4ed1-b51f-3fe21533591a",
+              "name": "Refund processed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refundAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantRefundReference\": \"ABC123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Present when the response was served from the idempotency cache.",
+                  "key": "Request-Idempotency",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"71KH916VPE\",\n  \"amount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantReference\": \"ABC123\",\n  \"merchantRefundReference\": \"ABC123\",\n  \"refundToken\": \"pre_transfer\",\n  \"refundedAt\": \"2024-11-08T11:32:06.502Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9153473-9e5b-44f2-b118-83feebe968fc",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refundAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantRefundReference\": \"ABC123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c8bfb2c-f8ba-4192-b0a6-4f98004cc2c6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refundAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantRefundReference\": \"ABC123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7eb5e2bd-98dc-4245-9718-48322bc66324",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refundAmount\": {\n    \"amount\": \"190.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantRefundReference\": \"ABC123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d48e48ab-6425-41cd-8015-7f5cc9b90f3d",
+          "name": "Void order",
+          "request": {
+            "name": "Void order",
+            "description": {
+              "content": "Void any authorizations for the order. The customer is informed of the cancellation and that the order could not be fulfilled; any held funds are released.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "payments",
+                ":token",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                "key": "Idempotency-Key",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantReference\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72c9eec8-6753-443c-a086-876adfa613d5",
+              "name": "Order voided successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"RF127261AD22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Present when the response was served from the idempotency cache.",
+                  "key": "Request-Idempotency",
+                  "value": "true"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"B1KLLDPMIH\",\n  \"merchantReference\": \"RF127261AD22\",\n  \"voidedAt\": \"2021-02-25T21:29:41.835Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7104e6e3-a409-4eb5-995d-b339dfa034a6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"RF127261AD22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a4a5aed-ceba-4106-9628-d4fad373d556",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"RF127261AD22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de26e929-952b-4909-af4d-fbdf7e18b8b3",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "payments",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Idempotency key used for retrying requests. Can be used for retrying failed requests.",
+                    "key": "Idempotency-Key",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantReference\": \"RF127261AD22\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"conflicting_operation_in_progress\",\n  \"errorId\": \"error-19g6iml8px18g\",\n  \"message\": \"You tried to perform an operation that conflicts with another operation. Try again later.\",\n  \"httpStatusCode\": 409\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://integration.api.scalapay.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "46516ecb-2d24-455e-bf4b-9b6dcdfbf55c",
+    "name": "Scalapay Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Interact with Scalapay.",
+      "type": "text/plain"
+    }
+  }
+}

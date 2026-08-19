@@ -1,0 +1,234 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Scalapay Orders API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/orders",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Scalapay order. The endpoint returns a `token` required to capture the payment and a `checkoutUrl` that redirects the customer to Scalapay Checkout, where the payment is authorized."
+        },
+        {
+          "info": {
+            "name": "Update order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/orders/:token",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an order by changing the `merchantReference`. Use this endpoint when specifying the `merchantReference` during order creation was not possible."
+        },
+        {
+          "info": {
+            "name": "Capture order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/payments/capture",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Capture the payment associated with the order. The specified amount is deducted from the user's account and transferred to the merchant's account. You can capture an amount up to the total specified during order creation. You may also provide an updated `merchantReference` to update the order."
+        },
+        {
+          "info": {
+            "name": "Get orders by reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v2/payments/references",
+            "params": [
+              {
+                "name": "orderToken",
+                "value": "71KH916VPE",
+                "type": "query",
+                "description": "Order token to search for."
+              },
+              {
+                "name": "merchantOrderReference",
+                "value": "merchantOrder-1234",
+                "type": "query",
+                "description": "Merchant reference to search for."
+              },
+              {
+                "name": "merchantProcessorReference",
+                "value": "processor-ref-5678",
+                "type": "query",
+                "description": "Merchant processor reference to search for."
+              }
+            ]
+          },
+          "docs": "Retrieve a list of order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.\n\nThe endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).\n"
+        },
+        {
+          "info": {
+            "name": "Get order details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://integration.api.scalapay.com/v2/payments/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ]
+          },
+          "docs": "Return all details regarding the specified order."
+        },
+        {
+          "info": {
+            "name": "Delay order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/payments/:token/delay",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Request a delayed capture for the order. The payment schedule for the customer is created; however, no funds are settled until a capture call is made. Outstanding authorizations are automatically voided once the authorization expiry time is reached."
+        },
+        {
+          "info": {
+            "name": "Refund order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/payments/:token/refund",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refund a fulfilled payment. The funds are reversed from the merchant's account and returned to the customer."
+        },
+        {
+          "info": {
+            "name": "Void order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://integration.api.scalapay.com/v2/payments/:token/void",
+            "headers": [
+              {
+                "name": "Idempotency-Key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "token",
+                "value": "71KH916VPE",
+                "type": "path",
+                "description": "Order token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Void any authorizations for the order. The customer is informed of the cancellation and that the order could not be fulfilled; any held funds are released."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

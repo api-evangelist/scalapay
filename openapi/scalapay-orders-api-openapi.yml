@@ -1,0 +1,1348 @@
+openapi: 3.2.0
+info:
+  title: Scalapay Orders API
+  description: Interact with Scalapay.
+  version: '3.0'
+servers:
+- url: https://integration.api.scalapay.com
+  description: Sandbox server that uses test data. Use this server for testing purposes.
+- url: https://api.scalapay.com
+  description: Production server that uses live data.
+security:
+- ApiKeyAuth: []
+tags:
+- name: Orders
+paths:
+  /v2/orders:
+    post:
+      tags:
+      - Orders
+      summary: Create order
+      description: Create a Scalapay order. The endpoint returns a `token` required to capture the payment and a `checkoutUrl` that redirects the customer to Scalapay Checkout, where the payment is authorized.
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - consumer
+              - items
+              - merchant
+              - shipping
+              - totalAmount
+              properties:
+                totalAmount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Total amount of the order.
+                consumer:
+                  type: object
+                  required:
+                  - phoneNumber
+                  - givenNames
+                  - surname
+                  - email
+                  description: Consumer information.
+                  properties:
+                    phoneNumber:
+                      type: string
+                      description: Customer phone number with country code.
+                    givenNames:
+                      type: string
+                      description: Consumer first name.
+                    surname:
+                      type: string
+                      description: Consumer last name.
+                    email:
+                      type: string
+                      description: Consumer email address.
+                billing:
+                  allOf:
+                  - $ref: '#/components/schemas/address'
+                  description: Customer billing address.
+                shipping:
+                  allOf:
+                  - $ref: '#/components/schemas/address'
+                  required:
+                  - phoneNumber
+                  - countryCode
+                  - name
+                  - postcode
+                  - suburb
+                  - line1
+                  description: Customer shipping address.
+                items:
+                  allOf:
+                  - $ref: '#/components/schemas/items'
+                  description: Items purchased by the consumer.
+                discounts:
+                  type: array
+                  description: Discounts applied to the order.
+                  items:
+                    type: object
+                    properties:
+                      amount:
+                        $ref: '#/components/schemas/amount'
+                      displayName:
+                        type: string
+                        description: Display name of the discount.
+                merchant:
+                  type: object
+                  required:
+                  - redirectCancelUrl
+                  - redirectConfirmUrl
+                  description: Redirection URLs for completing the payment.
+                  properties:
+                    redirectCancelUrl:
+                      type: string
+                      description: Use https://portal.integration.scalapay.com/failure-url for testing.
+                    redirectConfirmUrl:
+                      type: string
+                      description: Use https://portal.integration.scalapay.com/success-url for testing.
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+                shippingAmount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Shipping amount.
+                taxAmount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Tax amount.
+                type:
+                  type: string
+                  enum:
+                  - ''
+                  - online
+                  - offline
+                  - link
+                  example: online
+                  description: Type of order. Use `online` for online orders, `offline` for offline orders, and `link` for orders sent by SMS. When using `link`, include the extensions field.
+                product:
+                  type: string
+                  enum:
+                  - ''
+                  - pay-in-3
+                  - pay-in-4
+                  - later
+                  description: Product type. Could be empty. Use `pay-in-3` for pay in 3, `pay-in-4` for pay in 4, and `later` for pay later.
+                frequency:
+                  type: object
+                  description: Specify the frequency of the payment. This is useful for pay later products. Do not include when using pay-in-3 or pay-in-4.
+                  properties:
+                    number:
+                      type: integer
+                      example: 1
+                    frequencyType:
+                      type: string
+                      example: monthly
+                orderExpiryMilliseconds:
+                  type: integer
+                  example: 2400000
+                  description: Length of time (in milliseconds) that the order is valid. The maximum value is determined by your Scalapay contract. To extend it, contact Scalapay support.
+                extensions:
+                  $ref: '#/components/schemas/extensions'
+            examples:
+              Order:
+                $ref: '#/components/examples/CreateOrderExample'
+              Pay by link:
+                $ref: '#/components/examples/CreatePayByLinkExample'
+      responses:
+        '200':
+          description: Successful order creation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                properties:
+                  token:
+                    type: string
+                    description: The order token used to capture the payment.
+                  expires:
+                    type: string
+                    description: Expiry timestamp of the order.
+                  checkoutUrl:
+                    type: string
+                    description: URL that redirects the customer to Scalapay Checkout.
+              example:
+                token: 71KH916VPE
+                expires: '2024-11-08T13:06:17.858Z'
+                checkoutUrl: https://portal.scalapay.com/checkout/71KH916VPE
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+  /v2/orders/{token}:
+    post:
+      tags:
+      - Orders
+      summary: Update order
+      description: Update an order by changing the `merchantReference`. Use this endpoint when specifying the `merchantReference` during order creation was not possible.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+        description: Order token.
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantReference:
+                  type: string
+                  minLength: 1
+                  description: Merchant reference for tracking the order in your system. Omit the field to remove the value.
+                merchantProcessorReference:
+                  type: string
+                  minLength: 1
+                  description: Merchant processor reference for tracking the order in your system.
+            example:
+              merchantReference: merchantOrder-1234
+              merchantProcessorReference: processorOrder-1234
+      responses:
+        '200':
+          description: Order updated successfully
+          headers:
+            Request-Idempotency:
+              schema:
+                type: string
+                enum:
+                - 'true'
+              description: Present when the response was served from the idempotency cache.
+              required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                properties:
+                  token:
+                    type: string
+                    description: The order token that was updated.
+                  merchantReference:
+                    type: string
+                    description: The updated merchant reference, returned if provided in the request.
+                  merchantProcessorReference:
+                    type: string
+                    description: The updated merchant processor reference, returned if provided in the request.
+              example:
+                token: 71KH916VPE
+                merchantReference: merchantOrder-1234
+                merchantProcessorReference: processorOrder-1234
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+  /v2/payments/capture:
+    post:
+      tags:
+      - Orders
+      summary: Capture order
+      description: Capture the payment associated with the order. The specified amount is deducted from the user's account and transferred to the merchant's account. You can capture an amount up to the total specified during order creation. You may also provide an updated `merchantReference` to update the order.
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              title: amount
+              type: object
+              required:
+              - token
+              properties:
+                token:
+                  type: string
+                  description: Order token.
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+                amount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Amount to capture.
+            example:
+              token: 71KH916VPE
+              merchantReference: merchantOrder-updated
+              amount:
+                amount: 190,00
+                currency: EUR
+      responses:
+        '200':
+          description: Payment captured successfully
+          headers:
+            Request-Idempotency:
+              schema:
+                type: string
+                enum:
+                - 'true'
+              description: Present when the response was served from the idempotency cache.
+              required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                - status
+                properties:
+                  token:
+                    type: string
+                    description: The order token.
+                  status:
+                    type: string
+                    description: The status of the capture.
+                  totalAmount:
+                    type: object
+                    description: The total amount captured.
+                    properties:
+                      amount:
+                        type: string
+                        description: The amount value.
+                      currency:
+                        type: string
+                        description: The currency code (ISO 4217).
+                  orderDetails:
+                    type: object
+                    description: The full order details.
+                  capturedAt:
+                    type: string
+                    description: The date and time when the capture was processed.
+              example:
+                token: 71KH916VPE
+                status: APPROVED
+                totalAmount:
+                  currency: EUR
+                  amount: '190.00'
+                orderDetails:
+                  items:
+                  - sku: '12341234'
+                    gtin: '123458791330'
+                    name: T-Shirt
+                    brand: TopChoice
+                    price:
+                      amount: '10.00'
+                      currency: EUR
+                    category: clothes
+                    quantity: 1
+                    subcategory:
+                    - shirt
+                    - long-sleeve
+                  - sku: '12341235'
+                    gtin: '123458722222'
+                    name: Jeans
+                    brand: TopChoice
+                    price:
+                      amount: '20.00'
+                      currency: EUR
+                    category: clothes
+                    quantity: 1
+                    subcategory:
+                    - pants
+                    - jeans
+                  billing:
+                    name: Mario Rossi
+                    line1: Via Puglia, 58
+                    suburb: Castelfranco Veneto
+                    postcode: '31033'
+                    countryCode: IT
+                    phoneNumber: '393001234567'
+                  consumer:
+                    email: test@scalapay.com
+                    surname: Consumer
+                    givenNames: Joe
+                    phoneNumber: '0400000001'
+                  merchant:
+                    redirectCancelUrl: https://integration.api.scalapay.com/failure-url
+                    redirectConfirmUrl: https://integration.api.scalapay.com/success-url
+                  shipping:
+                    name: Mario Rossi
+                    line1: Via Puglia, 58
+                    suburb: Castelfranco Veneto
+                    postcode: '31033'
+                    countryCode: IT
+                    phoneNumber: '393001234567'
+                  discounts:
+                  - amount:
+                      amount: '3.00'
+                      currency: EUR
+                    displayName: 10% Off
+                  taxAmount:
+                    amount: '3.70'
+                    currency: EUR
+                  totalAmount:
+                    amount: '190.00'
+                    currency: EUR
+                  shippingAmount:
+                    amount: '10.00'
+                    currency: EUR
+                  merchantReference: merchantOrder-1234-updated
+                capturedAt: '2023-10-19T15:11:20.000Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+  /v2/payments/references:
+    get:
+      tags:
+      - Orders
+      summary: Get orders by reference
+      description: 'Retrieve a list of order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.
+
+
+        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
+
+        '
+      parameters:
+      - name: orderToken
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Order token to search for.
+        example: 71KH916VPE
+      - name: merchantOrderReference
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Merchant reference to search for.
+        example: merchantOrder-1234
+      - name: merchantProcessorReference
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          minLength: 1
+        description: Merchant processor reference to search for.
+        example: processor-ref-5678
+      responses:
+        '200':
+          description: Orders retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    orderToken:
+                      type: string
+                      description: Order token.
+                    merchantOrderReference:
+                      type: string
+                      description: Merchant reference.
+                    merchantProcessorReference:
+                      type: string
+                      description: Merchant processor reference.
+                    createdAt:
+                      type: string
+                      format: date-time
+                      description: Order creation timestamp.
+              example:
+              - orderToken: 71KH916VPE
+                merchantOrderReference: merchantOrder-1234
+                merchantProcessorReference: processor-ref-5678
+                createdAt: '2024-11-08T11:26:17.000Z'
+              - orderToken: 71KH916VPD
+                merchantOrderReference: merchantOrder-1234
+                merchantProcessorReference: null
+                createdAt: '2024-11-07T09:15:32.000Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v2/payments/{token}:
+    get:
+      tags:
+      - Orders
+      summary: Get order details
+      description: Return all details regarding the specified order.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Order token.
+        example: 71KH916VPE
+      responses:
+        '200':
+          description: Order details retrieved successfully.
+          content:
+            application/json:
+              examples:
+                charged:
+                  summary: Charged order
+                  value:
+                    token: 71KH916VPE
+                    created: '2024-11-08T11:26:17.000Z'
+                    status: charged
+                    captureStatus: captured
+                    totalAmount:
+                      amount: '190.00'
+                      currency: EUR
+                    orderDetails:
+                      items:
+                      - sku: '12341234'
+                        gtin: '123458791330'
+                        name: T-Shirt
+                        brand: TopChoice
+                        price:
+                          amount: '10.00'
+                          currency: EUR
+                        category: clothes
+                        quantity: 1
+                        subcategory:
+                        - shirt
+                        - long-sleeve
+                      - sku: '12341235'
+                        gtin: '123458722222'
+                        name: Jeans
+                        brand: TopChoice
+                        price:
+                          amount: '20.00'
+                          currency: EUR
+                        category: clothes
+                        quantity: 1
+                        subcategory:
+                        - pants
+                        - jeans
+                      billing:
+                        name: Mario Rossi
+                        line1: Via Piglia, 58
+                        suburb: Castelfranco Veneto
+                        postcode: '31033'
+                        countryCode: IT
+                        phoneNumber: '393001234567'
+                      consumer:
+                        email: test@scalapay.com
+                        surname: Consumer
+                        givenNames: Joe
+                        phoneNumber: '393001234567'
+                      merchant:
+                        redirectCancelUrl: https://integration.api.scalapay.com/failure-url
+                        redirectConfirmUrl: https://integration.api.scalapay.com/success-url
+                      shipping:
+                        name: Mario Rossi
+                        line1: Via Puglia, 58
+                        suburb: Castelfranco Veneto
+                        geoCode:
+                          place_id: VklBK0RFTExBK1JPU0ErNTgrLE1PTlRFTFVQTytGSU9SRU5USU5PLDUwMDU2LElU
+                        postcode: '31033'
+                        countryCode: IT
+                        phoneNumber: '393001234567'
+                      discounts:
+                      - amount:
+                          amount: '3.00'
+                          currency: EUR
+                        displayName: 10% Off
+                      taxAmount:
+                        amount: '3.70'
+                        currency: EUR
+                      totalAmount:
+                        amount: '190.00'
+                        currency: EUR
+                      shippingAmount:
+                        amount: '10.00'
+                        currency: EUR
+                      merchantReference: merchantOrder-1234-updated
+                expired:
+                  summary: Expired order with eligibility feedback
+                  value:
+                    token: 82LJ027WQF
+                    created: '2024-11-08T11:26:17.000Z'
+                    status: expired
+                    captureStatus: pending
+                    lastEligibilityFeedback: DECLINED_FRAUD
+                    totalAmount:
+                      amount: '190.00'
+                      currency: EUR
+                    orderDetails:
+                      items:
+                      - sku: '12341234'
+                        gtin: '123458791330'
+                        name: T-Shirt
+                        brand: TopChoice
+                        price:
+                          amount: '10.00'
+                          currency: EUR
+                        category: clothes
+                        quantity: 1
+                      consumer:
+                        email: test@scalapay.com
+                        surname: Consumer
+                        givenNames: Joe
+                        phoneNumber: '393001234567'
+                      merchant:
+                        redirectCancelUrl: https://integration.api.scalapay.com/failure-url
+                        redirectConfirmUrl: https://integration.api.scalapay.com/success-url
+                      totalAmount:
+                        amount: '190.00'
+                        currency: EUR
+                      merchantReference: merchantOrder-5678
+        '401':
+          $ref: '#/components/responses/401Error'
+        '422':
+          $ref: '#/components/responses/422Error'
+  /v2/payments/{token}/delay:
+    post:
+      tags:
+      - Orders
+      summary: Delay order
+      description: Request a delayed capture for the order. The payment schedule for the customer is created; however, no funds are settled until a capture call is made. Outstanding authorizations are automatically voided once the authorization expiry time is reached.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+        description: Order token.
+        example: 71KH916VPE
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - authorizationExpiryMilliseconds
+              properties:
+                authorizationExpiryMilliseconds:
+                  type: integer
+                  default: 432000000
+                  description: Length of time (in milliseconds) that the authorization is valid.
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+            example:
+              authorizationExpiryMilliseconds: 432000000
+              merchantReference: merchantOrder-1234
+      responses:
+        '200':
+          description: Order delayed successfully
+          headers:
+            Request-Idempotency:
+              schema:
+                type: string
+                enum:
+                - 'true'
+              description: Present when the response was served from the idempotency cache.
+              required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                - status
+                properties:
+                  token:
+                    type: string
+                    description: The order token.
+                  status:
+                    type: string
+                    description: The current status of the order after delay.
+                  authorizationExpiryAt:
+                    type: string
+                    description: The date and time when the authorization expires.
+                  totalAmount:
+                    type: object
+                    description: The total amount of the order.
+                    properties:
+                      amount:
+                        type: string
+                        description: The amount value.
+                      currency:
+                        type: string
+                        description: The currency code (ISO 4217).
+                  orderDetails:
+                    type: object
+                    description: The full order details.
+              example:
+                token: 71KH916VPE
+                status: AUTHORIZED
+                authorizationExpiryAt: '2024-12-25T23:02:13.000Z'
+                totalAmount:
+                  amount: 40,70
+                  currency: EUR
+                orderDetails:
+                  items:
+                  - sku: '12341234'
+                    gtin: '123458791330'
+                    name: T-Shirt
+                    brand: TopChoice
+                    price:
+                      amount: '10.00'
+                      currency: EUR
+                    category: clothes
+                    quantity: 1
+                    subcategory:
+                    - shirt
+                    - long-sleeve
+                  - sku: '12341235'
+                    gtin: '123458722222'
+                    name: Jeans
+                    brand: TopChoice
+                    price:
+                      amount: '20.00'
+                      currency: EUR
+                    category: clothes
+                    quantity: 1
+                    subcategory:
+                    - pants
+                    - jeans
+                  billing:
+                    name: Mario Rossi
+                    line1: Via Puglia, 23
+                    suburb: Castelfranco Veneto
+                    postcode: '31033'
+                    countryCode: IT
+                    phoneNumber: '393001234567'
+                  consumer:
+                    email: test@scalapay.com
+                    surname: Consumer
+                    givenNames: Joe
+                    phoneNumber: '0400000001'
+                  merchant:
+                    redirectCancelUrl: https://portal.integration.com/failure-url
+                    redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+                  shipping:
+                    name: Mario Rossi
+                    line1: Via Puglia, 23
+                    suburb: Castelfranco Veneto
+                    geoCode:
+                      place_id: VklBK0RFTExBK1JPU0ErMjMrLE1PTlRFTFVQTytGSU9SRU5USU5PLDUwMDU2LElU
+                    postcode: '31033'
+                    countryCode: IT
+                    phoneNumber: '393001234567'
+                  discounts:
+                  - amount:
+                      amount: '3.00'
+                      currency: EUR
+                    displayName: 10% Off
+                  taxAmount:
+                    amount: '3.70'
+                    currency: EUR
+                  totalAmount:
+                    amount: '40.70'
+                    currency: EUR
+                  shippingAmount:
+                    amount: '10.00'
+                    currency: EUR
+                  merchantReference: merchantOrder-1234
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+  /v2/payments/{token}/refund:
+    post:
+      tags:
+      - Orders
+      summary: Refund order
+      description: Refund a fulfilled payment. The funds are reversed from the merchant's account and returned to the customer.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+        description: Order token.
+        example: 71KH916VPE
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        required: true
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - refundAmount
+              properties:
+                refundAmount:
+                  allOf:
+                  - $ref: '#/components/schemas/amount'
+                  description: Amount to refund.
+                merchantRefundReference:
+                  type: string
+                  description: Merchant reference for the refund. Use this to track the refund in your system.
+            example:
+              refundAmount:
+                amount: '190.00'
+                currency: EUR
+              merchantRefundReference: ABC123
+      responses:
+        '200':
+          description: Refund processed successfully
+          headers:
+            Request-Idempotency:
+              schema:
+                type: string
+                enum:
+                - 'true'
+              description: Present when the response was served from the idempotency cache.
+              required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                properties:
+                  token:
+                    type: string
+                    description: The order token.
+                  amount:
+                    type: object
+                    description: The refund amount.
+                    properties:
+                      amount:
+                        type: string
+                        description: The amount value.
+                      currency:
+                        type: string
+                        description: The currency code (ISO 4217).
+                  merchantReference:
+                    type: string
+                    description: The merchant reference.
+                  merchantRefundReference:
+                    type: string
+                    description: The merchant refund reference.
+                  refundToken:
+                    type: string
+                    description: The refund token.
+                  refundedAt:
+                    type: string
+                    description: The date and time when the refund was processed.
+              example:
+                token: 71KH916VPE
+                amount:
+                  amount: '190.00'
+                  currency: EUR
+                merchantReference: ABC123
+                merchantRefundReference: ABC123
+                refundToken: pre_transfer
+                refundedAt: '2024-11-08T11:32:06.502Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+  /v2/payments/{token}/void:
+    post:
+      tags:
+      - Orders
+      summary: Void order
+      description: Void any authorizations for the order. The customer is informed of the cancellation and that the order could not be fulfilled; any held funds are released.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+        description: Order token.
+        example: 71KH916VPE
+      - name: Idempotency-Key
+        in: header
+        description: Idempotency key used for retrying requests. Can be used for retrying failed requests.
+        required: false
+        schema:
+          type: string
+      requestBody:
+        description: 'Request body must be JSON (Content-Type: application/json). Responses are always JSON.'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchantReference:
+                  $ref: '#/components/schemas/merchantReference'
+            example:
+              merchantReference: RF127261AD22
+      responses:
+        '200':
+          description: Order voided successfully
+          headers:
+            Request-Idempotency:
+              schema:
+                type: string
+                enum:
+                - 'true'
+              description: Present when the response was served from the idempotency cache.
+              required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - token
+                properties:
+                  token:
+                    type: string
+                    description: The order token.
+                  merchantReference:
+                    type: string
+                    description: The merchant reference.
+                  voidedAt:
+                    type: string
+                    description: The date and time when the order was voided.
+              example:
+                token: B1KLLDPMIH
+                merchantReference: RF127261AD22
+                voidedAt: '2021-02-25T21:29:41.835Z'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '401':
+          $ref: '#/components/responses/401Error'
+        '409':
+          $ref: '#/components/responses/409Error'
+components:
+  schemas:
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
+    address:
+      type: object
+      description: Address information.
+      properties:
+        phoneNumber:
+          type: string
+          description: Customer phone number with country code.
+        countryCode:
+          type: string
+          format: iso-alpha-2
+          description: Two-letter country code (e.g., IT for Italy).
+        name:
+          type: string
+          description: Name of the recipient.
+        postcode:
+          type: string
+          description: Postal code.
+        suburb:
+          type: string
+          description: Suburb or city.
+        line1:
+          type: string
+          description: Primary address line.
+    extensions:
+      type: object
+      description: Additional extension properties for the order.
+      properties:
+        industry:
+          type: object
+          description: Industry-specific extensions.
+          properties:
+            travel:
+              type: object
+              description: Travel-related extension information.
+              properties:
+                startDate:
+                  type: string
+                  format: date
+                  example: '2024-01-01'
+                  description: Travel start date.
+                endDate:
+                  type: string
+                  format: date
+                  example: '2024-10-01'
+                  description: Travel end date.
+        type:
+          type: object
+          description: Extensions for link orders.
+          properties:
+            link:
+              type: object
+              required:
+              - notification
+              description: Extensions for orders created via a link.
+              properties:
+                notification:
+                  type: object
+                  required:
+                  - channels
+                  description: Notification details for the order.
+                  properties:
+                    phoneCountryCode:
+                      type: string
+                      example: '+39'
+                      description: Customer phone number country code. Required if SMS is selected as a notification channel.
+                    phoneNumber:
+                      type: string
+                      example: '3470000000'
+                      description: Customer phone number. Required if SMS is selected as a notification channel.
+                    preferredLanguage:
+                      type: string
+                      example: italiano
+                      description: Customer's preferred language.
+                      default: ''
+                      enum:
+                      - ''
+                      - english
+                      - italiano
+                      - francais
+                      - deutsch
+                      - espanol
+                      - dutch
+                      - suomi
+                      - portuguese
+                    emailAddress:
+                      type: string
+                      example: test@scalapay.com
+                      description: Customer email address. Required if email is selected as a notification channel.
+                    channels:
+                      type: array
+                      items:
+                        type: string
+                        enum:
+                        - email
+                        - sms
+                      example:
+                      - email
+                      - sms
+                      description: Notification channels to use. Choose "email" and/or "sms".
+    items:
+      type: array
+      description: List of items in the order.
+      items:
+        type: object
+        required:
+        - category
+        - name
+        - price
+        - quantity
+        - sku
+        properties:
+          gtin:
+            type: string
+            description: Global Trade Item Number (UPC, EAN, JAN, ISBN, ITF-14).
+          quantity:
+            type: integer
+            description: Quantity of the item.
+          price:
+            allOf:
+            - $ref: '#/components/schemas/amount'
+            description: Price of the item.
+          name:
+            type: string
+            description: Name of the item.
+          category:
+            type: string
+            description: Category of the item.
+          subcategory:
+            type: array
+            description: Subcategories of the item.
+            items:
+              type: string
+          sku:
+            type: string
+            description: Stock Keeping Unit (SKU) code.
+          brand:
+            type: string
+            description: Brand name.
+          pageUrl:
+            type: string
+            description: URL of the product page.
+          imageUrl:
+            type: string
+            description: URL of the product image.
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
+  responses:
+    422Error:
+      description: Unprocessable entity
+      content:
+        application/json:
+          example:
+            errorCode: invalid_token
+            errorId: error-19g6ll3ud3ndj
+            message: Order null not found.
+            httpStatusCode: 422
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+    409Error:
+      description: Conflict
+      content:
+        application/json:
+          example:
+            errorCode: conflicting_operation_in_progress
+            errorId: error-19g6iml8px18g
+            message: You tried to perform an operation that conflicts with another operation. Try again later.
+            httpStatusCode: 409
+    400Error:
+      description: Bad request
+      content:
+        application/json:
+          example:
+            errorCode: api_validationerror
+            errorId: error-19g6ll3ucve9e
+            message:
+              status: 400
+              statusText: Bad Request
+              errors:
+              - field:
+                - totalAmount
+                - amount
+                location: body
+                messages:
+                - '"amount" is not allowed to be empty'
+                types:
+                - any.empty
+            httpStatusCode: 400
+  examples:
+    CreateOrderExample:
+      summary: Example of order creation
+      value:
+        totalAmount:
+          amount: '190.00'
+          currency: EUR
+        consumer:
+          phoneNumber: '+393001234567'
+          givenNames: Mario
+          surname: Rossi
+          email: test@scalapay.com
+        billing:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        shipping:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        items:
+        - name: T-Shirt
+          category: clothes
+          subcategory:
+          - shirt
+          - long-sleeve
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341234'
+          quantity: 1
+          price:
+            amount: '10.00'
+            currency: EUR
+          pageUrl: https://www.scalapay.com/product/view/
+          imageUrl: https://www.scalapay.com/product/view/
+        - name: Jeans
+          category: clothes
+          subcategory:
+          - pants
+          - jeans
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341235'
+          quantity: 1
+          price:
+            amount: '20.00'
+            currency: EUR
+        discounts:
+        - displayName: 10% Off
+          amount:
+            amount: '3.00'
+            currency: EUR
+        merchant:
+          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
+        merchantReference: merchantOrder-1234
+        taxAmount:
+          amount: '3.70'
+          currency: EUR
+        shippingAmount:
+          amount: '10.00'
+          currency: EUR
+        type: online
+        product: pay-in-3
+        frequency:
+          number: '1'
+          frequencyType: monthly
+        orderExpiryMilliseconds: 2400000
+    CreatePayByLinkExample:
+      summary: Example of creating a pay-by-link order
+      value:
+        totalAmount:
+          amount: '190.00'
+          currency: EUR
+        consumer:
+          phoneNumber: '393001234567'
+          givenNames: Mario
+          surname: Rossi
+          email: test@scalapay.com
+        billing:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '393001234567'
+        shipping:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Casltefranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '393001234567'
+        items:
+        - name: T-Shirt
+          category: clothes
+          subcategory:
+          - shirt
+          - long-sleeve
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341234'
+          quantity: 1
+          price:
+            amount: '10.00'
+            currency: EUR
+          pageUrl: https://www.scalapay.com//product/view/
+          imageUrl: https://www.scalapay.com//product/view/
+        - name: Jeans
+          category: clothes
+          subcategory:
+          - pants
+          - jeans
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341235'
+          quantity: 1
+          price:
+            amount: '20.00'
+            currency: EUR
+        discounts:
+        - displayName: 10% Off
+          amount:
+            amount: '3.00'
+            currency: EUR
+        merchant:
+          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
+        merchantReference: merchantOrder-1234
+        taxAmount:
+          amount: '3.70'
+          currency: EUR
+        shippingAmount:
+          amount: '10.00'
+          currency: EUR
+        type: link
+        product: pay-in-3
+        frequency:
+          number: '1'
+          frequencyType: monthly
+        orderExpiryMilliseconds: 2400000
+        extensions:
+          type:
+            link:
+              notification:
+                phoneCountryCode: '+39'
+                phoneNumber: '3470000000'
+                preferredLanguage: english
+                channels:
+                - sms
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication using the Authorization header with a Bearer token.
+      x-default: Bearer qhtfs87hjnc12kkos
+    InstoreApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication for instore endpoints using the Authorization header with a Bearer token.
+      x-default: Bearer testdeviceapikey
+x-samples-enabled: true
+x-explorer-enabled: true

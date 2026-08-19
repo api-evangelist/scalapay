@@ -2,12 +2,12 @@ generated: '2026-08-02'
 method: derived
 status: candidate
 source: openapi/scalapay-openapi-original.yml
-notes: Scalapay publishes no hosted or remote MCP server — searched the developer portal, llms.txt, the MCP registries
-  and npm on 2026-08-02 with no hit. This is a CANDIDATE tool surface derived one-to-one from the 20 operations
-  in the harvested OpenAPI, so an agent builder has a grounded starting point. It is not a Scalapay product and
-  must not be presented as one. Each tool inherits its real input contract from the parameters and requestBody of
-  its backing operation; operationIds come from overlays/scalapay-overlay.yaml because the published spec declares
-  none.
+notes: Scalapay publishes no hosted or remote MCP server — searched the developer portal, llms.txt, the
+  MCP registries and npm on 2026-08-02 with no hit. This is a CANDIDATE tool surface derived one-to-one
+  from the 20 operations in the harvested OpenAPI, so an agent builder has a grounded starting point.
+  It is not a Scalapay product and must not be presented as one. Each tool inherits its real input contract
+  from the parameters and requestBody of its backing operation; operationIds come from overlays/scalapay-overlay.yaml
+  because the published spec declares none.
 server:
   name: scalapay
   published: false
@@ -16,8 +16,8 @@ server:
 auth:
   style: bearer-api-key
   header: Authorization
-  note: Online operations use the merchant API key; /v1/instore and /v2/instore/paybylink operations require the
-    device-scoped key (InstoreApiKeyAuth).
+  note: Online operations use the merchant API key; /v1/instore and /v2/instore/paybylink operations require
+    the device-scoped key (InstoreApiKeyAuth).
 environments:
   sandbox: https://integration.api.scalapay.com
   production: https://api.scalapay.com
@@ -27,8 +27,8 @@ coverage:
   write_tools: 10
   read_tools: 10
 agent_safety:
-  idempotency: Six write tools accept an Idempotency-Key header (see conventions/scalapay-conventions.yml); a retry
-    must reuse the same key.
+  idempotency: Six write tools accept an Idempotency-Key header (see conventions/scalapay-conventions.yml);
+    a retry must reuse the same key.
   money_moving_tools:
   - capture_order
   - refund_order
@@ -38,8 +38,8 @@ agent_safety:
   - create_paybylink_order
   - void_paybylink_order
   - create_order
-  guidance: Money-moving tools should require explicit human confirmation and should be exercised against integration.api.scalapay.com
-    with the published sandbox keys first.
+  guidance: Money-moving tools should require explicit human confirmation and should be exercised against
+    integration.api.scalapay.com with the published sandbox keys first.
 tools:
 - name: create_instore_order
   description: Create instore order
@@ -191,3 +191,9 @@ tools:
   operation_id_source: overlays/scalapay-overlay.yaml
   category: Reporting
   read_only: true
+deployment:
+  mode: none
+  verified: derived
+  tools: 20
+  checked: '2026-08-12'
+  source: catalog MCP census

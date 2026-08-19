@@ -1,0 +1,610 @@
+openapi: 3.2.0
+info:
+  title: Scalapay Reporting API
+  description: Interact with Scalapay.
+  version: '3.0'
+servers:
+- url: https://integration.api.scalapay.com
+  description: Sandbox server that uses test data. Use this server for testing purposes.
+- url: https://api.scalapay.com
+  description: Production server that uses live data.
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reporting
+paths:
+  /v1/reporting/disputes:
+    get:
+      tags:
+      - Reporting
+      summary: Get disputes
+      description: Retrieves a paginated list of disputes for reporting purposes with filtering options.
+      parameters:
+      - name: startDate
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: date
+        description: ISO 8601 date string for filtering disputes from this date.
+      - name: endDate
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: date
+        description: ISO 8601 date string for filtering disputes to this date.
+      - name: disputeStatus
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          enum:
+          - open
+          - processing
+          - won
+          - lost
+          - closed
+        description: Filter by dispute status.
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+        description: Page number, zero-based (default 0).
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 20
+        description: Number of items per page (default 20, max 100).
+      responses:
+        '200':
+          description: Disputes retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - items
+                - total
+                - page
+                - size
+                - hasMore
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                      - disputeToken
+                      - orderToken
+                      - disputeStatus
+                      - amountInCents
+                      - currency
+                      - openingReason
+                      - createdAt
+                      - expiresAt
+                      properties:
+                        disputeToken:
+                          type: string
+                          description: Unique dispute identifier
+                        orderToken:
+                          type: string
+                          description: Token of the associated order
+                        merchantOrderReference:
+                          type:
+                          - string
+                          - 'null'
+                          description: Merchant's order reference
+                        merchantDisputeReference:
+                          type:
+                          - string
+                          - 'null'
+                          description: Merchant's internal reference
+                        disputeStatus:
+                          type: string
+                          enum:
+                          - open
+                          - processing
+                          - won
+                          - lost
+                          - closed
+                          description: Dispute status
+                        openingReason:
+                          type: string
+                          enum:
+                          - credit_not_processed
+                          - duplicate
+                          - fraudulent
+                          - general
+                          - product_not_received
+                          - product_unacceptable
+                          - subscription_canceled
+                          - unrecognized_payment
+                          description: Reason dispute was opened
+                        resolvingReason:
+                          type:
+                          - string
+                          - 'null'
+                          enum:
+                          - customer_canceled
+                          - evidence_accepted
+                          - evidence_deadline_expired
+                          - evidence_rejected
+                          - merchant_accepted
+                          - resolution_deadline_expired
+                          description: How dispute was resolved
+                        amountInCents:
+                          type: integer
+                          description: Disputed amount in cents
+                        currency:
+                          type: string
+                          description: Currency code
+                        liability:
+                          type:
+                          - string
+                          - 'null'
+                          enum:
+                          - pending
+                          - merchant
+                          - scalapay
+                          description: Indicates who bears liability for the dispute
+                        createdAt:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 datetime when dispute was created
+                        expiresAt:
+                          type: string
+                          format: date-time
+                          description: ISO 8601 datetime when dispute expires
+                        updatedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: ISO 8601 datetime of last update
+                        resolvedAt:
+                          type:
+                          - string
+                          - 'null'
+                          format: date-time
+                          description: ISO 8601 datetime when resolved
+                  total:
+                    type: integer
+                    description: Total number of disputes matching filters
+                  page:
+                    type: integer
+                    description: Current page number (zero-based)
+                  size:
+                    type: integer
+                    description: Number of items per page
+                  hasMore:
+                    type: boolean
+                    description: Whether there are more pages available
+              example:
+                items:
+                - disputeToken: MOD123
+                  orderToken: ORD123
+                  merchantOrderReference: ORDER-2025-001
+                  merchantDisputeReference: DISP-2025-DEF
+                  disputeStatus: open
+                  openingReason: credit_not_processed
+                  amountInCents: 5000
+                  currency: EUR
+                  liability: null
+                  resolvingReason: null
+                  createdAt: '2025-08-18T10:30:00.000Z'
+                  expiresAt: '2025-08-25T10:30:00.000Z'
+                  updatedAt: '2025-08-18T10:30:00.000Z'
+                  resolvedAt: null
+                - disputeToken: MOD456
+                  orderToken: ORD456
+                  merchantOrderReference: ORDER-2025-002
+                  merchantDisputeReference: DISP-2025-LTE
+                  disputeStatus: won
+                  openingReason: credit_not_processed
+                  amountInCents: 5000
+                  currency: EUR
+                  liability: merchant
+                  resolvingReason: evidence_accepted
+                  createdAt: '2025-08-18T10:30:00.000Z'
+                  expiresAt: '2025-08-25T10:30:00.000Z'
+                  updatedAt: '2025-08-18T10:30:00.000Z'
+                  resolvedAt: '2025-08-19T10:30:00.000Z'
+                total: 2
+                page: 0
+                size: 20
+                hasMore: false
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example:
+                errorCode: pre_condition_failed
+                errorId: error-19g6il4h3evp0
+                httpStatusCode: 400
+        '401':
+          $ref: '#/components/responses/401Error'
+        '500':
+          description: Internal server error. (HTTP 500).
+          content:
+            application/json:
+              example:
+                errorCode: internal_server
+                errorId: error-59k0mqmzmrs77
+                httpStatusCode: 500
+  /v1/reporting/orders:
+    get:
+      tags:
+      - Reporting
+      summary: Get orders
+      description: Retrieve orders. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.
+      parameters:
+      - name: startDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'Start date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: endDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'End date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          maximum: 5000
+          default: 5000
+        description: 'Number of items returned (default: 5000).'
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          default: 0
+        description: 'Page to show (default: 0).'
+      responses:
+        '200':
+          description: Orders retrieved successfully.
+          content:
+            application/json:
+              example: '{"items":[{"storeReference":null,"deviceReference":null,"orderStatus":"charged","orderTokenLast4":"******AYPA","orderCreatedDate":"2022-05-26T15:28:53.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"merchantOrder-1234","captureStatus":"captured","captureAmount":{"amount":"10.00","currency":"EUR"},"transferId":"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ","payoutDetails":{"merchantPayoutToken":"3BQD2I26MRG3","transactionDate":"2022-05-27T11:19:52.000","status":"processed","grossAmount":{"currency":"EUR","amount":"10.00"},"netAmount":{"currency":"EUR","amount":"10.00"},"totalFeeAmount":{"currency":"EUR","amount":"0.98"},"scalapayFeeAmount":{"currency":"EUR","amount":"0.80"},"scalapayFeeTaxAmount":{"currency":"EUR","amount":"0.18"},"otherFeeAmount":{"currency":"EUR","amount":"0.00"},"otherFeeTaxAmount":{"currency":"EUR","amount":"0.00"}}},{"storeReference":null,"deviceReference":null,"orderStatus":"authorized","orderTokenLast4":"******FH4R","orderCreatedDate":"2022-06-13T20:50:35.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"OjbKlbnuMNMlN9j_g9dqdIhh","captureStatus":"delayed","captureAmount":{"amount":"0.00","currency":"EUR"},"transferId":null,"payoutDetails":null},{"storeReference":null,"deviceReference":null,"orderStatus":"expired","orderTokenLast4":"******T9KP","orderCreatedDate":"2022-07-01T10:15:22.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"merchantOrder-5678","captureStatus":"voided","captureAmount":{"amount":"0.00","currency":"EUR"},"transferId":null,"payoutDetails":null}],"total":3,"page":0,"size":5000,"hasMore":false}
+
+                '
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example: '{"errorCode": "pre_condition_failed","errorId": "error-19g6il4h3evp0","message": "startDate cannot be greater than endDate","httpStatusCode": 400}
+
+                '
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/reporting/payouts:
+    get:
+      tags:
+      - Reporting
+      summary: Get payouts
+      description: Retrieve payouts. This endpoint provides a list of all payouts received from Scalapay. Use the Scalapay API key Bearer token to access this endpoint.
+      parameters:
+      - name: startDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'Start date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: endDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'End date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          maximum: 5000
+          default: 5000
+        description: 'Number of items returned (default: 5000).'
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          default: 0
+        description: 'Page to show (default: 0).'
+      responses:
+        '200':
+          description: Payouts retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        merchantPayoutToken:
+                          type: string
+                          description: Merchant payout token.
+                        transactionDate:
+                          type: string
+                          description: Transaction date.
+                        totalAmount:
+                          type: object
+                          description: Total amount of the payout.
+                        status:
+                          type: string
+                          description: Payout status.
+              example: '{"items":[{"merchantPayoutToken":"FELGDH3XJDRS","transactionDate":"2022-05-26T11:29:55.000","totalAmount":{"amount":"26080.02","currency":"EUR"},"status":"processed"},{"merchantPayoutToken":"3BQD2I26MRG3","transactionDate":"2022-05-27T11:19:52.000","totalAmount":{"amount":"24188.61","currency":"EUR"},"status":"processed"}],"total":2,"page":0,"size":5000,"hasMore":false}
+
+                '
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example: '{"errorCode": "pre_condition_failed","errorId": "error-19g6il4h3evp0","message": "startDate cannot be greater than endDate","httpStatusCode": 400}
+
+                '
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/reporting/payouts/{token}/orders:
+    get:
+      tags:
+      - Reporting
+      summary: Get orders from payout
+      description: Retrieve orders from a payout. This endpoint provides a list of orders associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Payout token.
+        example: 3BQD2I26MRG3
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          maximum: 5000
+          default: 5000
+        description: 'Number of items returned (default: 5000).'
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          default: 0
+        description: 'Page to show (default: 0).'
+      responses:
+        '200':
+          description: Orders from payout retrieved successfully.
+          content:
+            application/json:
+              example: '{"items":[{"orderStatus":"charged","orderTokenLast4":"******AYPA","orderCreatedDate":"2022-05-26T15:28:53.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"merchantOrder-1234","captureStatus":"captured","captureAmount":{"amount":"10.00","currency":"EUR"},"transferId":"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ","details":{"storeReference":null,"deviceReference":null,"grossAmount":{"currency":"EUR","amount":"10.00"},"netAmount":{"currency":"EUR","amount":"10.00"},"totalFeeAmount":{"currency":"EUR","amount":"0.98"},"scalapayFeeAmount":{"currency":"EUR","amount":"0.80"},"scalapayFeeTaxAmount":{"currency":"EUR","amount":"0.18"},"otherFeeAmount":{"currency":"EUR","amount":"0.00"},"otherFeeTaxAmount":{"currency":"EUR","amount":"0.00"}}},{"orderStatus":"charged","orderTokenLast4":"******YKNN","orderCreatedDate":"2022-05-26T16:12:49.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"merchantOrder-1234","captureStatus":"captured","captureAmount":{"amount":"10.00","currency":"EUR"},"transferId":"tr_1L3ZwoFHjEtCWkTsMyDuEAm4","details":{"storeReference":null,"deviceReference":null,"grossAmount":{"currency":"EUR","amount":"10.00"},"netAmount":{"currency":"EUR","amount":"10.00"},"totalFeeAmount":{"currency":"EUR","amount":"0.98"},"scalapayFeeAmount":{"currency":"EUR","amount":"0.80"},"scalapayFeeTaxAmount":{"currency":"EUR","amount":"0.18"},"otherFeeAmount":{"currency":"EUR","amount":"0.00"},"otherFeeTaxAmount":{"currency":"EUR","amount":"0.00"}}}],"total":2,"page":0,"size":5000,"hasMore":false}
+
+                '
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example: '{"errorCode":"pre_condition_failed","errorId":"error-19g6il4h6tr5l","message":"an invalidmerchant PayoutToken was provided","httpStatusCode":400}
+
+                '
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/reporting/payouts/{token}/refunds:
+    get:
+      tags:
+      - Reporting
+      summary: Get refunds from payout
+      description: Retrieve refunds from a payout. This endpoint provides a list of refunds associated with a specific payout. Use the Scalapay API key Bearer token to access this endpoint.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: Payout token.
+        example: NRF55213PDYK
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          maximum: 5000
+          default: 5000
+        description: 'Number of items returned (default: 5000).'
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          default: 0
+        description: 'Page to show (default: 0).'
+      responses:
+        '200':
+          description: Refunds from payout retrieved successfully.
+          content:
+            application/json:
+              example: '{"items":[{"orderTokenLast4":"******TNV9","merchantReference":"merchantOrder-1234","refundAmount":{"amount":"20.00","currency":"EUR"},"transferId":"trr_1L5M7hFHjEtCWkTsWAIDNuta","details":{"grossAmount":{"amount":"20.00","currency":"EUR"},"netAmount":{"amount":"20.00","currency":"EUR"},"totalFeeAmount":{"amount":"-1.22","currency":"EUR"},"scalapayFeeAmount":{"amount":"-1.00","currency":"EUR"},"scalapayFeeTaxAmount":{"amount":"-0.22","currency":"EUR"},"otherFeeAmount":{"amount":"0.00","currency":"EUR"},"otherFeeTaxAmount":{"amount":"0.00","currency":"EUR"}}},{"orderTokenLast4":"******JHP2","merchantReference":"merchantOrder-1234","refundAmount":{"amount":"20.00","currency":"EUR"},"transferId":"trr_1L5M90FHjEtCWkTsoyHuImNL","details":{"grossAmount":{"amount":"20.00","currency":"EUR"},"netAmount":{"amount":"20.00","currency":"EUR"},"totalFeeAmount":{"amount":"-1.22","currency":"EUR"},"scalapayFeeAmount":{"amount":"-1.00","currency":"EUR"},"scalapayFeeTaxAmount":{"amount":"-0.22","currency":"EUR"},"otherFeeAmount":{"amount":"0.00","currency":"EUR"},"otherFeeTaxAmount":{"amount":"0.00","currency":"EUR"}}}],"total":2,"page":0,"size":500,"hasMore":false}
+
+                '
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example: '{"errorCode":"pre_condition_failed","errorId":"error-19g6il4h6tr5l","message":"an invalidmerchant PayoutToken was provided","httpStatusCode":400}
+
+                '
+        '401':
+          $ref: '#/components/responses/401Error'
+  /v1/reporting/refunds:
+    get:
+      tags:
+      - Reporting
+      summary: Get refunds
+      description: Retrieve refunds. This endpoint enables merchants to reconcile bank transactions with orders and refunds within the Scalapay platform. Use the Scalapay API key Bearer token to access this endpoint.
+      parameters:
+      - name: startDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'Start date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: endDate
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+          format: string
+          minimum: 1
+        description: 'End date for bank transactions in "YYYY-MM-DD" format. (Default: today).'
+      - name: size
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          maximum: 5000
+          default: 5000
+        description: 'Number of items returned (default: 5000).'
+      - name: page
+        in: query
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: integer
+          format: integer
+          minimum: 0
+          default: 0
+        description: 'Page to show (default: 0).'
+      responses:
+        '200':
+          description: Refunds retrieved successfully.
+          content:
+            application/json:
+              example: '{"items":[{"storeReference":null,"deviceReference":null,"orderStatus":"charged","orderTokenLast4":"******AYPA","orderCreatedDate":"2022-05-26T15:28:53.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"merchantOrder-1234","captureStatus":"captured","captureAmount":{"amount":"10.00","currency":"EUR"},"transferId":"tr_1L3ZJ6FHjEtCWkTsJqGDRYXZ","payoutDetails":{"merchantPayoutToken":"3BQD2I26MRG3","transactionDate":"2022-05-27T11:19:52.000","status":"processed","grossAmount":{"currency":"EUR","amount":"10.00"},"netAmount":{"currency":"EUR","amount":"10.00"},"totalFeeAmount":{"currency":"EUR","amount":"0.98"},"scalapayFeeAmount":{"currency":"EUR","amount":"0.80"},"scalapayFeeTaxAmount":{"currency":"EUR","amount":"0.18"},"otherFeeAmount":{"currency":"EUR","amount":"0.00"},"otherFeeTaxAmount":{"currency":"EUR","amount":"0.00"}}},{"storeReference":null,"deviceReference":null,"orderStatus":"authorized","orderTokenLast4":"******FH4R","orderCreatedDate":"2022-06-13T20:50:35.000","channel":null,"type":"online","product":"pay-in-3","merchantReference":"OjbKlbnuMNMlN9j_g9dqdIhh","captureStatus":"delayed","captureAmount":{"amount":"0.00","currency":"EUR"},"transferId":null,"payoutDetails":null}],"total":2,"page":0,"size":5000,"hasMore":false}
+
+                '
+        '400':
+          description: Bad request. (HTTP 400).
+          content:
+            application/json:
+              example: '{"errorCode": "pre_condition_failed","errorId": "error-19g6il4h3evp0","message": "startDate cannot be greater than endDate","httpStatusCode": 400}
+
+                '
+        '401':
+          $ref: '#/components/responses/401Error'
+components:
+  responses:
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication using the Authorization header with a Bearer token.
+      x-default: Bearer qhtfs87hjnc12kkos
+    InstoreApiKeyAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: API key authentication for instore endpoints using the Authorization header with a Bearer token.
+      x-default: Bearer testdeviceapikey
+x-samples-enabled: true
+x-explorer-enabled: true

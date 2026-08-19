@@ -1,0 +1,1511 @@
+{
+  "item": [
+    {
+      "id": "025ecbb1-da5e-4e61-9956-4381f8a7ce3c",
+      "name": "Instore",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b6a491e-1013-4bb5-9187-0bd57a46c9d9",
+          "name": "Create instore order",
+          "request": {
+            "name": "Create instore order",
+            "description": {
+              "content": "Create an instore order and charge the customer. Use the correct Bearer token for authentication.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "instore",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantOperatorId\": \"<string>\",\n  \"merchantReference\": \"<string>\",\n  \"preApprovalCode\": \"<string>\",\n  \"requestId\": \"<string>\",\n  \"totalAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"items\": [\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4f0199a-8711-4268-ace2-d3225a1b8294",
+              "name": "Instore order created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"preApprovalCode\": \"85633887\",\n  \"totalAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458722222\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requestId\": \"EKMXO6QFN\",\n  \"token\": \"769DKMXOC52H\",\n  \"status\": \"charged\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29a8fcb0-b40d-414e-a75a-2e82bceacd43",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"preApprovalCode\": \"85633887\",\n  \"totalAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458722222\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36c3c0bc-2db0-4be1-8619-c63842d91bc5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"preApprovalCode\": \"85633887\",\n  \"totalAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  },\n  \"items\": [\n    {\n      \"name\": \"T-Shirt\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"shirt\",\n        \"long-sleeve\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458791330\",\n      \"sku\": \"12341234\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"10.00\",\n        \"currency\": \"EUR\"\n      }\n    },\n    {\n      \"name\": \"Jeans\",\n      \"category\": \"clothes\",\n      \"subcategory\": [\n        \"pants\",\n        \"jeans\"\n      ],\n      \"brand\": \"TopChoice\",\n      \"gtin\": \"123458722222\",\n      \"sku\": \"12341235\",\n      \"quantity\": 1,\n      \"price\": {\n        \"amount\": \"20.00\",\n        \"currency\": \"EUR\"\n      }\n    }\n  ],\n  \"merchantReference\": \"merchantOrder-1234\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7efcb3b5-3874-4117-87f5-2efd52be11d6",
+          "name": "Get instore orders by reference",
+          "request": {
+            "name": "Get instore orders by reference",
+            "description": {
+              "content": "Retrieve a list of instore order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.\n\nThe endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "instore",
+                "orders",
+                "references"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "orderToken",
+                  "value": "<string>",
+                  "description": "Order token to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchantOrderReference",
+                  "value": "<string>",
+                  "description": "Merchant reference to search for."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchantProcessorReference",
+                  "value": "<string>",
+                  "description": "Merchant processor reference to search for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dfc43f8b-131c-4403-90f6-92d79558d771",
+              "name": "Instore orders retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "769DKMXOC52H"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"orderToken\": \"769DKMXOC52H\",\n    \"merchantOrderReference\": \"merchantOrder-1234\",\n    \"merchantProcessorReference\": \"processor-ref-5678\",\n    \"createdAt\": \"2024-11-08T11:26:17.000Z\"\n  },\n  {\n    \"orderToken\": \"769DKMXOC51H\",\n    \"merchantOrderReference\": \"merchantOrder-1234\",\n    \"merchantProcessorReference\": null,\n    \"createdAt\": \"2024-11-07T09:15:32.000Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22e41241-e047-469c-b93a-e44fa695abdd",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "769DKMXOC52H"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "003ad61f-f877-482c-8cf3-954499c02b67",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    "references"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "orderToken",
+                      "value": "769DKMXOC52H"
+                    },
+                    {
+                      "key": "merchantOrderReference",
+                      "value": "merchantOrder-1234"
+                    },
+                    {
+                      "key": "merchantProcessorReference",
+                      "value": "processor-ref-5678"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "368fb720-01ef-4ebf-909b-a0b614346fbe",
+          "name": "Get an instore order",
+          "request": {
+            "name": "Get an instore order",
+            "description": {
+              "content": "Retrieve the status of an instore order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "instore",
+                "orders",
+                ":token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a0fe072a-a49c-4078-bb7e-db118323f7b0",
+              "name": "Instore order retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"769DKMXOC52H\",\n  \"status\": \"charged\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a95fe3a-058e-4111-a3ab-2934f4adcf02",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2b2dd25-5f61-4219-bef3-7d7619718a26",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a329907-f326-400e-9863-bc03fe5ac7cb",
+          "name": "Refund an instore order",
+          "request": {
+            "name": "Refund an instore order",
+            "description": {
+              "content": "Refund an instore order. The refund is processed and funds are transferred back to the customer.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "instore",
+                "orders",
+                ":token",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantOperatorId\": \"<string>\",\n  \"refundAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"requestId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3706626-9dd7-49b5-848c-a4f417f8137e",
+              "name": "Instore order refunded successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"refundAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"refundAmount\": {\n    \"amount\": 10,\n    \"currency\": \"EUR\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df4a655b-c785-407a-a270-cbd8477aaa8a",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"refundAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0b2bef2-ebe0-4d10-874d-264e5938d03e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "instore",
+                    "orders",
+                    ":token",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\",\n  \"refundAmount\": {\n    \"amount\": \"10.00\",\n    \"currency\": \"EUR\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7b69d4e0-bb31-4950-82da-9e6adea98652",
+          "name": "Create an offline pay-by-link order",
+          "request": {
+            "name": "Create an offline pay-by-link order",
+            "description": {
+              "content": "Create an offline pay-by-link order and notify the customer using the extensions. Use the correct device Bearer token, not the merchant token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "instore",
+                "paybylink",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"<string>\",\n    \"currency\": \"<string>\"\n  },\n  \"merchantReference\": \"<string>\",\n  \"type\": \"<string>\",\n  \"items\": [\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    },\n    {\n      \"category\": \"<string>\",\n      \"name\": \"<string>\",\n      \"price\": {\n        \"amount\": \"<string>\",\n        \"currency\": \"<string>\"\n      },\n      \"quantity\": \"<integer>\",\n      \"sku\": \"<string>\",\n      \"gtin\": \"<string>\",\n      \"subcategory\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"brand\": \"<string>\",\n      \"pageUrl\": \"<string>\",\n      \"imageUrl\": \"<string>\"\n    }\n  ],\n  \"extensions\": {\n    \"industry\": {\n      \"travel\": {\n        \"startDate\": \"<date>\",\n        \"endDate\": \"<date>\"\n      }\n    },\n    \"type\": {\n      \"link\": {\n        \"notification\": {\n          \"channels\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"phoneCountryCode\": \"<string>\",\n          \"phoneNumber\": \"<string>\",\n          \"preferredLanguage\": \"\",\n          \"emailAddress\": \"<string>\"\n        }\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "930016dc-66d9-44ca-87c1-53158a0efdaa",
+              "name": "Offline pay-by-link order created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"108.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantReference\": \"merchantOrder-offline-01\",\n  \"type\": \"link\",\n  \"extensions\": {\n    \"type\": {\n      \"link\": {\n        \"notification\": {\n          \"phoneCountryCode\": \"+39\",\n          \"phoneNumber\": \"3470000000\",\n          \"emailAddress\": \"test@scalapay.com\",\n          \"preferredLanguage\": \"italiano\",\n          \"channels\": [\n            \"sms\",\n            \"email\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"expires\": \"2024-12-03T14:59:18.000Z\",\n  \"token\": \"769DKMXOC52H\",\n  \"checkoutUrl\": \"https://portal.scalapay.com/checkout/769DKMXOC52H\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ca77fe9-d20e-453f-a7a4-ffe18eaf19f0",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"108.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantReference\": \"merchantOrder-offline-01\",\n  \"type\": \"link\",\n  \"extensions\": {\n    \"type\": {\n      \"link\": {\n        \"notification\": {\n          \"phoneCountryCode\": \"+39\",\n          \"phoneNumber\": \"3470000000\",\n          \"emailAddress\": \"test@scalapay.com\",\n          \"preferredLanguage\": \"italiano\",\n          \"channels\": [\n            \"sms\",\n            \"email\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e0c073-4bb2-4a36-8942-f412dac05c64",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"totalAmount\": {\n    \"amount\": \"108.00\",\n    \"currency\": \"EUR\"\n  },\n  \"merchantReference\": \"merchantOrder-offline-01\",\n  \"type\": \"link\",\n  \"extensions\": {\n    \"type\": {\n      \"link\": {\n        \"notification\": {\n          \"phoneCountryCode\": \"+39\",\n          \"phoneNumber\": \"3470000000\",\n          \"emailAddress\": \"test@scalapay.com\",\n          \"preferredLanguage\": \"italiano\",\n          \"channels\": [\n            \"sms\",\n            \"email\"\n          ]\n        }\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9866dd3a-303f-4d93-bba1-79a15bcce351",
+          "name": "Void an offline pay-by-link order",
+          "request": {
+            "name": "Void an offline pay-by-link order",
+            "description": {
+              "content": "Void the instore order, for example if a customer wishes to cancel. Any authorizations or held funds for the pay-by-link order are released.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "instore",
+                "paybylink",
+                "orders",
+                ":token",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token",
+                  "description": "(Required) Order token."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantOperatorId\": \"<string>\",\n  \"requestId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "21433e62-9e5b-41ca-990d-e5459f8bec93",
+              "name": "Pay-by-link order voided successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"B1KLLDPMIH\",\n  \"merchantReference\": \"RF127261AD22\",\n  \"voidedAt\": \"2024-06-18T15:29:41.835Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10608a46-2c6c-4367-bc00-346722538a70",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorCode\": \"api_validationerror\",\n  \"errorId\": \"error-19g6ll3ucve9e\",\n  \"message\": {\n    \"status\": 400,\n    \"statusText\": \"Bad Request\",\n    \"errors\": [\n      {\n        \"field\": [\n          \"totalAmount\",\n          \"amount\"\n        ],\n        \"location\": \"body\",\n        \"messages\": [\n          \"\\\"amount\\\" is not allowed to be empty\"\n        ],\n        \"types\": [\n          \"any.empty\"\n        ]\n      }\n    ]\n  },\n  \"httpStatusCode\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50e13a35-a5da-426a-b1d7-35c18931ffc8",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "instore",
+                    "paybylink",
+                    "orders",
+                    ":token",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token",
+                      "description": "(Required) Order token."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"merchantOperatorId\": \"Test Integration\",\n  \"requestId\": \"EKMXO6QFN\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Unauthorized\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://integration.api.scalapay.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e00e4d82-9b75-43d9-8b84-e81934bbabd3",
+    "name": "Scalapay Instore API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Interact with Scalapay.",
+      "type": "text/plain"
+    }
+  }
+}
