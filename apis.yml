@@ -25,6 +25,18 @@ tags:
 - Instalments
 - E-Commerce
 - Checkout
+- Financial-Services
+- Point-of-Sale
+- Reconciliation
+- Europe
+- Company
+tags_raw:
+- Payments
+- Buy Now Pay Later
+- BNPL
+- Instalments
+- E-Commerce
+- Checkout
 - Financial Services
 - Point of Sale
 - Reconciliation
@@ -42,6 +54,8 @@ apis:
   humanURL: https://developers.scalapay.com/reference/api-architecture
   baseURL: https://api.scalapay.com
   tags:
+  - In-Store
+  tags_raw:
   - Instore
   properties:
   - type: OpenAPI
@@ -58,6 +72,8 @@ apis:
   humanURL: https://developers.scalapay.com/reference/api-architecture
   baseURL: https://api.scalapay.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
