@@ -113,6 +113,9 @@ apis:
   - type: Sandbox
     url: sandbox/scalapay-sandbox.yml
 common:
+- type: CapabilityMap
+  url: capabilities/scalapay-capability-edges.yml
+  name: Scalapay Business Capability Map
 - type: MCPServer
   url: mcp/scalapay-mcp.yml
 - type: Overlay

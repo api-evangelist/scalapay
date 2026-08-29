@@ -1,0 +1,35 @@
+slug: scalapay
+provider: Scalapay
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Banking & Capital Markets
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Orders
+  spec_file: scalapay-orders-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.85
+  evidence: POST /v2/payments/capture Capture order; POST /v2/payments/{token}/refund Refund order; POST
+    /v2/payments/{token}/void Void order
+  reason: Core BNPL payment lifecycle — order creation, capture, delay, void, refund — is payment initiation
+    and authorisation against a payment instrument.
+- tag: Instore
+  spec_file: scalapay-instore-api-openapi.yml
+  capability_id: BC-1340.10
+  capability_id_l1: BC-1340
+  capability_name: Payment Initiation Management
+  confidence: 0.8
+  evidence: POST /v1/instore/orders Create instore order; POST /v2/instore/paybylink/orders Create an
+    offline pay-by-link order
+  reason: 'In-store BNPL payment initiation: create, refund and void payment orders at point of sale —
+    payment instruction capture and authorisation.'
