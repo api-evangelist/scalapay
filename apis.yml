@@ -126,6 +126,10 @@ apis:
   - type: Sandbox
     url: sandbox/scalapay-sandbox.yml
 common:
+- type: Pricing
+  url: https://universe.development.scalapay.com/pricing-table-shortcode/
+- type: Plans
+  url: plans/scalapay-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/scalapay-capability-edges.yml
   name: Scalapay Business Capability Map

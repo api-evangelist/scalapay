@@ -1,0 +1,39 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://universe.development.scalapay.com/pricing-table-shortcode/
+sources:
+- https://universe.development.scalapay.com/pricing-table-shortcode/
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T125857
+  grounding: every price_text was found verbatim in the fetched page text
+audience: unclear
+pricing_basis: tiered-subscription
+published: true
+note: This is a WordPress theme demo/shortcode showcase page on a development site ('Pricing Table Shortcode'),
+  not actual Scalapay product pricing. The listed tiers reference WPBakery/Slider Revolution theme features.
+plan_count: 3
+currency: USD
+plans:
+- name: Personal
+  price_text: $0
+  price: 0
+  currency: USD
+  period: month
+  included_quota: WPBakery Page Builder, Advanced Custom Fileds Pro, Slider Revolution, Custom Design
+    & Features, Enhanced Support
+- name: Premium
+  price_text: $5
+  price: 5
+  currency: USD
+  period: month
+  included_quota: WPBakery Page Builder, Advanced Custom Fileds Pro, Slider Revolution, Custom Design
+    & Features, Enhanced Support
+- name: Business
+  price_text: $26
+  price: 26
+  currency: USD
+  period: month
+  included_quota: WPBakery Page Builder, Advanced Custom Fileds Pro, Slider Revolution, Custom Design
+    & Features, Enhanced Support
