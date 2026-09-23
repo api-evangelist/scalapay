@@ -1,9 +1,7 @@
 {
   "provider": "scalapay",
   "sources": [
-    "scalapay-instore-api-openapi.yml",
-    "scalapay-orders-api-openapi.yml",
-    "scalapay-reporting-api-openapi.yml"
+    "_original/scalapay-openapi-original.yml"
   ],
   "outputs": [
     "scalapay-instore-api-openapi.yml",
@@ -14,10 +12,16 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "scalapay-instore-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "scalapay-orders-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "scalapay-reporting-api-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "scalapay-openapi-original.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "scalapay-openapi-original.yml: declared missing tag: Instore",
+    "scalapay-openapi-original.yml: declared missing tag: Orders",
+    "scalapay-openapi-original.yml: declared missing tag: Reporting",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "scalapay-instore-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scalapay-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "scalapay-reporting-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

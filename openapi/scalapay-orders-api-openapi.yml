@@ -185,6 +185,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2Orders
+      x-operation-id-source: derived
   /v2/orders/{token}:
     post:
       tags:
@@ -263,6 +265,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2OrdersByToken
+      x-operation-id-source: derived
   /v2/payments/capture:
     post:
       tags:
@@ -419,6 +423,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2PaymentsCapture
+      x-operation-id-source: derived
   /v2/payments/references:
     get:
       tags:
@@ -427,9 +433,7 @@ paths:
       description: 'Retrieve a list of order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.
 
 
-        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
-
-        '
+        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).'
       parameters:
       - name: orderToken
         in: query
@@ -497,6 +501,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV2PaymentsReferences
+      x-operation-id-source: derived
   /v2/payments/{token}:
     get:
       tags:
@@ -634,6 +640,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '422':
           $ref: '#/components/responses/422Error'
+      operationId: getV2PaymentsByToken
+      x-operation-id-source: derived
   /v2/payments/{token}/delay:
     post:
       tags:
@@ -795,6 +803,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2PaymentsByTokenDelay
+      x-operation-id-source: derived
   /v2/payments/{token}/refund:
     post:
       tags:
@@ -898,6 +908,8 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2PaymentsByTokenRefund
+      x-operation-id-source: derived
   /v2/payments/{token}/void:
     post:
       tags:
@@ -969,44 +981,54 @@ paths:
           $ref: '#/components/responses/401Error'
         '409':
           $ref: '#/components/responses/409Error'
+      operationId: postV2PaymentsByTokenVoid
+      x-operation-id-source: derived
 components:
+  responses:
+    400Error:
+      description: Bad request
+      content:
+        application/json:
+          example:
+            errorCode: api_validationerror
+            errorId: error-19g6ll3ucve9e
+            message:
+              status: 400
+              statusText: Bad Request
+              errors:
+              - field:
+                - totalAmount
+                - amount
+                location: body
+                messages:
+                - '"amount" is not allowed to be empty'
+                types:
+                - any.empty
+            httpStatusCode: 400
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+    422Error:
+      description: Unprocessable entity
+      content:
+        application/json:
+          example:
+            errorCode: invalid_token
+            errorId: error-19g6ll3ud3ndj
+            message: Order null not found.
+            httpStatusCode: 422
+    409Error:
+      description: Conflict
+      content:
+        application/json:
+          example:
+            errorCode: conflicting_operation_in_progress
+            errorId: error-19g6iml8px18g
+            message: You tried to perform an operation that conflicts with another operation. Try again later.
+            httpStatusCode: 409
   schemas:
-    amount:
-      type: object
-      required:
-      - amount
-      - currency
-      description: The monetary amount.
-      properties:
-        amount:
-          type: string
-          description: 'Monetary value. Example: 187.95.'
-        currency:
-          type: string
-          description: Currency code.
-    address:
-      type: object
-      description: Address information.
-      properties:
-        phoneNumber:
-          type: string
-          description: Customer phone number with country code.
-        countryCode:
-          type: string
-          format: iso-alpha-2
-          description: Two-letter country code (e.g., IT for Italy).
-        name:
-          type: string
-          description: Name of the recipient.
-        postcode:
-          type: string
-          description: Postal code.
-        suburb:
-          type: string
-          description: Suburb or city.
-        line1:
-          type: string
-          description: Primary address line.
     extensions:
       type: object
       description: Additional extension properties for the order.
@@ -1083,6 +1105,9 @@ components:
                       - email
                       - sms
                       description: Notification channels to use. Choose "email" and/or "sms".
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
     items:
       type: array
       description: List of items in the order.
@@ -1128,127 +1153,43 @@ components:
           imageUrl:
             type: string
             description: URL of the product image.
-    merchantReference:
-      type: string
-      description: Merchant reference for tracking the order in your system.
-  responses:
-    422Error:
-      description: Unprocessable entity
-      content:
-        application/json:
-          example:
-            errorCode: invalid_token
-            errorId: error-19g6ll3ud3ndj
-            message: Order null not found.
-            httpStatusCode: 422
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
-    409Error:
-      description: Conflict
-      content:
-        application/json:
-          example:
-            errorCode: conflicting_operation_in_progress
-            errorId: error-19g6iml8px18g
-            message: You tried to perform an operation that conflicts with another operation. Try again later.
-            httpStatusCode: 409
-    400Error:
-      description: Bad request
-      content:
-        application/json:
-          example:
-            errorCode: api_validationerror
-            errorId: error-19g6ll3ucve9e
-            message:
-              status: 400
-              statusText: Bad Request
-              errors:
-              - field:
-                - totalAmount
-                - amount
-                location: body
-                messages:
-                - '"amount" is not allowed to be empty'
-                types:
-                - any.empty
-            httpStatusCode: 400
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
+    address:
+      type: object
+      description: Address information.
+      properties:
+        phoneNumber:
+          type: string
+          description: Customer phone number with country code.
+        countryCode:
+          type: string
+          format: iso-alpha-2
+          description: Two-letter country code (e.g., IT for Italy).
+        name:
+          type: string
+          description: Name of the recipient.
+        postcode:
+          type: string
+          description: Postal code.
+        suburb:
+          type: string
+          description: Suburb or city.
+        line1:
+          type: string
+          description: Primary address line.
   examples:
-    CreateOrderExample:
-      summary: Example of order creation
-      value:
-        totalAmount:
-          amount: '190.00'
-          currency: EUR
-        consumer:
-          phoneNumber: '+393001234567'
-          givenNames: Mario
-          surname: Rossi
-          email: test@scalapay.com
-        billing:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Castelfranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '+393001234567'
-        shipping:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Castelfranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '+393001234567'
-        items:
-        - name: T-Shirt
-          category: clothes
-          subcategory:
-          - shirt
-          - long-sleeve
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341234'
-          quantity: 1
-          price:
-            amount: '10.00'
-            currency: EUR
-          pageUrl: https://www.scalapay.com/product/view/
-          imageUrl: https://www.scalapay.com/product/view/
-        - name: Jeans
-          category: clothes
-          subcategory:
-          - pants
-          - jeans
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341235'
-          quantity: 1
-          price:
-            amount: '20.00'
-            currency: EUR
-        discounts:
-        - displayName: 10% Off
-          amount:
-            amount: '3.00'
-            currency: EUR
-        merchant:
-          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
-          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
-        merchantReference: merchantOrder-1234
-        taxAmount:
-          amount: '3.70'
-          currency: EUR
-        shippingAmount:
-          amount: '10.00'
-          currency: EUR
-        type: online
-        product: pay-in-3
-        frequency:
-          number: '1'
-          frequencyType: monthly
-        orderExpiryMilliseconds: 2400000
     CreatePayByLinkExample:
       summary: Example of creating a pay-by-link order
       value:
@@ -1331,6 +1272,79 @@ components:
                 preferredLanguage: english
                 channels:
                 - sms
+    CreateOrderExample:
+      summary: Example of order creation
+      value:
+        totalAmount:
+          amount: '190.00'
+          currency: EUR
+        consumer:
+          phoneNumber: '+393001234567'
+          givenNames: Mario
+          surname: Rossi
+          email: test@scalapay.com
+        billing:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        shipping:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        items:
+        - name: T-Shirt
+          category: clothes
+          subcategory:
+          - shirt
+          - long-sleeve
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341234'
+          quantity: 1
+          price:
+            amount: '10.00'
+            currency: EUR
+          pageUrl: https://www.scalapay.com/product/view/
+          imageUrl: https://www.scalapay.com/product/view/
+        - name: Jeans
+          category: clothes
+          subcategory:
+          - pants
+          - jeans
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341235'
+          quantity: 1
+          price:
+            amount: '20.00'
+            currency: EUR
+        discounts:
+        - displayName: 10% Off
+          amount:
+            amount: '3.00'
+            currency: EUR
+        merchant:
+          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
+        merchantReference: merchantOrder-1234
+        taxAmount:
+          amount: '3.70'
+          currency: EUR
+        shippingAmount:
+          amount: '10.00'
+          currency: EUR
+        type: online
+        product: pay-in-3
+        frequency:
+          number: '1'
+          frequencyType: monthly
+        orderExpiryMilliseconds: 2400000
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

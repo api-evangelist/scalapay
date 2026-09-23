@@ -249,6 +249,8 @@ paths:
                 errorCode: internal_server
                 errorId: error-59k0mqmzmrs77
                 httpStatusCode: 500
+      operationId: getV1ReportingDisputes
+      x-operation-id-source: derived
   /v1/reporting/orders:
     get:
       tags:
@@ -316,6 +318,8 @@ paths:
                 '
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1ReportingOrders
+      x-operation-id-source: derived
   /v1/reporting/payouts:
     get:
       tags:
@@ -403,6 +407,8 @@ paths:
                 '
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1ReportingPayouts
+      x-operation-id-source: derived
   /v1/reporting/payouts/{token}/orders:
     get:
       tags:
@@ -461,6 +467,8 @@ paths:
                 '
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1ReportingPayoutsByTokenOrders
+      x-operation-id-source: derived
   /v1/reporting/payouts/{token}/refunds:
     get:
       tags:
@@ -519,6 +527,8 @@ paths:
                 '
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1ReportingPayoutsByTokenRefunds
+      x-operation-id-source: derived
   /v1/reporting/refunds:
     get:
       tags:
@@ -586,6 +596,8 @@ paths:
                 '
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1ReportingRefunds
+      x-operation-id-source: derived
 components:
   responses:
     401Error:

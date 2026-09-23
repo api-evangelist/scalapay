@@ -96,6 +96,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: postV1InstoreOrders
+      x-operation-id-source: derived
   /v1/instore/orders/references:
     get:
       tags:
@@ -104,9 +106,7 @@ paths:
       description: 'Retrieve a list of instore order references based on one or more known reference values. At least one query parameter must be provided. Multiple parameters are combined with AND logic.
 
 
-        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).
-
-        '
+        The endpoint returns a maximum of 100 matching orders, sorted by creation date (newest first).'
       security:
       - InstoreApiKeyAuth: []
       parameters:
@@ -176,6 +176,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1InstoreOrdersReferences
+      x-operation-id-source: derived
   /v1/instore/orders/{token}:
     get:
       tags:
@@ -216,6 +218,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: getV1InstoreOrdersByToken
+      x-operation-id-source: derived
   /v1/instore/orders/{token}/refund:
     post:
       tags:
@@ -278,6 +282,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: postV1InstoreOrdersByTokenRefund
+      x-operation-id-source: derived
   /v2/instore/paybylink/orders:
     post:
       tags:
@@ -337,6 +343,8 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: postV2InstorePaybylinkOrders
+      x-operation-id-source: derived
   /v2/instore/paybylink/orders/{token}/void:
     post:
       tags:
@@ -385,21 +393,36 @@ paths:
           $ref: '#/components/responses/400Error'
         '401':
           $ref: '#/components/responses/401Error'
+      operationId: postV2InstorePaybylinkOrdersByTokenVoid
+      x-operation-id-source: derived
 components:
+  responses:
+    400Error:
+      description: Bad request
+      content:
+        application/json:
+          example:
+            errorCode: api_validationerror
+            errorId: error-19g6ll3ucve9e
+            message:
+              status: 400
+              statusText: Bad Request
+              errors:
+              - field:
+                - totalAmount
+                - amount
+                location: body
+                messages:
+                - '"amount" is not allowed to be empty'
+                types:
+                - any.empty
+            httpStatusCode: 400
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
   schemas:
-    amount:
-      type: object
-      required:
-      - amount
-      - currency
-      description: The monetary amount.
-      properties:
-        amount:
-          type: string
-          description: 'Monetary value. Example: 187.95.'
-        currency:
-          type: string
-          description: Currency code.
     extensions:
       type: object
       description: Additional extension properties for the order.
@@ -476,6 +499,9 @@ components:
                       - email
                       - sms
                       description: Notification channels to use. Choose "email" and/or "sms".
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
     items:
       type: array
       description: List of items in the order.
@@ -521,35 +547,19 @@ components:
           imageUrl:
             type: string
             description: URL of the product image.
-    merchantReference:
-      type: string
-      description: Merchant reference for tracking the order in your system.
-  responses:
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
-    400Error:
-      description: Bad request
-      content:
-        application/json:
-          example:
-            errorCode: api_validationerror
-            errorId: error-19g6ll3ucve9e
-            message:
-              status: 400
-              statusText: Bad Request
-              errors:
-              - field:
-                - totalAmount
-                - amount
-                location: body
-                messages:
-                - '"amount" is not allowed to be empty'
-                types:
-                - any.empty
-            httpStatusCode: 400
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
