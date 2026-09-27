@@ -50,7 +50,7 @@ tags:
 - Instalments
 - E-Commerce
 - Checkout
-- Financial-Services
+- Financial Services
 - Point-of-Sale
 - Reconciliation
 - Europe
@@ -67,6 +67,7 @@ tags_raw:
 - Reconciliation
 - Europe
 - Company
+- Financial-Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

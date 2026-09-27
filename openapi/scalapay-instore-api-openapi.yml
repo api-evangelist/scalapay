@@ -397,6 +397,11 @@ paths:
       x-operation-id-source: derived
 components:
   responses:
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
     400Error:
       description: Bad request
       content:
@@ -417,12 +422,10 @@ components:
                 types:
                 - any.empty
             httpStatusCode: 400
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
   schemas:
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
     extensions:
       type: object
       description: Additional extension properties for the order.
@@ -499,9 +502,6 @@ components:
                       - email
                       - sms
                       description: Notification channels to use. Choose "email" and/or "sms".
-    merchantReference:
-      type: string
-      description: Merchant reference for tracking the order in your system.
     items:
       type: array
       description: List of items in the order.

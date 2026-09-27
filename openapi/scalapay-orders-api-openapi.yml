@@ -984,7 +984,177 @@ paths:
       operationId: postV2PaymentsByTokenVoid
       x-operation-id-source: derived
 components:
+  examples:
+    CreateOrderExample:
+      summary: Example of order creation
+      value:
+        totalAmount:
+          amount: '190.00'
+          currency: EUR
+        consumer:
+          phoneNumber: '+393001234567'
+          givenNames: Mario
+          surname: Rossi
+          email: test@scalapay.com
+        billing:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        shipping:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '+393001234567'
+        items:
+        - name: T-Shirt
+          category: clothes
+          subcategory:
+          - shirt
+          - long-sleeve
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341234'
+          quantity: 1
+          price:
+            amount: '10.00'
+            currency: EUR
+          pageUrl: https://www.scalapay.com/product/view/
+          imageUrl: https://www.scalapay.com/product/view/
+        - name: Jeans
+          category: clothes
+          subcategory:
+          - pants
+          - jeans
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341235'
+          quantity: 1
+          price:
+            amount: '20.00'
+            currency: EUR
+        discounts:
+        - displayName: 10% Off
+          amount:
+            amount: '3.00'
+            currency: EUR
+        merchant:
+          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
+        merchantReference: merchantOrder-1234
+        taxAmount:
+          amount: '3.70'
+          currency: EUR
+        shippingAmount:
+          amount: '10.00'
+          currency: EUR
+        type: online
+        product: pay-in-3
+        frequency:
+          number: '1'
+          frequencyType: monthly
+        orderExpiryMilliseconds: 2400000
+    CreatePayByLinkExample:
+      summary: Example of creating a pay-by-link order
+      value:
+        totalAmount:
+          amount: '190.00'
+          currency: EUR
+        consumer:
+          phoneNumber: '393001234567'
+          givenNames: Mario
+          surname: Rossi
+          email: test@scalapay.com
+        billing:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Castelfranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '393001234567'
+        shipping:
+          name: Mario Rossi
+          line1: Via Puglia, 58
+          suburb: Casltefranco Veneto
+          postcode: '31033'
+          countryCode: IT
+          phoneNumber: '393001234567'
+        items:
+        - name: T-Shirt
+          category: clothes
+          subcategory:
+          - shirt
+          - long-sleeve
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341234'
+          quantity: 1
+          price:
+            amount: '10.00'
+            currency: EUR
+          pageUrl: https://www.scalapay.com//product/view/
+          imageUrl: https://www.scalapay.com//product/view/
+        - name: Jeans
+          category: clothes
+          subcategory:
+          - pants
+          - jeans
+          brand: TopChoice
+          gtin: '123458791330'
+          sku: '12341235'
+          quantity: 1
+          price:
+            amount: '20.00'
+            currency: EUR
+        discounts:
+        - displayName: 10% Off
+          amount:
+            amount: '3.00'
+            currency: EUR
+        merchant:
+          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
+          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
+        merchantReference: merchantOrder-1234
+        taxAmount:
+          amount: '3.70'
+          currency: EUR
+        shippingAmount:
+          amount: '10.00'
+          currency: EUR
+        type: link
+        product: pay-in-3
+        frequency:
+          number: '1'
+          frequencyType: monthly
+        orderExpiryMilliseconds: 2400000
+        extensions:
+          type:
+            link:
+              notification:
+                phoneCountryCode: '+39'
+                phoneNumber: '3470000000'
+                preferredLanguage: english
+                channels:
+                - sms
   responses:
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+    422Error:
+      description: Unprocessable entity
+      content:
+        application/json:
+          example:
+            errorCode: invalid_token
+            errorId: error-19g6ll3ud3ndj
+            message: Order null not found.
+            httpStatusCode: 422
     400Error:
       description: Bad request
       content:
@@ -1005,20 +1175,6 @@ components:
                 types:
                 - any.empty
             httpStatusCode: 400
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
-    422Error:
-      description: Unprocessable entity
-      content:
-        application/json:
-          example:
-            errorCode: invalid_token
-            errorId: error-19g6ll3ud3ndj
-            message: Order null not found.
-            httpStatusCode: 422
     409Error:
       description: Conflict
       content:
@@ -1153,19 +1309,6 @@ components:
           imageUrl:
             type: string
             description: URL of the product image.
-    amount:
-      type: object
-      required:
-      - amount
-      - currency
-      description: The monetary amount.
-      properties:
-        amount:
-          type: string
-          description: 'Monetary value. Example: 187.95.'
-        currency:
-          type: string
-          description: Currency code.
     address:
       type: object
       description: Address information.
@@ -1189,162 +1332,19 @@ components:
         line1:
           type: string
           description: Primary address line.
-  examples:
-    CreatePayByLinkExample:
-      summary: Example of creating a pay-by-link order
-      value:
-        totalAmount:
-          amount: '190.00'
-          currency: EUR
-        consumer:
-          phoneNumber: '393001234567'
-          givenNames: Mario
-          surname: Rossi
-          email: test@scalapay.com
-        billing:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Castelfranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '393001234567'
-        shipping:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Casltefranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '393001234567'
-        items:
-        - name: T-Shirt
-          category: clothes
-          subcategory:
-          - shirt
-          - long-sleeve
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341234'
-          quantity: 1
-          price:
-            amount: '10.00'
-            currency: EUR
-          pageUrl: https://www.scalapay.com//product/view/
-          imageUrl: https://www.scalapay.com//product/view/
-        - name: Jeans
-          category: clothes
-          subcategory:
-          - pants
-          - jeans
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341235'
-          quantity: 1
-          price:
-            amount: '20.00'
-            currency: EUR
-        discounts:
-        - displayName: 10% Off
-          amount:
-            amount: '3.00'
-            currency: EUR
-        merchant:
-          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
-          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
-        merchantReference: merchantOrder-1234
-        taxAmount:
-          amount: '3.70'
-          currency: EUR
-        shippingAmount:
-          amount: '10.00'
-          currency: EUR
-        type: link
-        product: pay-in-3
-        frequency:
-          number: '1'
-          frequencyType: monthly
-        orderExpiryMilliseconds: 2400000
-        extensions:
-          type:
-            link:
-              notification:
-                phoneCountryCode: '+39'
-                phoneNumber: '3470000000'
-                preferredLanguage: english
-                channels:
-                - sms
-    CreateOrderExample:
-      summary: Example of order creation
-      value:
-        totalAmount:
-          amount: '190.00'
-          currency: EUR
-        consumer:
-          phoneNumber: '+393001234567'
-          givenNames: Mario
-          surname: Rossi
-          email: test@scalapay.com
-        billing:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Castelfranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '+393001234567'
-        shipping:
-          name: Mario Rossi
-          line1: Via Puglia, 58
-          suburb: Castelfranco Veneto
-          postcode: '31033'
-          countryCode: IT
-          phoneNumber: '+393001234567'
-        items:
-        - name: T-Shirt
-          category: clothes
-          subcategory:
-          - shirt
-          - long-sleeve
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341234'
-          quantity: 1
-          price:
-            amount: '10.00'
-            currency: EUR
-          pageUrl: https://www.scalapay.com/product/view/
-          imageUrl: https://www.scalapay.com/product/view/
-        - name: Jeans
-          category: clothes
-          subcategory:
-          - pants
-          - jeans
-          brand: TopChoice
-          gtin: '123458791330'
-          sku: '12341235'
-          quantity: 1
-          price:
-            amount: '20.00'
-            currency: EUR
-        discounts:
-        - displayName: 10% Off
-          amount:
-            amount: '3.00'
-            currency: EUR
-        merchant:
-          redirectConfirmUrl: https://portal.integration.scalapay.com/success-url
-          redirectCancelUrl: https://portal.integration.scalapay.com/failure-url
-        merchantReference: merchantOrder-1234
-        taxAmount:
-          amount: '3.70'
-          currency: EUR
-        shippingAmount:
-          amount: '10.00'
-          currency: EUR
-        type: online
-        product: pay-in-3
-        frequency:
-          number: '1'
-          frequencyType: monthly
-        orderExpiryMilliseconds: 2400000
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
