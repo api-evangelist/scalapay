@@ -396,36 +396,7 @@ paths:
       operationId: postV2InstorePaybylinkOrdersByTokenVoid
       x-operation-id-source: derived
 components:
-  responses:
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
-    400Error:
-      description: Bad request
-      content:
-        application/json:
-          example:
-            errorCode: api_validationerror
-            errorId: error-19g6ll3ucve9e
-            message:
-              status: 400
-              statusText: Bad Request
-              errors:
-              - field:
-                - totalAmount
-                - amount
-                location: body
-                messages:
-                - '"amount" is not allowed to be empty'
-                types:
-                - any.empty
-            httpStatusCode: 400
   schemas:
-    merchantReference:
-      type: string
-      description: Merchant reference for tracking the order in your system.
     extensions:
       type: object
       description: Additional extension properties for the order.
@@ -547,6 +518,9 @@ components:
           imageUrl:
             type: string
             description: URL of the product image.
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
     amount:
       type: object
       required:
@@ -560,6 +534,32 @@ components:
         currency:
           type: string
           description: Currency code.
+  responses:
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
+    400Error:
+      description: Bad request
+      content:
+        application/json:
+          example:
+            errorCode: api_validationerror
+            errorId: error-19g6ll3ucve9e
+            message:
+              status: 400
+              statusText: Bad Request
+              errors:
+              - field:
+                - totalAmount
+                - amount
+                location: body
+                messages:
+                - '"amount" is not allowed to be empty'
+                types:
+                - any.empty
+            httpStatusCode: 400
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
