@@ -397,6 +397,67 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    amount:
+      type: object
+      required:
+      - amount
+      - currency
+      description: The monetary amount.
+      properties:
+        amount:
+          type: string
+          description: 'Monetary value. Example: 187.95.'
+        currency:
+          type: string
+          description: Currency code.
+    merchantReference:
+      type: string
+      description: Merchant reference for tracking the order in your system.
+    items:
+      type: array
+      description: List of items in the order.
+      items:
+        type: object
+        required:
+        - category
+        - name
+        - price
+        - quantity
+        - sku
+        properties:
+          gtin:
+            type: string
+            description: Global Trade Item Number (UPC, EAN, JAN, ISBN, ITF-14).
+          quantity:
+            type: integer
+            description: Quantity of the item.
+          price:
+            allOf:
+            - $ref: '#/components/schemas/amount'
+            description: Price of the item.
+          name:
+            type: string
+            description: Name of the item.
+          category:
+            type: string
+            description: Category of the item.
+          subcategory:
+            type: array
+            description: Subcategories of the item.
+            items:
+              type: string
+          sku:
+            type: string
+            description: Stock Keeping Unit (SKU) code.
+          brand:
+            type: string
+            description: Brand name.
+          pageUrl:
+            type: string
+            description: URL of the product page.
+          imageUrl:
+            type: string
+            description: URL of the product image.
     extensions:
       type: object
       description: Additional extension properties for the order.
@@ -473,73 +534,7 @@ components:
                       - email
                       - sms
                       description: Notification channels to use. Choose "email" and/or "sms".
-    items:
-      type: array
-      description: List of items in the order.
-      items:
-        type: object
-        required:
-        - category
-        - name
-        - price
-        - quantity
-        - sku
-        properties:
-          gtin:
-            type: string
-            description: Global Trade Item Number (UPC, EAN, JAN, ISBN, ITF-14).
-          quantity:
-            type: integer
-            description: Quantity of the item.
-          price:
-            allOf:
-            - $ref: '#/components/schemas/amount'
-            description: Price of the item.
-          name:
-            type: string
-            description: Name of the item.
-          category:
-            type: string
-            description: Category of the item.
-          subcategory:
-            type: array
-            description: Subcategories of the item.
-            items:
-              type: string
-          sku:
-            type: string
-            description: Stock Keeping Unit (SKU) code.
-          brand:
-            type: string
-            description: Brand name.
-          pageUrl:
-            type: string
-            description: URL of the product page.
-          imageUrl:
-            type: string
-            description: URL of the product image.
-    merchantReference:
-      type: string
-      description: Merchant reference for tracking the order in your system.
-    amount:
-      type: object
-      required:
-      - amount
-      - currency
-      description: The monetary amount.
-      properties:
-        amount:
-          type: string
-          description: 'Monetary value. Example: 187.95.'
-        currency:
-          type: string
-          description: Currency code.
   responses:
-    401Error:
-      description: Unauthorized
-      content:
-        application/json:
-          example: Unauthorized
     400Error:
       description: Bad request
       content:
@@ -560,6 +555,11 @@ components:
                 types:
                 - any.empty
             httpStatusCode: 400
+    401Error:
+      description: Unauthorized
+      content:
+        application/json:
+          example: Unauthorized
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
