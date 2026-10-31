@@ -64,5 +64,131 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Scalapay is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/scalapay_stock/
+Scalapay is an Italian buy-now-pay-later (BNPL) payment provider that lets shoppers split a purchase into instalments — pay in 3, pay in 4, or pay later — while the merchant is settled by Scalapay. Its REST API is a compact, order-centric surface: create an instalment order, redirect the shopper to Scalapay Checkout, then capture, delay, void or refund against the order token, with a parallel in-store and offline pay-by-link family authenticated by a device-scoped key, plus reporting endpoints for reconciling orders, refunds, payouts and disputes against Scalapay's bank transfers. Merchants integrate through a CDN-loaded web component (the Scalapay Suite Widget) on the product, cart and checkout pages, or through prebuilt modules for Magento, WooCommerce, PrestaShop, Shopify, Shopware, BigCommerce, VTEX, Salesforce and others. Scalapay operates in EUR across 14 authorised European territories.
+
+**Areas:** Payments · Buy Now Pay Later · Instalments · E-Commerce · Checkout · Financial Services · Point-of-Sale · Reconciliation · Europe · Company
+
+## Scalapay on APIs.io
+
+Everything profiled for Scalapay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/scalapay/](https://apis.io/providers/scalapay/)** — or go straight to one of the APIs or properties below.
+
+### APIs (3)
+
+- [Scalapay Instore API](https://apis.io/apis/scalapay/scalapay-instore-api/) — The Instore API from Scalapay — 6 operation(s) for instore.
+- [Scalapay Orders API](https://apis.io/apis/scalapay/scalapay-orders-api/) — The Orders API from Scalapay — 8 operation(s) for orders.
+- [Scalapay Reporting API](https://apis.io/apis/scalapay/scalapay-reporting-api/) — The Reporting API from Scalapay — 6 operation(s) for reporting.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Scalapay Webhooks](https://apis.io/asyncapis/scalapay/scalapay-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [scalapay](https://apis.io/servers/scalapay/scalapay/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Scalapay Instore API](https://apis.io/collections/scalapay/open-scalapay-instore-api/)
+- [Scalapay Orders API](https://apis.io/collections/scalapay/open-scalapay-orders-api/)
+- [Scalapay Reporting API](https://apis.io/collections/scalapay/open-scalapay-reporting-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Scalapay Overlay](https://apis.io/overlays/scalapay/scalapay-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Scalapay Authentication](https://apis.io/security/scalapay/scalapay-authentication/)
+- [Scalapay Domain Security](https://apis.io/security/scalapay/scalapay-domain-security/)
+
+#### Plans and pricing (2)
+
+Published plans, tiers and prices.
+
+- [Scalapay Plans Pricing](https://apis.io/plans/scalapay/scalapay-plans-pricing/)
+- [Scalapay Price Estimates](https://apis.io/plans/scalapay/scalapay-price-estimates/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.scalapay.com/)
+- [Documentation](https://developers.scalapay.com/docs/get-started-with-scalapay)
+- [Getting started](https://developers.scalapay.com/docs/get-started-with-scalapay)
+- [API reference](https://developers.scalapay.com/reference/api-architecture)
+- [Pricing](https://universe.development.scalapay.com/pricing-table-shortcode/)
+- [Sign up](https://portal.scalapay.com/signup)
+- [Support](https://help.scalapay.com/)
+- [Compliance](https://www.scalapay.com/legals)
+- [Terms of service](https://www.scalapay.com/terms-and-conditions)
+- [Privacy policy](https://www.scalapay.com/privacy)
+- [Status](https://status.scalapay.com/)
+
+## API Evangelist rating
+
+**Kin Score 54.5** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 58.2 |
+| Contract governance | 4.5 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 51.8 |
+| Access clarity | 77.6 |
+
+**Agent readiness 38.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 26.8** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/scalapay/](https://apis.io/providers/scalapay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Scalapay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/scalapay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
